@@ -1,11 +1,10 @@
-from flask import Blueprint, request, jsonify
+from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing
-
-role_creation_bp = Blueprint('role_creation', __name__)
+from blueprints.hr_blueprint import hr_blueprint
 
 # Handles the logic where HR creates role listing
-@role_creation_bp.route('/create_role_listing', methods=['POST'])
+@hr_blueprint.route('/create_role_listing', methods=['POST'])
 def create_role_listing():
     try:
         # Extract data from the request
