@@ -27,7 +27,13 @@ def create_role_listing():
         db.session.add(new_role_listing)
         db.session.commit()
 
-        return jsonify(message="Role listing created successfully"), 201
+        return jsonify(
+            {
+                "code": 201,
+                "data": new_role_listing.json()
+
+            }  
+        ), 201
     except Exception as e:
         db.session.rollback()
         return jsonify(error=str(e)), 500
