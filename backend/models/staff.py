@@ -9,5 +9,12 @@ class Staff(db.Model):
     email = db.Column(db.String(50), nullable=False)
     access_rights = db.Column(db.Integer, db.ForeignKey('access_rights.access_right'), nullable=False)
 
-    def __repr__(self):
-        return f'<Staff {self.staff_id} - {self.staff_fname} {self.staff_lname}>'
+    def json(self):
+        return {
+            'staff_id': self.staff_id,
+            'staff_fname': self.staff_fname,
+            'staff_lname': self.staff_lname,
+            'dept' : self.dept,
+            'email': self.email,
+            'access_rights': self.access_rights
+        }
