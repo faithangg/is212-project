@@ -100,9 +100,18 @@ CREATE TABLE IF NOT EXISTS `category` (
 );
 
 INSERT INTO category (category, category_desc) VALUES
-('Category A', 'Category A description'),
-('Category B', 'Category B description');
-
+('Administration and Support', 'Provides office support to either an individual or team and is vital for the smooth-running of a business'),
+('Business Development', 'Identify long-term methods to increase value through the development of relationships, markets and customers');
+('Corporate Social Responsibilities', "Acts as a company's 'conscience', championing and developing the ethical, environmentally-friendly, and community-minded side of a business");
+('Customer services', 'Involved in customer service, support, success, and experience');
+('Design and Technical Service', 'Involves developing creative, tech-based solutions to existing problems');
+('Information Technology', 'Involves the implementation, support, maintenance, repair or protection of data or computer systems');
+('Engineering', 'Jobs that use science and mathematics to solve a variety of problems');
+('Finance', "Kobs where a company's funds and profitability are the primary focus");
+('Legal', 'Practicing the law');
+('Manufacturing and production', 'Involves the creation of new products either from raw materials or by assembling different components');
+('Marketing and advertising', "Responsible for planning, creating, and executing marketing campaigns to expand their company's reach and potential customer");
+('Sales and Communication', 'Customer service experience and sales skills');
 
 DROP TABLE IF EXISTS `role_listing`;
 CREATE TABLE IF NOT EXISTS `role_listing` (
@@ -113,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `role_listing` (
     deadline date NOT NULL,
     CONSTRAINT role_listing_pkey PRIMARY KEY (listing_id),
     constraint role_listing_fk1 foreign key (category) references category(category) ON DELETE CASCADE
+    constraint role_listing_fk2 foreign key (role_name) references role(role_name) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO role_listing (listing_id, role_name, department, category, deadline) VALUES
@@ -148,4 +158,14 @@ INSERT INTO login_details (staff_id, staff_password) VALUES
 (1, 'hashed_password_for_john'),
 (2, 'hashed_password_for_jane'),
 (3, 'hashed_password_for_bob');
+
+
+DROP TABLE IF EXISTS `extra`;
+CREATE TABLE IF NOT EXISTS `extra` (
+  `extra_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`extra_id`)
+  
+)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+INSERT INTO `extra` (`extra_id`)VALUES 
+('1');
 
