@@ -9,6 +9,16 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `sbrp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `sbrp`;
 
+DROP TABLE IF EXISTS `staff_skill`;
+DROP TABLE IF EXISTS `role_skill`;
+DROP TABLE IF EXISTS `role_listing`;
+DROP TABLE IF EXISTS `login_details`;
+DROP TABLE IF EXISTS `job_application`;
+DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `staff`;   
+DROP TABLE IF EXISTS `skills`;   
+
 
 DROP TABLE IF EXISTS `access_rights`;
 CREATE TABLE IF NOT EXISTS `access_rights`(
@@ -52,6 +62,7 @@ INSERT INTO role (role_name, role_desc) VALUES
 ('Accountant', 'Accounting role');
 
 
+DROP TABLE IF EXISTS `skills`;
 CREATE TABLE IF NOT EXISTS `skills` (
     skill_name varchar(50) NOT NULL,
     CONSTRAINT skills_pkey PRIMARY KEY (skill_name)
@@ -62,7 +73,7 @@ INSERT INTO skills (skill_name) VALUES
 ('SQL'),
 ('Finance');
 
-
+DROP TABLE IF EXISTS `role_skill`;
 CREATE TABLE IF NOT EXISTS `role_skill` (
     role_name varchar(20) NOT NULL,
     skill_name varchar(50) NOT NULL,
@@ -77,7 +88,7 @@ INSERT INTO role_skill (role_name, skill_name) VALUES
 ('Engineer', 'SQL'),
 ('Accountant', 'Finance');
 
-
+DROP TABLE IF EXISTS `staff_skill`;
 CREATE TABLE IF NOT EXISTS `staff_skill` (
     staff_id integer NOT NULL,
     skill_name varchar(50) NOT NULL,
@@ -101,16 +112,16 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 INSERT INTO category (category, category_desc) VALUES
 ('Administration and Support', 'Provides office support to either an individual or team and is vital for the smooth-running of a business'),
-('Business Development', 'Identify long-term methods to increase value through the development of relationships, markets and customers');
-('Corporate Social Responsibilities', "Acts as a company's 'conscience', championing and developing the ethical, environmentally-friendly, and community-minded side of a business");
-('Customer services', 'Involved in customer service, support, success, and experience');
-('Design and Technical Service', 'Involves developing creative, tech-based solutions to existing problems');
-('Information Technology', 'Involves the implementation, support, maintenance, repair or protection of data or computer systems');
-('Engineering', 'Jobs that use science and mathematics to solve a variety of problems');
-('Finance', "Kobs where a company's funds and profitability are the primary focus");
-('Legal', 'Practicing the law');
-('Manufacturing and production', 'Involves the creation of new products either from raw materials or by assembling different components');
-('Marketing and advertising', "Responsible for planning, creating, and executing marketing campaigns to expand their company's reach and potential customer");
+('Business Development', 'Identify long-term methods to increase value through the development of relationships, markets and customers'),
+('Corporate Social Responsibilities', "Acts as a company's 'conscience', championing and developing the ethical, environmentally-friendly, and community-minded side of a business"),
+('Customer services', 'Involved in customer service, support, success, and experience'),
+('Design and Technical Service', 'Involves developing creative, tech-based solutions to existing problems'),
+('Information Technology', 'Involves the implementation, support, maintenance, repair or protection of data or computer systems'),
+('Engineering', 'Jobs that use science and mathematics to solve a variety of problems'),
+('Finance', "Kobs where a company's funds and profitability are the primary focus"),
+('Legal', 'Practicing the law'),
+('Manufacturing and production', 'Involves the creation of new products either from raw materials or by assembling different components'),
+('Marketing and advertising', "Responsible for planning, creating, and executing marketing campaigns to expand their company's reach and potential customer"),
 ('Sales and Communication', 'Customer service experience and sales skills');
 
 DROP TABLE IF EXISTS `role_listing`;
@@ -121,13 +132,13 @@ CREATE TABLE IF NOT EXISTS `role_listing` (
     category varchar(20) NOT NULL,
     deadline date NOT NULL,
     CONSTRAINT role_listing_pkey PRIMARY KEY (listing_id),
-    constraint role_listing_fk1 foreign key (category) references category(category) ON DELETE CASCADE
-    constraint role_listing_fk2 foreign key (role_name) references role(role_name) ON DELETE CASCADE
+    constraint role_listing_fk1 foreign key (category) references category(category) ON DELETE CASCADE,
+    CONSTRAINT role_listing_fk2 FOREIGN KEY (role_name) REFERENCES role(role_name) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO role_listing (listing_id, role_name, department, category, deadline) VALUES
-(1, 'Manager', 'HR', 'Category A', '2023-09-30'),
-(2, 'Engineer', 'IT', 'Category B', '2023-10-15');
+(1, 'Manager', 'HR', 'Administration and Support', '2023-09-30'),
+(2, 'Engineer', 'IT', 'Engineering', '2023-10-15');
 
 
 DROP TABLE IF EXISTS `job_application`;
