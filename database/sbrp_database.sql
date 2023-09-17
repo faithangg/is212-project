@@ -105,7 +105,7 @@ INSERT INTO staff_skill (staff_id, skill_name) VALUES
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
-    category varchar(20) NOT NULL,
+    category varchar(120) NOT NULL,
     category_desc varchar(100) NOT NULL,
     CONSTRAINT category_pkey PRIMARY KEY (category)
 );
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `role_listing` (
     listing_id integer NOT NULL AUTO_INCREMENT,
     role_name varchar(20) NOT NULL,
     department varchar(100) NOT NULL,
-    category varchar(20) NOT NULL,
+    category varchar(120) NOT NULL,
     deadline date NOT NULL,
     CONSTRAINT role_listing_pkey PRIMARY KEY (listing_id),
     constraint role_listing_fk1 foreign key (category) references category(category) ON DELETE CASCADE,
