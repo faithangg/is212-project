@@ -1,5 +1,5 @@
 from flask import request, jsonify
-# from database import db
+from database import db
 from models.login_details import LoginDetails
 from models.staff import Staff
 from blueprints.staff_blueprint import staff_blueprint
