@@ -1,5 +1,5 @@
 from flask import request, jsonify
-# from database import db
+from database import db
 from models.role_listing import RoleListing
 from blueprints.hr_blueprint import hr_blueprint
 
@@ -11,6 +11,7 @@ def role_listings():
         # Get all the records from the database
         role_listings = RoleListing.query.all()
         
+        # If have records return the records
         if len(role_listings):
             return jsonify(
                 {
@@ -20,6 +21,8 @@ def role_listings():
                     }
                 }
             )
+        
+        # If not return 404 - nothing found
         return jsonify(
             {
                 "code": 404,
