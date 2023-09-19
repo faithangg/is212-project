@@ -1,6 +1,8 @@
 <template>
-  <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
-    <v-layout>    
+  <v-app>
+  <v-content>
+  <v-card max-width="448" class="mx-auto mt-9" color="grey-lighten-3">
+    <!-- <v-layout>     -->
         <v-main>
             <v-container fluid>
                 <v-row dense>
@@ -16,7 +18,7 @@
                       :type="showPassword ? 'text':'password'" prepend-icon="mdi-lock" 
                       :append-icon="showPassword ? 'mdi-eye-':'mdi-eye-off'" @click:append="showPassword =!showPassword">
                     </v-text-field>
-                    <v-btn>Login</v-btn>
+                    <!-- <v-btn>Login</v-btn> -->
                   </v-card-text>
                 </v-row>
 
@@ -26,8 +28,10 @@
                 </v-card-actions>
             </v-container>
         </v-main>    
-    </v-layout>
+    <!-- </v-layout> -->
   </v-card>
+  </v-content>
+</v-app>
 </template>
 
 <script>
