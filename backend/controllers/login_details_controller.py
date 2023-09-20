@@ -5,16 +5,10 @@ from models.staff import Staff
 from blueprints.staff_blueprint import staff_blueprint
 
 # Handles the logic where HR creates role listing
-@staff_blueprint.route('/login_details', methods=['GET'])
-def login_details():
+@staff_blueprint.route('/login_details/<string:staff_id>/<string:staff_password>', methods=['GET'])
+def login_details(staff_id, staff_password):
     
     try:
-        # Extract data from the request
-        data = request.get_json()
-        staff_id = data['staff_id']
-        staff_password = data['staff_password']
-
-
         # Get the password from the database
         login = LoginDetails.query.filter_by(staff_id=staff_id).first()
         
