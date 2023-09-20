@@ -1,7 +1,7 @@
 <template>
   <v-app>
   <v-content>
-  <v-card max-width="448" class="mx-auto mt-9" color="grey-lighten-3">
+  <v-card max-width="448" class="mx-auto mt-9" >
     <!-- <v-layout>     -->
         <v-main>
             <v-container fluid>
@@ -26,7 +26,7 @@
 
                 <v-divider></v-divider>
                 <v-card-actions>
-                  <v-btn color="Info" @click="login()">Login</v-btn>
+                  <v-btn type="submit" class="mt-4" color="primary"  @click="login()">Login</v-btn>
                 </v-card-actions>
             </v-container>
         </v-main>    
@@ -35,6 +35,9 @@
   </v-content>
 </v-app>
 </template>
+
+
+
 
 <script>
     export default {
@@ -59,8 +62,15 @@
             else{
                 var access_right = data["access_rights"]
                 console.log(access_right)
+               
+                if(access_right==1){ //staff
+                  this.$router.replace({ name: "HomePage", params: { access_right: access_right } });
+                  console.log("staff")
+                }else if(access_right==2){ //HR
+                  console.log("HR") 
+                }
             }
-          }
+          },
         }
     }
 </script>
