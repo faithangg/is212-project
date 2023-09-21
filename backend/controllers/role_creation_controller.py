@@ -19,9 +19,6 @@ def create_role_listing():
         # Extract validated fields
         role_name, department, category, deadline = [data[k] for k in required_keys]
 
-        # Query for skills related to the role_name
-        skills_result = RoleSkill.query.filter_by(role_name=role_name).all()
-        skills_list = [skill.skill_name for skill in skills_result] 
 
         # Check for duplicate role listing
         existing_role = RoleListing.query.filter_by(
@@ -50,7 +47,6 @@ def create_role_listing():
             {
                 "code": 201,
                 "data": new_role_listing.json(),
-                "skills_required": skills_list  # Include the list of skills in the response
             }  
             
         ), 201
@@ -58,3 +54,11 @@ def create_role_listing():
         db.session.rollback()
         return jsonify(error=str(e)), 500
 
+@hr_blueprint.route('/get_role_skills/<string:role_name>', methods=['GET'])
+def get_role_skills(role_name):
+    try:
+        skills_result = RoleSkill.query.filter_by(role_name=role_name).all()
+        skills_list = [skill.skill_name for skill in skills_result]
+        return jsonify({"skills_required": skills_list}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
