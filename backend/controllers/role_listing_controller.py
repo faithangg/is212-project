@@ -2,8 +2,18 @@ from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing
 from blueprints.hr_blueprint import hr_blueprint
+from models.role_skill import RoleSkill 
 
-# Handles the logic where HR creates role listing
+# Helper function to get skills by role_name
+def get_skills_by_role(role_name):
+    try:
+        skills_result = RoleSkill.query.filter_by(role_name=role_name).all()
+        skills_list = [skill.skill_name for skill in skills_result]
+        return skills_list
+    except Exception as e:
+        return []
+
+# Get all role listings
 @hr_blueprint.route('/role_listings', methods=['GET'])
 def role_listings():
     
@@ -41,13 +51,21 @@ def get_one_role_listings(listing_id):
     try:
         # Get a single record from the database
         role_listing = RoleListing.query.filter_by(listing_id=listing_id).first()
-        
+
         if role_listing:
+            role_data = role_listing.json()  # Get existing role listing data as JSON
+
+            # Fetch the skills required for this role
+            skills_required = get_skills_by_role(role_listing.role_name)
+
+            # Include the skills in the response
+            role_data['skills_required'] = skills_required
+
             return jsonify(
                 {
                     "code": 200,
                     "data": {
-                        "role_listing": role_listing.json()
+                        "role_listing": role_data
                     }
                 }
             )
