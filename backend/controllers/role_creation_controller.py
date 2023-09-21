@@ -9,10 +9,14 @@ def create_role_listing():
     try:
         # Extract data from the request
         data = request.get_json()
-        role_name = data['role_name']
-        department = data['department']
-        category = data['category']
-        deadline = data['deadline']
+
+        # Validate that all required keys are present
+        required_keys = ['role_name', 'department', 'category', 'deadline']
+        if not all(key in data for key in required_keys):
+            return jsonify({"error": "Missing required field(s)"}), 400
+
+        # Extract validated fields
+        role_name, department, category, deadline = [data[k] for k in required_keys]
 
         # Create a new role listing object
         new_role_listing = RoleListing(
@@ -30,7 +34,6 @@ def create_role_listing():
             {
                 "code": 201,
                 "data": new_role_listing.json()
-
             }  
         ), 201
     except Exception as e:
