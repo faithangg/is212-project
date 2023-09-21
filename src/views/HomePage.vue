@@ -2,6 +2,7 @@
   <v-card max-width="448" class="mx-auto" color="grey-lighten-3">
     <v-layout>    
         <v-main>
+            <div class="hello">main page</div> <!-- used for test files can change-->
             <v-container fluid>
                 <v-row dense>
                 <v-col

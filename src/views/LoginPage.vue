@@ -12,13 +12,14 @@
                       label="Staff ID"
                       required prepend-icon="mdi-account-circle"
                       v-model="staffID"
+                      id = "staffId"
                     ></v-text-field>
                     <v-text-field
                       label="Password"
                       required 
                       :type="showPassword ? 'text':'password'" prepend-icon="mdi-lock" 
                       :append-icon="showPassword ? 'mdi-eye-':'mdi-eye-off'" @click:append="showPassword =!showPassword"
-                      v-model="password">
+                      v-model="password" id="password">
                     </v-text-field>
                     <!-- <v-btn>Login</v-btn> -->
                   </v-card-text>
@@ -26,7 +27,7 @@
 
                 <v-divider></v-divider>
                 <v-card-actions>
-                  <v-btn type="submit" class="mt-4" color="primary"  @click="login()">Login</v-btn>
+                  <v-btn type="submit" class="mt-4" color="primary"  @click="login()" id="login">Login</v-btn>
                 </v-card-actions>
             </v-container>
         </v-main>    
