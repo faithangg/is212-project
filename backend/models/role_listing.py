@@ -9,6 +9,8 @@ class RoleListing(db.Model):
     category = db.Column(db.String(20), nullable=False)
     deadline = db.Column(db.Date, nullable=False)
 
+    applications = db.relationship('JobApplication', backref='role_listing')
+    
     def json(self):
         return {
             'listing_id': self.listing_id,

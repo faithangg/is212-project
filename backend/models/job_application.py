@@ -8,11 +8,8 @@ class JobApplication(db.Model):
     listing_id = db.Column(db.Integer, db.ForeignKey('role_listing.listing_id'), nullable=False)
     application_date = db.Column(db.Date, nullable=False)
     
-    
-    def __init__(self, staff_id, listing_id, application_date):
-        self.staff_id = staff_id
-        self.listing_id = listing_id
-        self.application_date = application_date
+    # Establish a relationship to retrieve the role listing associated with an application
+    role_listing = db.relationship('RoleListing', backref='applications')
         
     def json(self):
         return {
