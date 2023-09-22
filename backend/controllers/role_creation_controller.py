@@ -4,7 +4,7 @@ from models.role_listing import RoleListing
 from blueprints.hr_blueprint import hr_blueprint
 from models.role_skill import RoleSkill 
 
-# Handles the logic where HR creates role listing
+# HR: CREATES A ROLE LISTING
 @hr_blueprint.route('/create_role_listing', methods=['POST'])
 def create_role_listing():
     try:
@@ -54,6 +54,7 @@ def create_role_listing():
         db.session.rollback()
         return jsonify(error=str(e)), 500
 
+# GET SKILLS REQUIRED FOR A SPECIFIC ROLE
 @hr_blueprint.route('/get_role_skills/<string:role_name>', methods=['GET'])
 def get_role_skills(role_name):
     try:
