@@ -2,7 +2,9 @@ from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing
 from blueprints.hr_blueprint import hr_blueprint
+from blueprints.staff_blueprint import staff_blueprint
 from models.role_skill import RoleSkill 
+from models.job_application import JobApplication
 
 # Helper function to get skills by role_name
 def get_skills_by_role(role_name):
@@ -15,7 +17,7 @@ def get_skills_by_role(role_name):
 
 # Get all role listings
 @hr_blueprint.route('/role_listings', methods=['GET'])
-def role_listings():
+def get_all_role_listings():
     
     try:
         # Get all the records from the database
@@ -45,6 +47,39 @@ def role_listings():
     except Exception as e:
         db.session.rollback()
         return jsonify(error=str(e)), 500
+
+# Get all role listings that "I" have not applied yet
+@staff_blueprint.route('/role_listings/<int:staff_id>', methods=['GET'])
+def get_role_listings_not_applied(staff_id):
+        try:
+            # Get listing_ids the staff has applied for
+            applied_listings = [application.listing_id for application in JobApplication.query.filter_by(staff_id=staff_id).all()]
+
+            # Fetch the role listings that the staff hasn't applied for
+            role_listings = RoleListing.query.filter(~RoleListing.listing_id.in_(applied_listings)).all()
+
+            # If there are records, return the records
+            if role_listings:
+                return jsonify(
+                    {
+                        "code": 200,
+                        "data": {
+                            "role_listing": [listing.json() for listing in role_listings]
+                        }
+                    }
+                )
+
+            # If not, return 404 - nothing found
+            return jsonify(
+                {
+                    "code": 404,
+                    "message": "There are no role listings"
+                }
+            ), 404
+
+        except Exception as e:
+            db.session.rollback()
+            return jsonify(error=str(e)), 500
 
 @hr_blueprint.route('/role_listings/<string:listing_id>', methods=['GET'])
 def get_one_role_listings(listing_id):
