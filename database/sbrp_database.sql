@@ -57,9 +57,10 @@ CREATE TABLE IF NOT EXISTS `role` (
 )  ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO role (role_name, role_desc) VALUES
-('Manager', 'Managerial role'),
-('Engineer', 'Engineering role'),
-('Accountant', 'Accounting role');
+('HR Manager', 'Human Resources Manager role'),
+('Software Engineer', 'Software Engineering role'),
+('Financial Analyst', 'Financial Analysis role'),
+('Network Administrator', 'Network Administration role');
 
 
 DROP TABLE IF EXISTS `skills`;
@@ -71,7 +72,16 @@ CREATE TABLE IF NOT EXISTS `skills` (
 INSERT INTO skills (skill_name) VALUES
 ('Python'),
 ('SQL'),
-('Finance');
+('Finance'),
+('Statistical Analysis'),
+('Excel'),
+('Data Visualization'),
+('Networking'),
+('Cybersecurity'),
+('Operating Systems'),
+('Cloud Services'),
+('Problem Solving'),
+('Troubleshooting');
 
 DROP TABLE IF EXISTS `role_skill`;
 CREATE TABLE IF NOT EXISTS `role_skill` (
@@ -83,10 +93,18 @@ CREATE TABLE IF NOT EXISTS `role_skill` (
 )  ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO role_skill (role_name, skill_name) VALUES
-('Manager', 'Python'),
-('Engineer', 'Python'),
-('Engineer', 'SQL'),
-('Accountant', 'Finance');
+('HR Manager', 'Problem Solving'),
+('Software Engineer', 'Python'),
+('Software Engineer', 'SQL'),
+('Financial Analyst', 'Statistical Analysis'),
+('Financial Analyst', 'Excel'),
+('Financial Analyst', 'Data Visualization'),
+('Financial Analyst', 'SQL'),
+('Network Administrator', 'Networking'),
+('Network Administrator', 'Cybersecurity'),
+('Network Administrator', 'Operating Systems'),
+('Network Administrator', 'Cloud Services'),
+('Network Administrator', 'Troubleshooting');
 
 DROP TABLE IF EXISTS `staff_skill`;
 CREATE TABLE IF NOT EXISTS `staff_skill` (
@@ -137,24 +155,25 @@ CREATE TABLE IF NOT EXISTS `role_listing` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO role_listing (listing_id, role_name, department, category, deadline) VALUES
-(1, 'Manager', 'HR', 'Administration and Support', '2023-09-30'),
-(2, 'Engineer', 'IT', 'Engineering', '2023-10-15');
-
+(1, 'HR Manager', 'HR', 'Administration and Support', '2023-09-30'),
+(2, 'Software Engineer', 'IT', 'Engineering', '2023-10-15'),
+(3, 'Financial Analyst', 'Finance', 'Finance', '2023-08-15'),
+(4, 'Network Administrator', 'IT', 'Information Technology', '2024-08-15');
 
 DROP TABLE IF EXISTS `job_application`;
 CREATE TABLE IF NOT EXISTS `job_application` (
     application_id integer NOT NULL AUTO_INCREMENT,
     staff_id integer NOT NULL,
-    role_name varchar(20) NOT NULL,
+    listing_id integer NOT NULL,
     application_date date NOT NULL,
     CONSTRAINT job_application_pkey PRIMARY KEY (application_id),
     constraint job_application_fk1 foreign key (staff_id) references staff(staff_id) ON DELETE CASCADE,
-    constraint job_application_fk2 foreign key (role_name) references role(role_name) ON DELETE CASCADE
+    constraint job_application_fk2 foreign key (listing_id) references role_listing(listing_id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO job_application (application_id, staff_id, role_name, application_date) VALUES
-(1, 1, 'Manager', '2023-09-20'),
-(2, 2, 'Engineer', '2023-10-10');
+INSERT INTO job_application (application_id, staff_id, listing_id, application_date) VALUES
+(1, 1, 1, '2023-09-20'),
+(2, 2, 2, '2023-10-10');
 
 
 DROP TABLE IF EXISTS `login_details`;
