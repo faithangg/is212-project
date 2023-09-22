@@ -9,7 +9,7 @@ class JobApplication(db.Model):
     application_date = db.Column(db.Date, nullable=False)
     
     # Establish a relationship to retrieve the role listing associated with an application
-    role_listing = db.relationship('RoleListing', backref='applications')
+    # role_listing = db.relationship('RoleListing', backref='applications')
         
     def json(self):
         return {
