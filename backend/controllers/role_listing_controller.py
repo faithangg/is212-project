@@ -1,10 +1,10 @@
 from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing
-from blueprints.hr_blueprint import hr_blueprint
-from blueprints.staff_blueprint import staff_blueprint
 from models.role_skill import RoleSkill 
 from models.job_application import JobApplication
+from blueprints.hr_blueprint import hr_blueprint
+from blueprints.staff_blueprint import staff_blueprint
 
 # Helper function to get skills by role_name
 def get_skills_by_role(role_name):
@@ -15,7 +15,7 @@ def get_skills_by_role(role_name):
     except Exception as e:
         return []
 
-# Get all role listings
+# HR: GET ALL ROLE LISTINGS
 @hr_blueprint.route('/role_listings', methods=['GET'])
 def get_all_role_listings():
     
@@ -48,7 +48,7 @@ def get_all_role_listings():
         db.session.rollback()
         return jsonify(error=str(e)), 500
 
-# Get all role listings that "I" have not applied yet
+# STAFF: GET ALL ROLE LISTINGS THAT I HAVE NOT APPLIED YET
 @staff_blueprint.route('/role_listings/<int:staff_id>', methods=['GET'])
 def get_role_listings_not_applied(staff_id):
         try:
@@ -81,6 +81,7 @@ def get_role_listings_not_applied(staff_id):
             db.session.rollback()
             return jsonify(error=str(e)), 500
 
+# HR: GET A SPECIFIC ROLE LISTING
 @hr_blueprint.route('/role_listings/<string:listing_id>', methods=['GET'])
 def get_one_role_listings(listing_id):
     try:
