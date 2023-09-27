@@ -91,13 +91,6 @@
                         </v-row>
                     </v-container>
 
-                    <!-- <v-card-title>
-                        Full-Screen Modal Content
-                    </v-card-title>
-                    <v-card-text>
-                        
-                    </v-card-text> -->
-
                 </v-card>
             </v-dialog>
         </v-row>
@@ -105,7 +98,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
     props: {
@@ -119,18 +111,7 @@ export default {
     },
     methods: {
         openModal(role) {
-            // Store the role data and open the modal
-            // axios.get(`http://127.0.0.1:5000/hr/role_listings/${roleId}`)
-            //     .then((response) => {
-            //         console.log(response.data.data);
-            //         
-            //         console.log(this.roleToDisplay);
-            //     })
-            //     .catch((error) => {
-            //         console.error('Error fetching role listings:', error);
-            //     });
             this.roleToDisplay = role;
-
             this.showModal = true;
         },
     },
