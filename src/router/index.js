@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/HomePage.vue";
 import CreateRoleListing from "../views/CreateRoleListing.vue";
+import RolesPage from "../views/RolesPage.vue";
 
 import LoginPage from "../views/LoginPage.vue";
 
@@ -20,6 +21,12 @@ const routes = [
     name: "CreateRoleListing",
     component: CreateRoleListing,
   },
+
+  {
+    path: "/rolesPage",
+    name: "RolesPage",
+    component: RolesPage, 
+  }
 
 ];
 
