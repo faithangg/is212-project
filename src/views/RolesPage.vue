@@ -1,8 +1,13 @@
 // Inside your Vue component
 <template>
     <div>
-        <!-- Display role listings using the RoleListings component -->
-        <RoleListings :roleListings="roleListings" />
+
+    <!-- Display all role listings if user is HR -->
+    <RoleListings  :roleListings="roleListings" v-if="userIsHr"/>
+
+    <!-- Display filtered role listings if user is not HR (those that has not passed deadline) -->
+    <RoleListings v-else :roleListings="filteredRoleListings" />
+
     </div>
 </template>
 
@@ -36,7 +41,7 @@ export default {
                     },
                     {
                         "category": "Engineering",
-                        "deadline": "2023-10-15",
+                        "deadline": "2023-07-15",
                         "department": "IT",
                         "listing_id": 2,
                         "role_name": "Engineer",
@@ -46,10 +51,29 @@ export default {
                     }
 
                 ]
+                
             })
             .catch((error) => {
                 console.error('Error fetching role listings:', error);
             });
+
+    },
+
+    computed: {
+        userIsHr() {
+            // Access the user's role from your Vuex store getter
+            return this.$store.getters.getUserRole === 'hr';
+        },
+
+
+        filteredRoleListings() {
+        // Filter the role listings based on the deadline
+        const currentDate = new Date();
+        return this.roleListings.filter((role) => {
+            const deadlineDate = new Date(role.deadline);
+            return deadlineDate > currentDate;
+        });
+        },
 
     },
 
