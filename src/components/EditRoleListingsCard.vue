@@ -68,7 +68,8 @@
                         <v-row>
                             <v-col>
                                 <v-card-text class="text-h6">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam aspernatur culpa consequatur corrupti modi quibusdam, vitae mollitia numquam ullam doloremque fuga beatae voluptate molestias itaque dolor soluta molestiae fugit!
+                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam aspernatur culpa consequatur corrupti modi quibusdam, vitae mollitia numquam ullam doloremque fuga beatae voluptate molestias itaque dolor soluta molestiae fugit! -->
+                                    {{ roleToDisplay.role_desc }}
                                 </v-card-text>
                             </v-col>
                         </v-row>
