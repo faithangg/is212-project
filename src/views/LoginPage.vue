@@ -58,7 +58,7 @@ export default {
             const success = await this.authenticate(userData); // Call the login action from the store
 
             if (success) {
-                this.$router.replace({ name: "HomePage" });
+                this.$router.replace({ name: "RolesPage" });
                 // console.log(this.$store.getters.getUserRole);
             } else {
                 alert('The password or staff id is incorrect')

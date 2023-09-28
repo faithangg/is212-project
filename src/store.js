@@ -3,10 +3,15 @@ import { createStore } from 'vuex';
 
 export default createStore({
     state: {
+        isLoggedIn: true,
         userRole: "hr", // temp set as "hr"
         userId: 1, // temp set as 1
     },
     mutations: {
+        setIsLoggedIn(state, status) {
+            state.isLoggedIn = status;
+        },
+
         setUserRole(state, role) {
             state.userRole = role;
         },
@@ -37,7 +42,8 @@ export default createStore({
                 else if (access_right == 2) {
                     var role = "staff"
                 }
-    
+                
+                commit('setIsLoggedIn', true);
                 commit('setUserRole', role);
                 commit('setUserId', userData.staffID);
                 
@@ -51,6 +57,9 @@ export default createStore({
         },
     },
     getters: {
+        getIsLoggedIn(state) {
+            return state.isLoggedIn;
+        },
         getUserRole(state) {
             return state.userRole;
         },
