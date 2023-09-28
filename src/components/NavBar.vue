@@ -14,13 +14,13 @@
       
       <v-spacer></v-spacer>
 
-      <v-btn to="/viewRolesPage">View Role Listings</v-btn>
+      <v-btn to="/viewRolesPage" id="role_listings">View Role Listings</v-btn>
 
-      <v-btn v-if="userIsHr" to="/manageRolesPage">Manage Role Listings</v-btn>
+      <v-btn v-if="userIsHr" to="/manageRolesPage" id="managed">Manage Role Listings</v-btn>
       
-      <v-btn to="/login">Profile</v-btn>
+      <v-btn to="/login" id="profile">Profile</v-btn>
       
-      <v-btn v-if="!isLoggedIn" to="/login">Login</v-btn>
+      <v-btn v-if="!isLoggedIn" to="/login" id="login">Login</v-btn>
 
     </v-app-bar>
   </v-layout>
