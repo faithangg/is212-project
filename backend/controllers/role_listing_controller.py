@@ -106,7 +106,7 @@ def get_all_role_listings():
                 {
                     "code": 200,
                     "data": {
-                        "role_listing": [listing.json() for listing in role_data]
+                        "role_listing": [listing for listing in role_data]
                     }
                 }
             )
