@@ -5,6 +5,7 @@ from sqlalchemy import or_
 import re
 from models.role_listing import RoleListing
 from models.role_skill import RoleSkill 
+from models.role import Role 
 from models.job_application import JobApplication
 from blueprints.hr_blueprint import hr_blueprint
 from blueprints.staff_blueprint import staff_blueprint
@@ -71,7 +72,7 @@ def role_skill_match(staff_id, role_name):
                     "data": {
                         "have": [have for have in staff_have],
                         "dont": [dont for dont in staff_dont],
-                        "match percentage": match_percentage
+                        "match_percentage": match_percentage
                     }
                 }
     except Exception as e:
@@ -96,8 +97,10 @@ def get_all_role_listings():
         for listing in role_listings:
             listing_data = listing.json()
             role_name = listing.role_name
+            role_desc = Role.query.filter_by(role_name=role_name).first()
             skills = get_skills_by_role(role_name)
             listing_data['skills_required'] = skills
+            listing_data['role_desc'] = role_desc.role_desc
             role_data.append(listing_data)
         
         # If have records return the records
@@ -138,6 +141,9 @@ def get_one_role_listings(listing_id):
 
             # Include the skills in the response
             role_data['skills_required'] = skills_required
+
+            role_desc = Role.query.filter_by(role_name=role_listing.role_name).first()
+            role_data['role_desc'] = role_desc.role_desc
 
             return jsonify(
                 {

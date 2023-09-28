@@ -42,7 +42,7 @@ def role_skill_match(staff_id, role_name):
                     "data": {
                         "have": [have for have in staff_have],
                         "dont": [dont for dont in staff_dont],
-                        "match percentage": match_percentage
+                        "match_percentage": match_percentage
                     }
                 }
             )
