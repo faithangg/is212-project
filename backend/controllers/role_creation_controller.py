@@ -5,6 +5,7 @@ from blueprints.hr_blueprint import hr_blueprint
 from blueprints.staff_blueprint import staff_blueprint
 from models.role_skill import RoleSkill 
 from models.role import Role
+from models.category import Category
 from models.staff import Staff
 
 # HR: CREATES A ROLE LISTING
@@ -99,4 +100,13 @@ def get_departments():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+# GET ALL CATEGORY NAMES
+@hr_blueprint.route('/get_category_names', methods=['GET'])
+def get_category_names():
+    try:
+        categories = Category.query.all()
+        return jsonify([category.category for category in categories]), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
     
