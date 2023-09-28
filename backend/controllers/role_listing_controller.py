@@ -65,7 +65,7 @@ def role_skill_match(staff_id, role_name):
                 staff_dont.append(current)
 
         # Get the percentage of roles matched -- ???
-        match_percentage = (len(staff_have) / (len(staff_have) + len(staff_dont))) * 100
+        match_percentage = str(len(staff_have) / (len(staff_have) + len(staff_dont))) * 100
 
         return {
                     "code": 200,
@@ -177,12 +177,16 @@ def get_role_listings_not_applied(staff_id):
         
         # For each role listing, get the role skill match and append it to results
         for listing in role_listings:
+            role_data = listing.json()
             skill_match_data = role_skill_match(staff_id, listing.role_name)
             
+            role_desc = Role.query.filter_by(role_name=listing.role_name).first()
+            role_data['role_desc'] = role_desc.role_desc
+
             # If the role skill match was successful, add it to results
             if skill_match_data.get('code') == 200:
                 results.append({
-                    "role_listing": listing.json(),
+                    "role_listing": role_data,
                     "role_skill_match": skill_match_data['data']
                 })
 
