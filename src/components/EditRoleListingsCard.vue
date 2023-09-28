@@ -30,9 +30,9 @@
                     </v-col>
                     <v-col class="d-flex justify-end me-4 mb-4 align-end">
                         <!-- open role description page -->
-                        <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)"></v-btn>
+                        <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)" id="open_modal"></v-btn>
                         <!-- edit role -->
-                        <v-btn icon><v-icon>mdi-pencil</v-icon></v-btn>
+                        <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
                     </v-col>
                 </v-row>
             </v-card>

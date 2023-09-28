@@ -51,6 +51,7 @@
           <v-col class="d-flex justify-end me-4 mb-4 align-end">
             <!-- open role description page -->
             <v-btn
+              id="open_modal"
               class="me-3"
               density="default"
               icon="mdi-open-in-new"
@@ -77,7 +78,7 @@
                 </v-chip>
               </v-col>
               <v-col cols="auto">
-                <v-btn class="bg-blue-accent-4 text-h6" @click="applyrole()"
+                <v-btn class="bg-blue-accent-4 text-h6" @click="applyrole()" id="apply_role"
                   >Apply Now</v-btn
                 >
               </v-col>
@@ -85,7 +86,7 @@
             <v-row>
               <v-col>
                 <v-card-text class="d-flex justify-start text-h6">
-                  <span class="font-weight-bold">Department: </span> &nbsp;
+                  <span class="font-weight-bold" id="dept">Department: </span> &nbsp;
                   <span>{{ roleToDisplay.role_listing.department }}</span>
                 </v-card-text>
                 <v-card-text class="d-flex justify-start text-h6 pt-0">
