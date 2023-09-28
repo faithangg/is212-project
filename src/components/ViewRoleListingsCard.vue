@@ -197,7 +197,7 @@ export default {
       showModal: false, // Control the visibility of the full-screen modal
       roleToDisplay: null, // Store the role data for the modal
       success_model: false, // Control the visibility of the full-screen success modal
-      failure_model: false,, // Control the visibility of the full-screen failure modal
+      failure_model: false, // Control the visibility of the full-screen failure modal
       appliedRole: null,
     };
   },
