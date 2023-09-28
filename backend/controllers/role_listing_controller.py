@@ -193,7 +193,6 @@ def get_role_listings_not_applied(staff_id):
         db.session.rollback()
         return jsonify(error=str(e)), 500
         
-# STAFF: SEARCH ROLE LISTING IN SEARCH BAR
 @staff_blueprint.route('/browse_role_listings/<int:staff_id>/<string:search_input>', methods=['GET'])
 def browse_listing(staff_id, search_input):
     try:
@@ -219,13 +218,26 @@ def browse_listing(staff_id, search_input):
 
         role_listings = filter_listings_by_staff_and_deadline(role_listings_query, staff_id).distinct().all()
 
+        results = []
+        
+        # For each role listing, get the role skill match and append it to results
+        for listing in role_listings:
+            skill_match_data = role_skill_match(staff_id, listing.role_name)
+            
+            # If the role skill match was successful, add it to results
+            if skill_match_data.get('code') == 200:
+                results.append({
+                    "role_listing": listing.json(),
+                    "role_skill_match": skill_match_data['data']
+                })
+
         # If there are records, return the records
-        if role_listings:
+        if results:
             return jsonify(
                 {
                     "code": 200,
                     "data": {
-                        "role_listing": [listing.json() for listing in role_listings]
+                        "role_listings_with_skill_match": results
                     }
                 }
             )
