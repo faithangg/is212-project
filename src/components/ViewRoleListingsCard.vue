@@ -52,6 +52,9 @@
                                     {{ roleToDisplay.role_listing.category }}
                                 </v-chip>
                             </v-col>
+                            <v-col  cols="auto" class="text-h6 font-weight-bold">
+                                {{ roleToDisplay.role_skill_match.match_percentage }}%
+                            </v-col>
                             <v-col cols="auto">
                                 <v-btn class="bg-blue-accent-4 text-h6">Apply Now</v-btn>
                             </v-col>
@@ -88,9 +91,6 @@
                                         {{ skill }}
                                     </v-chip>
                                     
-                                    <div v-for="value in roleToDisplay.role_skill_match.match_percentage" :key="value">
-                                        {{ value }}
-                                    </div>
 
                                 </v-card-text>
                             </v-col>
