@@ -78,10 +78,17 @@
                                 <v-card-text>
                                     <!-- loop thru requied skils -->
                                     <span class="font-weight-bold text-h6">Skills Required: </span>
-                                    <!-- <v-chip class="me-2" v-for="skill in roleToDisplay" :key="skill" color="blue">
+                                    <v-chip class="me-2" v-for="skill in roleToDisplay.role_skill_match.dont" :key="skill" color="red">
                                         {{ skill }}
-                                    </v-chip> -->
+                                    </v-chip>
+                                    <br>
+                                    <span class="font-weight-bold text-h6">Your Skills: </span>
+                                    <v-chip class="me-2" v-for="skill in roleToDisplay.role_skill_match.have" :key="skill" color="blue">
+                                        {{ skill }}
+                                    </v-chip>
                                     
+                                
+
                                 </v-card-text>
                             </v-col>
                         </v-row>
