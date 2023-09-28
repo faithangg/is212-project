@@ -88,7 +88,9 @@
                                         {{ skill }}
                                     </v-chip>
                                     
-                                
+                                    <div v-for="value in roleToDisplay.role_skill_match.match_percentage" :key="value">
+                                        {{ value }}
+                                    </div>
 
                                 </v-card-text>
                             </v-col>
