@@ -51,6 +51,7 @@
           <v-col class="d-flex justify-end me-4 mb-4 align-end">
             <!-- open role description page -->
             <v-btn
+              id="open_modal"
               class="me-3"
               density="default"
               icon="mdi-open-in-new"
@@ -77,7 +78,10 @@
                 </v-chip>
               </v-col>
               <v-col cols="auto">
-                <v-btn class="bg-blue-accent-4 text-h6" @click="applyrole()"
+                <v-btn
+                  class="bg-blue-accent-4 text-h6"
+                  @click="applyrole()"
+                  id="apply_role"
                   >Apply Now</v-btn
                 >
               </v-col>
@@ -85,7 +89,8 @@
             <v-row>
               <v-col>
                 <v-card-text class="d-flex justify-start text-h6">
-                  <span class="font-weight-bold">Department: </span> &nbsp;
+                  <span class="font-weight-bold" id="dept">Department: </span>
+                  &nbsp;
                   <span>{{ roleToDisplay.role_listing.department }}</span>
                 </v-card-text>
                 <v-card-text class="d-flex justify-start text-h6 pt-0">
@@ -152,27 +157,30 @@
       </v-dialog>
 
       <!-- show success message -->
-      <v-dialog v-model="success_model" hide-overlay class="w-50">
-        <!-- Modal content goes here -->
-        <v-alert
-          color="success"
-          icon="$success"
-          title="Successful Application"
-          text="You have successfully applied for the role!"
-        ></v-alert>
-      </v-dialog>
+      <div id="apply_alerts">
+        <v-dialog v-model="success_model" hide-overlay class="w-50">
+          <!-- Modal content goes here -->
+          <v-alert
+            id="success_alert"
+            color="success"
+            icon="$success"
+            title="Successful Application"
+            text="You have successfully applied for the role!"
+          ></v-alert>
+        </v-dialog>
 
-      <!-- show success message -->
-      <v-dialog v-model="failure_model" hide-overlay class="w-50">
-        <!-- Modal content goes here -->
-        <v-alert
-          color="error"
-          icon="$success"
-          title="Application Failed"
-          text="Your application for the role has failed. Please try again later"
-        ></v-alert>
-      </v-dialog>
-
+        <!-- show success message -->
+        <v-dialog v-model="failure_model" hide-overlay class="w-50">
+          <!-- Modal content goes here -->
+          <v-alert
+            id="failure_alert"
+            color="error"
+            icon="$success"
+            title="Application Failed"
+            text="Your application for the role has failed. Please try again later"
+          ></v-alert>
+        </v-dialog>
+      </div>
     </v-row>
   </div>
 </template>
@@ -189,7 +197,7 @@ export default {
       showModal: false, // Control the visibility of the full-screen modal
       roleToDisplay: null, // Store the role data for the modal
       success_model: false, // Control the visibility of the full-screen success modal
-      failure_model: false, // Control the visibility of the full-screen failure modal
+      failure_model: false,, // Control the visibility of the full-screen failure modal
       appliedRole: null,
     };
   },
@@ -232,25 +240,24 @@ export default {
             this.appliedRole = listing_id;
             console.log(this.appliedRole);
             console.log(this.displayListings[0]);
-            setTimeout(() => {
-                this.success_model = false;
-            }, 3000);
+            // setTimeout(() => {
+            //   this.success_model = false;
+            // }, 3000);
 
-          }
-          else{
+          } else {
             this.showModal = false;
             this.failure_model = true;
             setTimeout(() => {
-                this.failure_model = false;
+              this.failure_model = false;
             }, 3000);
           }
         })
         .catch((error) => {
-            this.showModal = false;
-            this.failure_model = true;
-            setTimeout(() => {
-                this.failure_model = false;
-            }, 3000);
+          this.showModal = false;
+          this.failure_model = true;
+          setTimeout(() => {
+            this.failure_model = false;
+          }, 3000);
         });
     },
   },
