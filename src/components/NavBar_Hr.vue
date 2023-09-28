@@ -14,7 +14,11 @@
         
         <v-spacer></v-spacer>
 
-        <v-btn to="/login">Login</v-btn>
+        <v-btn to="/">View Role Listings</v-btn>
+
+        <v-btn to="/">Manage Role Listings</v-btn>
+        
+        <v-btn to="/login">Profile</v-btn>
 
       </v-app-bar>
     </v-layout>
