@@ -89,6 +89,16 @@ def get_all_role_listings():
     try:
         # Get all the records from the database
         role_listings = RoleListing.query.all()
+
+
+
+        role_data = []
+        for listing in role_listings:
+            listing_data = listing.json()
+            role_name = listing.role_name
+            skills = get_skills_by_role(role_name)
+            listing_data['skills_required'] = skills
+            role_data.append(listing_data)
         
         # If have records return the records
         if len(role_listings):
@@ -96,7 +106,7 @@ def get_all_role_listings():
                 {
                     "code": 200,
                     "data": {
-                        "role_listing": [listing.json() for listing in role_listings]
+                        "role_listing": [listing.json() for listing in role_data]
                     }
                 }
             )
