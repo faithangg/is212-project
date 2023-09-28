@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../views/HomePage.vue";
 import CreateRoleListing from "../views/CreateRoleListing.vue";
-import RolesPage from "../views/RolesPage.vue";
+import ViewRolesPage from "../views/ViewRolesPage.vue";
+import ManageRolesPage from "../views/ManageRolesPage.vue";
 
 import LoginPage from "../views/LoginPage.vue";
 
@@ -23,9 +24,15 @@ const routes = [
   },
 
   {
-    path: "/rolesPage",
-    name: "RolesPage",
-    component: RolesPage, 
+    path: "/viewRolesPage",
+    name: "ViewRolesPage",
+    component: ViewRolesPage, 
+  },
+
+  {
+    path: "/manageRolesPage",
+    name: "ManageRolesPage",
+    component: ManageRolesPage, 
   }
 
 ];

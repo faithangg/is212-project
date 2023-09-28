@@ -1,23 +1,20 @@
-<!-- RoleListings.vue -->
+<!-- ViewRoleListingsCard.vue -->
 
 
 <template>
     <div>
-        <div class="text-h3 my-6">
-            Role Listings
-        </div>
         <v-row class="d-flex justify-center">
             <!-- display role listings -->
-            <v-card v-for="role in roleListings" :key="role.listing_id" class="role-card w-50 h-25">
+            <v-card v-for="role in role_listings_with_skill_match" :key="role.role_listing.listing_id" class="role-card w-50 h-25">
                 <v-row class="mt-3">
                     <v-col class="d-flex justify-start">
                         <v-card-title class="text-h5 font-weight-bold">
-                            {{ role.role_name }}
+                            {{ role.role_listing.role_name }}
                         </v-card-title>
                     </v-col>
                     <v-col class="d-flex justify-end me-2">
                         <v-chip color="primary">
-                            {{ role.category }}
+                            {{ role.role_listing.category }}
                         </v-chip>
                     </v-col>
                 </v-row>
@@ -25,17 +22,15 @@
                 <v-row>
                     <v-col>
                         <v-card-text class="d-flex justify-start text-h6">
-                            <span class="font-weight-bold">Department: </span> &nbsp <span>{{ role.department }}</span>
+                            <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ role.role_listing.department }}</span>
                         </v-card-text>
                         <v-card-text class="d-flex justify-start text-h6 pt-0">
-                            <span class="font-weight-bold">Deadline: </span>&nbsp<span>{{ role.deadline }}</span>
+                            <span class="font-weight-bold">Deadline: </span>&nbsp;<span>{{ role.role_listing.deadline }}</span>
                         </v-card-text>
                     </v-col>
                     <v-col class="d-flex justify-end me-4 mb-4 align-end">
                         <!-- open role description page -->
                         <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)"></v-btn>
-                        <!-- edit role -->
-                        <v-btn icon v-if="userIsHr"><v-icon>mdi-pencil</v-icon></v-btn>
                     </v-col>
                 </v-row>
             </v-card>
@@ -51,11 +46,11 @@
                         <v-row class="mt-3">
                             <v-col class="d-flex justify-start align-center">
                                 <v-card-title class="text-h5 font-weight-bold">
-                                    {{ roleToDisplay.role_name }}
+                                    {{ roleToDisplay.role_listing.role_name }}
                                 </v-card-title>
                                 <v-chip color="primary">
-                            {{ roleToDisplay.category }}
-                        </v-chip>
+                                    {{ roleToDisplay.role_listing.category }}
+                                </v-chip>
                             </v-col>
                             <v-col cols="auto">
                                 <v-btn class="bg-blue-accent-4 text-h6">Apply Now</v-btn>
@@ -64,10 +59,10 @@
                         <v-row>
                             <v-col>
                                 <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Department: </span> &nbsp <span>{{ roleToDisplay.department }}</span>
+                                    <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ roleToDisplay.role_listing.department }}</span>
                                 </v-card-text>
                                 <v-card-text class="d-flex justify-start text-h6 pt-0">
-                                    <span class="font-weight-bold">Deadline: </span>&nbsp<span>{{ roleToDisplay.deadline }}</span>
+                                    <span class="font-weight-bold">Deadline: </span>&nbsp;<span>{{ roleToDisplay.role_listing.deadline }}</span>
                                 </v-card-text>
                             </v-col>
                         </v-row>
@@ -83,9 +78,10 @@
                                 <v-card-text>
                                     <!-- loop thru requied skils -->
                                     <span class="font-weight-bold text-h6">Skills Required: </span>
-                                    <v-chip class="me-2" v-for="skill in roleToDisplay.skills_required" :key="skill" color="blue">
+                                    <!-- <v-chip class="me-2" v-for="skill in roleToDisplay" :key="skill" color="blue">
                                         {{ skill }}
-                                    </v-chip>
+                                    </v-chip> -->
+                                    
                                 </v-card-text>
                             </v-col>
                         </v-row>
@@ -101,7 +97,7 @@
 
 export default {
     props: {
-        roleListings: [], // Receive role listings as props
+        role_listings_with_skill_match: [], // Receive role listings as props
     },
     data() {
         return {
@@ -117,10 +113,7 @@ export default {
     },
 
     computed: {
-        userIsHr() {
-            // Access the user's role from your Vuex store getter
-            return this.$store.getters.getUserRole === 'hr';
-        },
+
     },
 };
 </script>
