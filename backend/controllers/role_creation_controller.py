@@ -2,8 +2,10 @@ from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing
 from blueprints.hr_blueprint import hr_blueprint
+from blueprints.staff_blueprint import staff_blueprint
 from models.role_skill import RoleSkill 
 from models.role import Role
+from models.staff import Staff
 
 # HR: CREATES A ROLE LISTING
 @hr_blueprint.route('/create_role_listing', methods=['POST'])
@@ -80,6 +82,20 @@ def get_role_description(role_name):
     try:
         role = Role.query.filter_by(role_name=role_name).first()
         return jsonify(description=role.role_desc), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+# GET DEPARTMENTS FROM STAFF TABLE
+@staff_blueprint.route('/departments', methods=['GET'])
+def get_departments():
+    try:
+        staffs = Staff.query.all()
+        
+        departments = []
+        for staff in staffs:
+            if staff.dept not in departments:
+                departments.append(staff.dept)
+        return jsonify(departments), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
