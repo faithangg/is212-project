@@ -21,7 +21,7 @@
             <!-- Search button -->
         </v-container>
 
-        <ViewRoleListingsCard :role_listings_with_skill_match="role_listings_with_skill_match" />
+        <ViewRoleListingsCard :role_listings_with_skill_match="displayListings" />
 
     </div>
 </template>
@@ -33,7 +33,8 @@ import ViewRoleListingsCard from '../components/ViewRoleListingsCard.vue'; // Im
 export default {
     data() {
         return {
-            role_listings_with_skill_match: [], // Initialize as an empty array
+            rolesFromDb: [], // Initialize as an empty array
+            displayListings: [],
             searchQuery: '', // Initialize as an empty string
         };
     },
@@ -46,7 +47,8 @@ export default {
             .then((response) => {
                 console.log(response.data.data);
 
-                this.role_listings_with_skill_match = response.data.data.role_listings_with_skill_match;
+                this.rolesFromDb = response.data.data.role_listings_with_skill_match;
+                this.displayListings = this.rolesFromDb;
                 console.log(this.role_listings_with_skill_match);
                 console.log(this.role_listings_with_skill_match[0].role_listing);
             })
@@ -73,8 +75,22 @@ export default {
         performSearch() {
             // This method is called when the Search button is clicked.
            
+            if (this.searchQuery == '') {
+                this.displayListings = this.rolesFromDb;
+                return;
+            }
             // Fetch role listings from the API
-            // axios.get('http://
+            var userId = this.getUserId;
+
+            axios.get(`http://127.0.0.1:5000/staff/browse_role_listings/${userId}/${this.searchQuery}`)
+            .then((response) => {
+                console.log(response.data.data);
+
+                this.displayListings = response.data.data.role_listings_with_skill_match;
+            })
+            .catch((error) => {
+                console.error('Error fetching role listings:', error);
+            });
         },
     },
 

@@ -5,7 +5,7 @@
     <v-row class="d-flex justify-center">
       <!-- display role listings -->
       <v-card
-        v-for="role in role_listings_with_skill_match"
+        v-for="role in displayListings"
         :key="role.role_listing.listing_id"
         class="role-card w-50 h-25"
       >
@@ -23,12 +23,12 @@
         </v-row>
 
         <v-row>
-          <v-col>
+          <v-col >
             <v-card-text class="d-flex justify-start text-h6">
               <span class="font-weight-bold">Department: </span> &nbsp;
               <span>{{ role.role_listing.department }}</span>
             </v-card-text>
-            <v-card-text class="d-flex justify-start text-h6 pt-0">
+            <v-card-text class="d-flex justify-start text-h6 pt-0 ">
               <span class="font-weight-bold">Deadline: </span>&nbsp;<span
                 >{{ role.role_listing.deadline }}
               </span>
@@ -189,19 +189,32 @@ export default {
       showModal: false, // Control the visibility of the full-screen modal
       roleToDisplay: null, // Store the role data for the modal
       success_model: false, // Control the visibility of the full-screen success modal
-      failure_model: false // Control the visibility of the full-screen failure modal
+      failure_model: false, // Control the visibility of the full-screen failure modal
+      appliedRole: null,
     };
   },
+
+  computed: {
+    displayListings() {
+      let filtered = this.role_listings_with_skill_match.filter(
+        (role) => role.role_listing.listing_id != this.appliedRole
+      );
+
+      this.appliedRole = null;
+      return filtered;
+    }
+  },
+
   methods: {
     openModal(role) {
       this.roleToDisplay = role;
       this.showModal = true;
     },
     applyrole() {
-      var listing_id = this.roleToDisplay.role_listing.listing_id;
-      var staff_id = this.$store.getters.getUserId;
+      let listing_id = this.roleToDisplay.role_listing.listing_id;
+      let staff_id = this.$store.getters.getUserId;
 
-      var raw = JSON.stringify({
+      let raw = JSON.stringify({
         staff_id: staff_id,
         listing_id: listing_id,
       });
@@ -216,9 +229,13 @@ export default {
           if (response.status == 200) {
             this.showModal = false;
             this.success_model = true;
+            this.appliedRole = listing_id;
+            console.log(this.appliedRole);
+            console.log(this.displayListings[0]);
             setTimeout(() => {
                 this.success_model = false;
             }, 3000);
+
           }
           else{
             this.showModal = false;
@@ -238,7 +255,6 @@ export default {
     },
   },
 
-  computed: {},
 };
 </script>
 
