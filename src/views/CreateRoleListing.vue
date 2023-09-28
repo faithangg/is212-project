@@ -64,7 +64,7 @@
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="menu" v-model="categories" label="Select category(s)" variant="outlined" required :items="this.categories_list" chips multiple></v-select>
+                                    <v-select type="menu" v-model="categories" label="Select category(s)" variant="outlined" required :items="this.categories_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
@@ -99,6 +99,7 @@
                                     color="teal-lighten-1"
                                     size="large"
                                     variant="tonal"
+                                    @click="create_role()"
                                 >
                                     <b>Publish</b>
                                 </v-btn>
@@ -125,7 +126,7 @@ export default {
             description: "",
             departments: "",
             departments_list: [],
-            categories: [],
+            categories: "",
             categories_list: [],
             skills: [],
             selectedDate: new Date(), // Initialize with the current date
@@ -212,7 +213,7 @@ export default {
 
                 // Save departments to departments
                 this.departments_list=response.data;
-                console.log("this.departments_list", this.departments_list);
+                // console.log("this.departments_list", this.departments_list);
 
             } catch (error) {
                 // Errors when calling the service; such as network error, 
@@ -221,6 +222,7 @@ export default {
             }
 
         },
+        
         async get_categories() {
             try{
                 console.log("trying get_categories()");
@@ -229,12 +231,26 @@ export default {
                 console.log("response", response);
 
                 this.categories_list=response.data;
-                console.log("this.categories_list", this.categories_list);
+                // console.log("this.categories_list", this.categories_list);
 
             } catch (error) {
                 // Errors when calling the service; such as network error, 
                 // service offline, etc
                 console.log('Error fetching categories:', error);
+            }
+
+        },
+        async create_role() {
+            try{
+                console.log("trying create_role()");
+                // console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
+
+                const response = await axios.post(`http://127.0.0.1:5000/hr/create_role_listing`, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
+                console.log("response", response);
+            } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log('Error creating roles:', error);
             }
 
         },
