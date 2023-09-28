@@ -2,25 +2,60 @@
 import { createStore } from 'vuex';
 
 export default createStore({
-  state: {
-    userRole: "hr", // Initially, the user role is null
-  },
-  mutations: {
-    setUserRole(state, role) {
-      state.userRole = role;
+    state: {
+        userRole: "hr", // temp set as "hr"
+        userId: 1, // temp set as 1
     },
-  },
-  actions: {
-    login({ commit }, userData) {
-      // Assuming you have an API call to authenticate the user
-      // After successful login, set the user's role
-      const role = userData.role; // Replace with actual role data from the API
-      commit('setUserRole', role);
+    mutations: {
+        setUserRole(state, role) {
+            state.userRole = role;
+        },
+
+        setUserId(state, id) {
+            state.userId = id;
+        },
     },
-  },
-  getters: {
-    getUserRole(state) {
-      return state.userRole;
+    actions: {
+        async authenticate({ commit }, userData) {
+
+            var login_url = "http://127.0.0.1:5000/staff/login_details/" + String(userData.staffID) + "/" + userData.password;
+            const data_fetch = await fetch(login_url)
+
+            var data = await data_fetch.json();
+
+            if (data['code'] == 500) {
+                alert('The password or staff id is incorrect')
+
+                return false; // Return false if the login failed
+            }
+            else {
+                var access_right = data["access_rights"]
+                console.log(access_right)
+                if (access_right == 1) {
+                    var role = "hr"
+                }
+                else if (access_right == 2) {
+                    var role = "staff"
+                }
+    
+                commit('setUserRole', role);
+                commit('setUserId', userData.staffID);
+                
+                // this.$router.push('/rolesPage')                
+                return true; // Return true if the login was successful
+    
+            }
+
+
+
+        },
     },
-  },
+    getters: {
+        getUserRole(state) {
+            return state.userRole;
+        },
+        getUserId(state) {
+            return state.userId;
+        },
+    },
 });
