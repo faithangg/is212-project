@@ -3,8 +3,9 @@ from database import db
 from models.role_listing import RoleListing
 from blueprints.hr_blueprint import hr_blueprint
 from models.role_skill import RoleSkill 
+from models.role import Role
 
-# Handles the logic where HR creates role listing
+# HR: CREATES A ROLE LISTING
 @hr_blueprint.route('/create_role_listing', methods=['POST'])
 def create_role_listing():
     try:
@@ -54,6 +55,7 @@ def create_role_listing():
         db.session.rollback()
         return jsonify(error=str(e)), 500
 
+# GET SKILLS REQUIRED FOR A SPECIFIC ROLE
 @hr_blueprint.route('/get_role_skills/<string:role_name>', methods=['GET'])
 def get_role_skills(role_name):
     try:
@@ -62,3 +64,23 @@ def get_role_skills(role_name):
         return jsonify({"skills_required": skills_list}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# GET ALL ROLE NAMES
+@hr_blueprint.route('/get_role_names', methods=['GET'])
+def get_role_names():
+    try:
+        roles = Role.query.all()
+        return jsonify([role.role_name for role in roles]), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# GET DESCRIPTION FOR SPECIFIC ROLE
+@hr_blueprint.route('/role/<string:role_name>/description', methods=['GET'])
+def get_role_description(role_name):
+    try:
+        role = Role.query.filter_by(role_name=role_name).first()
+        return jsonify(description=role.role_desc), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+    

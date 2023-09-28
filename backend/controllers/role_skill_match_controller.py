@@ -4,7 +4,7 @@ from models.role_skill import RoleSkill
 from models.staff_skill import StaffSkill
 from blueprints.staff_blueprint import staff_blueprint
 
-# Handles the logic where HR creates role listing
+# STAFF: VIEW ROLE SKILL MATCH
 @staff_blueprint.route('/role_skill/<string:staff_id>/<string:role_name>', methods=['GET'])
 def role_skill_match(staff_id, role_name):
     

@@ -4,7 +4,7 @@ from models.login_details import LoginDetails
 from models.staff import Staff
 from blueprints.staff_blueprint import staff_blueprint
 
-# Handles the logic where HR creates role listing
+# STAFF: LOGIN 
 @staff_blueprint.route('/login_details/<string:staff_id>/<string:staff_password>', methods=['GET'])
 def login_details(staff_id, staff_password):
     

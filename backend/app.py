@@ -9,6 +9,7 @@ import controllers.role_creation_controller # This line ensures that your route 
 import controllers.login_details_controller
 import controllers.role_listing_controller
 import controllers.role_skill_match_controller
+import controllers.job_application_controller
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/sbrp'
