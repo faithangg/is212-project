@@ -11,9 +11,9 @@ USE `sbrp`;
 
 DROP TABLE IF EXISTS `staff_skill`;
 DROP TABLE IF EXISTS `role_skill`;
-DROP TABLE IF EXISTS `role_listing`;
 DROP TABLE IF EXISTS `login_details`;
 DROP TABLE IF EXISTS `job_application`;
+DROP TABLE IF EXISTS `role_listing`;
 DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `category`;
 DROP TABLE IF EXISTS `staff`;   
