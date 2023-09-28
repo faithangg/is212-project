@@ -151,32 +151,28 @@
         </v-card>
       </v-dialog>
 
+      <!-- show success message -->
+      <v-dialog v-model="success_model" hide-overlay class="w-50">
+        <!-- Modal content goes here -->
+        <v-alert
+          color="success"
+          icon="$success"
+          title="Successful Application"
+          text="You have successfully applied for the role!"
+        ></v-alert>
+      </v-dialog>
 
       <!-- show success message -->
-      <v-dialog v-model="success_model" hide-overlay>
+      <v-dialog v-model="failure_model" hide-overlay class="w-50">
         <!-- Modal content goes here -->
-        <v-card>
-          <v-card-actions>
-            <v-btn @click="success_model = false">Close</v-btn>
-          </v-card-actions>
-          <v-container>
-            <v-row class="mt-3">
-              <v-col class="align-center">
-                <v-card-title class="text-h5 font-weight-bold text-center">
-                  Success Application
-                </v-card-title>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col class="align-center">
-                <v-card-text class="text-h6 align-center">
-                  <span class="font-weight-bold text-center">You have successfully applied for the {{ roleToDisplay.role_listing.role_name }} role! </span> &nbsp;
-                </v-card-text>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
+        <v-alert
+          color="error"
+          icon="$success"
+          title="Application Failed"
+          text="Your application for the role has failed. Please try again later"
+        ></v-alert>
       </v-dialog>
+
     </v-row>
   </div>
 </template>
@@ -193,6 +189,7 @@ export default {
       showModal: false, // Control the visibility of the full-screen modal
       roleToDisplay: null, // Store the role data for the modal
       success_model: false, // Control the visibility of the full-screen success modal
+      failure_model: false // Control the visibility of the full-screen failure modal
     };
   },
   methods: {
@@ -216,17 +213,27 @@ export default {
           },
         })
         .then((response) => {
-            if(response.status == 200){
-                this.showModal = false;
-                this.success_model = true;
-                // setTimeout(() => {
-                //     this.success_model = false;
-                // }, 5000);
-            }
-                
+          if (response.status == 200) {
+            this.showModal = false;
+            this.success_model = true;
+            setTimeout(() => {
+                this.success_model = false;
+            }, 3000);
+          }
+          else{
+            this.showModal = false;
+            this.failure_model = true;
+            setTimeout(() => {
+                this.failure_model = false;
+            }, 3000);
+          }
         })
         .catch((error) => {
-          console.error("Error fetching role listings:", error);
+            this.showModal = false;
+            this.failure_model = true;
+            setTimeout(() => {
+                this.failure_model = false;
+            }, 3000);
         });
     },
   },
