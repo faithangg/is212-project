@@ -72,7 +72,7 @@
                         <v-row>
                             <v-col>
                                 <v-card-text class="text-h6">
-                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Delect{{ roleToDisplay.role_listing.deadline }}us magnam aspernatur culpa consequatur corrupti modi quibusdam, vitae mollitia numquam ullam doloremque fuga beatae voluptate molestias itaque dolor soluta molestiae fugit! -->
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Delect{{ roleToDisplay.role_listing.deadline }}us magnam aspernatur culpa consequatur corrupti modi quibusdam, vitae mollitia numquam ullam doloremque fuga beatae voluptate molestias itaque dolor soluta molestiae fugit!
                                     {{ roleToDisplay.role_listing.role_desc }}
                                 </v-card-text>
                             </v-col>
@@ -92,6 +92,25 @@
                                     </v-chip>
                                     
 
+                           
+
+                                </v-card-text>
+                            </v-col>
+                            <v-col>
+                                <v-card-text>
+
+
+                                    <span class="font-weight-bold text-h6">Your Match: </span>
+                                    <v-progress-circular
+                                        :rotate="180"
+                                        :size="100"
+                                        :width="15"
+                                        :model-value="roleToDisplay.role_skill_match.match_percentage"
+                                        color="teal"
+                                        >
+                                       
+                                        {{ roleToDisplay.role_skill_match.match_percentage  }}%
+                                    </v-progress-circular>
                                 </v-card-text>
                             </v-col>
                         </v-row>
