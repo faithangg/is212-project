@@ -10,7 +10,7 @@
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Role
+                                        Role*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -20,7 +20,7 @@
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Description 
+                                        Description
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -50,7 +50,7 @@
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Department 
+                                        Department*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -60,7 +60,7 @@
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Category 
+                                        Category*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -70,7 +70,7 @@
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Application Deadline 
+                                        Application Deadline*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -93,15 +93,35 @@
                                 </v-col>
                             </v-row>
                             <v-row dense class="mx-16">
+                                <!-- Error Message -->
+                                <v-alert
+                                    v-if="errorMessage"
+                                    color="error"
+                                    icon="mdi-alert"
+                                    >
+                                    {{ errorMessage }}
+                                </v-alert>
+                            </v-row>
+                            <v-row dense class="mx-16">
+                                <!-- Success Message -->
+                                <v-alert
+                                    v-if="successMessage"
+                                    type="success"
+                                    >
+                                    {{ successMessage }}
+                                </v-alert>
+                            </v-row>
+                            <v-row dense class="mx-16">
                                 <v-btn
                                     block
                                     class="mt-8"
                                     color="teal-lighten-1"
                                     size="large"
                                     variant="tonal"
+                                    :disabled="!isFieldsNotEmpty"
                                     @click="create_role()"
                                 >
-                                    <b>Publish</b>
+                                    <b>Create</b>
                                 </v-btn>
                             </v-row>
                             
@@ -134,6 +154,8 @@ export default {
             // maxDate: null,            // Maximum date (optional)
             selectedDateFormatted: '', // Displayed date in the text field
             // showDatePicker: false,    // Flag to show/hide the date picker
+            errorMessage: '',          // Error message to display to the user
+            successMessage: '',        // Success message to display to the user
         };
     },
     async created() {
@@ -247,14 +269,38 @@ export default {
 
                 const response = await axios.post(`http://127.0.0.1:5000/hr/create_role_listing`, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
                 console.log("response", response);
+                if (response.status === 201) {
+                    // Role created successfully
+                    this.errorMessage = "";
+                    this.successMessage = "New role created successfully.";
+                    console.log("successMessage", this.successMessage);
+                }
             } catch (error) {
-                // Errors when calling the service; such as network error, 
-                // service offline, etc
-                console.log('Error creating roles:', error);
+                if (error.response && error.response.status === 400) {
+                    // duplicate roles detected
+                    // Display an error message to the user
+                    console.error("Error creating roles:", error); // Log the error response
+                    this.successMessage = "";
+                    this.errorMessage = "This role already exists. Please check your input and try again.";
+                    console.log("errorMessage", this.errorMessage);
+                } else {
+                    // Errors when calling the service; such as network error, service offline, etc
+                    console.log('Network error or service offline:', error);
+                    // Display a generic error message
+                    this.successMessage = "";
+                    this.errorMessage = "An error occurred while communicating with the server. Please try again later.";
+                    console.log("errorMessage", this.errorMessage);
+                }
             }
 
         },
-    }
+    },
+    computed: {
+        isFieldsNotEmpty() {
+            // Check if all required fields are valid before enabling the create button
+            return !!this.role_name && !!this.departments && !!this.categories && !!this.selectedDateFormatted;
+        },
+    },
 }
 </script>
 
