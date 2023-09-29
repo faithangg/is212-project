@@ -7,6 +7,7 @@ from models.role_skill import RoleSkill
 from models.role import Role
 from models.category import Category
 from models.staff import Staff
+from datetime import date, datetime
 
 # HR: CREATES A ROLE LISTING
 @hr_blueprint.route('/create_role_listing', methods=['POST'])
@@ -22,6 +23,10 @@ def create_role_listing():
 
         # Extract validated fields
         role_name, department, category, deadline = [data[k] for k in required_keys]
+
+        deadline_date = datetime.strptime(deadline, '%Y-%m-%d')
+        if datetime.today() > deadline_date:
+            return jsonify({"error": "Deadline must be in the future"}), 400 
 
 
         # Check for duplicate role listing
