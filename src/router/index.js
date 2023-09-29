@@ -9,14 +9,14 @@ import LoginPage from "../views/LoginPage.vue";
 const routes = [
   {
     path: "/",
-    name: "HomePage",
-    component: HomePage,
-  },
-  {
-    path: "/login",
     name: "LoginPage",
     component: LoginPage,
   },
+  // {
+  //   path: "/login",
+  //   name: "LoginPage",
+  //   component: LoginPage,
+  // },
   {
     path: "/CreateRoleListing",
     name: "CreateRoleListing",
