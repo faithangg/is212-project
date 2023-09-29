@@ -9,12 +9,12 @@
             <!-- Search input field -->
             <v-row class="d-flex justify-center mt-3 mb-6 ">
                 <v-col cols="7" class="pe-0">
-                    <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details
+                    <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details id="search_bar"
                         class="rounded-top-left rounded-bottom-left"></v-text-field>
                 </v-col>
                 <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
                     <!-- Search button attached to the end of the search bar -->
-                    <v-btn @click="performSearch" color="primary" class="ma-0" style="height: 100%;">Search</v-btn>
+                    <v-btn @click="performSearch" color="primary" class="ma-0" style="height: 100%;" id="search_btn">Search</v-btn>
                 </v-col>
             </v-row>
 
