@@ -20,7 +20,7 @@
 
                         <v-divider></v-divider>
                         <v-card-actions>
-                            <v-btn type="submit" class="mt-4" color="primary" @click="login()" id="login">Login</v-btn>
+                            <v-btn type="submit" class="mt-4" color="teal" @click="login()" id="login">Login</v-btn>
                         </v-card-actions>
                     </v-container>
                 </v-main>
