@@ -3,9 +3,11 @@ import { createStore } from 'vuex';
 
 export default createStore({
     state: {
-        isLoggedIn: true,
-        userRole: "hr", // temp set as "hr"
-        userId: 1, // temp set as 1
+        isLoggedIn: false,
+        // userRole: "hr", // temp set as "hr"
+        // userId: 1, // temp set as 1
+        userRole: null, // temp set as "hr"
+        userId: null, // temp set as 1
     },
     mutations: {
         setIsLoggedIn(state, status) {
