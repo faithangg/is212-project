@@ -36,13 +36,15 @@ def role_skill_match(staff_id, role_name):
         # Get the percentage of roles matched -- ???
         match_percentage = (len(staff_have) / (len(staff_have) + len(staff_dont))) * 100
 
+        match_percentage = str(match_percentage)
+
         return jsonify(
                 {
                     "code": 200,
                     "data": {
                         "have": [have for have in staff_have],
                         "dont": [dont for dont in staff_dont],
-                        "match percentage": match_percentage
+                        "match_percentage": match_percentage
                     }
                 }
             )

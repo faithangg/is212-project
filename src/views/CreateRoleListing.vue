@@ -10,77 +10,67 @@
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Role Name* 
+                                        Role*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-text-field type="text" v-model="role_name" label="Enter role name" variant="outlined" required></v-text-field>
+                                    <v-select type="menu" v-model="role_name" label="Select role" variant="outlined" required :items="this.role_name_list" @update:model-value="display_description"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Description 
+                                        Description
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-textarea type="text" v-model="description" label="Enter job scope" variant="outlined" required></v-textarea>
+                                    <v-textarea type="text" v-model="description" variant="outlined" readonly required></v-textarea>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Department 
+                                        Skills Required
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="text" v-model="department" label="Select department" variant="outlined" required :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"></v-select>
+                                    <v-chip-group row class="mb-4">
+                                        <v-chip
+                                            v-for="(skill, index) in skills"
+                                            :key="index"
+                                            color="default"
+                                            size="large"
+                                            label
+                                        >
+                                            {{ skill }}
+                                        </v-chip>
+                                    </v-chip-group>                      
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Category 
+                                        Department*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="text" v-model="category" label="Select category(s)" variant="outlined" required :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']" chips multiple></v-select>
+                                    <v-select type="menu" v-model="departments" label="Select department" variant="outlined" required :items="this.departments_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Employment Type 
+                                        Category*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="text" v-model="employment_type" label="Select employment type" variant="outlined" required :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"></v-select>
+                                    <v-select type="menu" v-model="categories" label="Select category(s)" variant="outlined" required :items="this.categories_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Country 
-                                    </p>
-                                </v-col>
-                                <v-col cols="8">
-                                    <v-select type="text" v-model="country" label="Select country" variant="outlined" required :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
-                                        Skills 
-                                    </p>
-                                </v-col>
-                                <v-col cols="8">
-                                    <v-select type="text" v-model="skills" label="Select skill(s)" variant="outlined" required :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']" chips multiple></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
-                                        Application Deadline 
+                                        Application Deadline*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -90,8 +80,6 @@
                                         label="Select a Date"
                                         variant="outlined" 
                                         required
-                                        :min="minDate"
-                                        :max="maxDate"
                                     ></v-text-field>
                                     
                                     <!-- <v-date-picker
@@ -105,14 +93,35 @@
                                 </v-col>
                             </v-row>
                             <v-row dense class="mx-16">
+                                <!-- Error Message -->
+                                <v-alert
+                                    v-if="errorMessage"
+                                    color="error"
+                                    icon="mdi-alert"
+                                    >
+                                    {{ errorMessage }}
+                                </v-alert>
+                            </v-row>
+                            <v-row dense class="mx-16">
+                                <!-- Success Message -->
+                                <v-alert
+                                    v-if="successMessage"
+                                    type="success"
+                                    >
+                                    {{ successMessage }}
+                                </v-alert>
+                            </v-row>
+                            <v-row dense class="mx-16">
                                 <v-btn
                                     block
                                     class="mt-8"
                                     color="teal-lighten-1"
                                     size="large"
                                     variant="tonal"
+                                    :disabled="!isFieldsNotEmpty"
+                                    @click="create_role()"
                                 >
-                                    <b>Publish</b>
+                                    <b>Create</b>
                                 </v-btn>
                             </v-row>
                             
@@ -126,33 +135,172 @@
 </template>
 
 <script>
-    export default {
-        name: "CreateRoleListing",
-        data() {
-            return {
-                role_name: "",
-                description: "",
-                department: "",
-                category: null,
-                employment_type: "",
-                country: "",
-                skills: null,
-                selectedDate: new Date(), // Initialize with the current date
-                minDate: new Date(),      // Minimum date (e.g., today)
-                maxDate: null,            // Maximum date (optional)
-                selectedDateFormatted: '', // Displayed date in the text field
-                showDatePicker: false,    // Flag to show/hide the date picker
-                
-            };
+import axios from 'axios';
+
+export default {
+    name: "CreateRoleListing",
+    data() {
+        return {
+            role_name: "",
+            role_name_list: [],
+            description: "",
+            departments: "",
+            departments_list: [],
+            categories: "",
+            categories_list: [],
+            skills: [],
+            selectedDate: new Date(), // Initialize with the current date
+            // minDate: new Date(),      // Minimum date (e.g., today)
+            // maxDate: null,            // Maximum date (optional)
+            selectedDateFormatted: '', // Displayed date in the text field
+            // showDatePicker: false,    // Flag to show/hide the date picker
+            errorMessage: '',          // Error message to display to the user
+            successMessage: '',        // Success message to display to the user
+        };
+    },
+    async created() {
+        // Fetch roles from the API
+        await this.get_roles();
+        await this.get_departments();
+        await this.get_categories();
+    },
+    methods: {
+        updateDate() {
+            // Format the selected date and update the text field
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            this.selectedDateFormatted = this.selectedDate.toLocaleDateString('en-US', options);
+            this.showDatePicker = false; // Hide the date picker after selection
         },
-        methods: {
-            updateDate() {
-                // Format the selected date and update the text field
-                const options = { year: 'numeric', month: 'short', day: 'numeric' };
-                this.selectedDateFormatted = this.selectedDate.toLocaleDateString('en-US', options);
-                this.showDatePicker = false; // Hide the date picker after selection
-            },
+        //get roles
+        async get_roles() {
+            try{
+                console.log("trying get_roles()");
+
+                const response = await axios.get('http://127.0.0.1:5000/hr/get_role_names');
+                console.log("response", response);
+
+                // Save role names to role_name
+                this.role_name_list=response.data;
+                //console.log("this.role_name", this.role_name);
+
+            } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log('Error fetching roles:', error);
+            }
+
         },
-    }
+        async display_description(){
+            try{
+                console.log("trying display_description()");
+
+                const response = await axios.get('http://127.0.0.1:5000/hr//role/'+this.role_name+'/description');
+                console.log("response", response);
+
+                // Save description to a variable
+                this.description=response.data.description;
+                // console.log("this.description", this.description);
+
+                // Get skills
+                this.display_skills();
+                } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log('Error fetching description:', error);
+                }
+        },
+        async display_skills(){
+            try{
+                console.log("trying display_skills()");
+
+                const response = await axios.get('http://127.0.0.1:5000/hr/get_role_skills/'+this.role_name);
+                console.log("response", response);
+
+                // Save skills to a variable
+                this.skills=response.data.skills_required;
+                // console.log("this.skills", this.skills);
+
+                } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log('Error fetching skills:', error);
+                }
+        },
+        async get_departments() {
+            try{
+                console.log("trying get_departments()");
+
+                const response = await axios.get('http://127.0.0.1:5000/staff/departments');
+                console.log("response", response.data);
+
+                // Save departments to departments
+                this.departments_list=response.data;
+                // console.log("this.departments_list", this.departments_list);
+
+            } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log('Error fetching departments:', error);
+            }
+
+        },
+        
+        async get_categories() {
+            try{
+                console.log("trying get_categories()");
+
+                const response = await axios.get('http://127.0.0.1:5000/hr/get_category_names');
+                console.log("response", response);
+
+                this.categories_list=response.data;
+                // console.log("this.categories_list", this.categories_list);
+
+            } catch (error) {
+                // Errors when calling the service; such as network error, 
+                // service offline, etc
+                console.log('Error fetching categories:', error);
+            }
+
+        },
+        async create_role() {
+            try{
+                console.log("trying create_role()");
+                // console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
+
+                const response = await axios.post(`http://127.0.0.1:5000/hr/create_role_listing`, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
+                console.log("response", response);
+                if (response.status === 201) {
+                    // Role created successfully
+                    this.errorMessage = "";
+                    this.successMessage = "New role created successfully.";
+                    console.log("successMessage", this.successMessage);
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 400) {
+                    // duplicate roles detected
+                    // Display an error message to the user
+                    console.error("Error creating roles:", error); // Log the error response
+                    this.successMessage = "";
+                    this.errorMessage = "This role already exists. Please check your input and try again.";
+                    console.log("errorMessage", this.errorMessage);
+                } else {
+                    // Errors when calling the service; such as network error, service offline, etc
+                    console.log('Network error or service offline:', error);
+                    // Display a generic error message
+                    this.successMessage = "";
+                    this.errorMessage = "An error occurred while communicating with the server. Please try again later.";
+                    console.log("errorMessage", this.errorMessage);
+                }
+            }
+
+        },
+    },
+    computed: {
+        isFieldsNotEmpty() {
+            // Check if all required fields are valid before enabling the create button
+            return !!this.role_name && !!this.departments && !!this.categories && !!this.selectedDateFormatted;
+        },
+    },
+}
 </script>
 

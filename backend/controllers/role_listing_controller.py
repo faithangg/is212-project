@@ -5,6 +5,7 @@ from sqlalchemy import or_
 import re
 from models.role_listing import RoleListing
 from models.role_skill import RoleSkill 
+from models.role import Role 
 from models.job_application import JobApplication
 from blueprints.hr_blueprint import hr_blueprint
 from blueprints.staff_blueprint import staff_blueprint
@@ -66,12 +67,14 @@ def role_skill_match(staff_id, role_name):
         # Get the percentage of roles matched -- ???
         match_percentage = (len(staff_have) / (len(staff_have) + len(staff_dont))) * 100
 
+        match_percentage = str(match_percentage)
+
         return {
                     "code": 200,
                     "data": {
                         "have": [have for have in staff_have],
                         "dont": [dont for dont in staff_dont],
-                        "match percentage": match_percentage
+                        "match_percentage": match_percentage
                     }
                 }
     except Exception as e:
@@ -96,8 +99,10 @@ def get_all_role_listings():
         for listing in role_listings:
             listing_data = listing.json()
             role_name = listing.role_name
+            role_desc = Role.query.filter_by(role_name=role_name).first()
             skills = get_skills_by_role(role_name)
             listing_data['skills_required'] = skills
+            listing_data['role_desc'] = role_desc.role_desc
             role_data.append(listing_data)
         
         # If have records return the records
@@ -139,6 +144,9 @@ def get_one_role_listings(listing_id):
             # Include the skills in the response
             role_data['skills_required'] = skills_required
 
+            role_desc = Role.query.filter_by(role_name=role_listing.role_name).first()
+            role_data['role_desc'] = role_desc.role_desc
+
             return jsonify(
                 {
                     "code": 200,
@@ -171,12 +179,16 @@ def get_role_listings_not_applied(staff_id):
         
         # For each role listing, get the role skill match and append it to results
         for listing in role_listings:
+            role_data = listing.json()
             skill_match_data = role_skill_match(staff_id, listing.role_name)
             
+            role_desc = Role.query.filter_by(role_name=listing.role_name).first()
+            role_data['role_desc'] = role_desc.role_desc
+
             # If the role skill match was successful, add it to results
             if skill_match_data.get('code') == 200:
                 results.append({
-                    "role_listing": listing.json(),
+                    "role_listing": role_data,
                     "role_skill_match": skill_match_data['data']
                 })
 

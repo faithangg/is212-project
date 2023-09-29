@@ -11,9 +11,9 @@ USE `sbrp`;
 
 DROP TABLE IF EXISTS `staff_skill`;
 DROP TABLE IF EXISTS `role_skill`;
-DROP TABLE IF EXISTS `role_listing`;
 DROP TABLE IF EXISTS `login_details`;
 DROP TABLE IF EXISTS `job_application`;
+DROP TABLE IF EXISTS `role_listing`;
 DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `category`;
 DROP TABLE IF EXISTS `staff`;   
@@ -51,7 +51,7 @@ INSERT INTO staff (staff_id, staff_fname, staff_lname, dept, email, access_right
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
-    role_name varchar(20) NOT NULL,
+    role_name varchar(50) NOT NULL,
     role_desc longtext NOT NULL,
     CONSTRAINT role_pkey PRIMARY KEY (role_name)
 )  ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -85,7 +85,7 @@ INSERT INTO skills (skill_name) VALUES
 
 DROP TABLE IF EXISTS `role_skill`;
 CREATE TABLE IF NOT EXISTS `role_skill` (
-    role_name varchar(20) NOT NULL,
+    role_name varchar(50) NOT NULL,
     skill_name varchar(50) NOT NULL,
     CONSTRAINT role_skill_pkey PRIMARY KEY (role_name, skill_name),
     CONSTRAINT role_skill_fk1 FOREIGN KEY (role_name) REFERENCES role(role_name) ON DELETE CASCADE,
@@ -145,7 +145,7 @@ INSERT INTO category (category, category_desc) VALUES
 DROP TABLE IF EXISTS `role_listing`;
 CREATE TABLE IF NOT EXISTS `role_listing` (
     listing_id integer NOT NULL AUTO_INCREMENT,
-    role_name varchar(20) NOT NULL,
+    role_name varchar(50) NOT NULL,
     department varchar(100) NOT NULL,
     category varchar(120) NOT NULL,
     deadline date NOT NULL,
