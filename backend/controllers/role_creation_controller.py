@@ -28,8 +28,7 @@ def create_role_listing():
         existing_role = RoleListing.query.filter_by(
             role_name=role_name,
             department=department,
-            category=category,
-            deadline=deadline,
+            category=category
         ).first()
 
         if existing_role:
