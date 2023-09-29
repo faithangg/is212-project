@@ -24,7 +24,6 @@ def create_role_listing():
         # Extract validated fields
         role_name, department, category, deadline = [data[k] for k in required_keys]
 
-        print("deadline ", deadline)
         deadline_date = datetime.strptime(deadline, '%Y-%m-%d')
         if datetime.today() > deadline_date:
             return jsonify({"error": "Deadline must be in the future"}), 400 
