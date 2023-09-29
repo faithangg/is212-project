@@ -1,11 +1,22 @@
 // Inside your Vue component
 <template>
     <div>
-        <div class="text-h3 mt-9 ">
-            Manage Role Listings
+        <!-- <div class="text-h3 mt-9 ">
+            Manage Role Listing
         </div>
+        <v-btn v-if="userIsHr" to="/manageRolesPage" id="managed">Manage Role Listings</v-btn> -->
+
         <!-- Search input field -->
         <v-container>
+            <!-- Title and Create Roles Btn-->
+            <v-row dense>
+                <v-col cols="9">
+                    <h1 class="ps-0 pb-8 mt-9">Manage Role Listings</h1>
+                </v-col>
+                <v-col cols="3">
+                    <v-btn class="ms-4 mb-8 mt-9" to="/CreateRoleListing">Create</v-btn>
+                </v-col>
+            </v-row>
             <!-- Search input field -->
             <v-row class="d-flex justify-center mt-3 mb-6 ">
                 <v-col cols="7" class="pe-0">
