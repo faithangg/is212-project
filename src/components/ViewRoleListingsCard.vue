@@ -11,7 +11,7 @@
       >
         <v-row class="mt-3">
           <v-col class="d-flex justify-start">
-            <v-card-title class="text-h5 font-weight-bold">
+            <v-card-title class="text-h5 font-weight-bold" id="role_name">
               {{ role.role_listing.role_name }}
             </v-card-title>
           </v-col>
@@ -240,9 +240,9 @@ export default {
             this.appliedRole = listing_id;
             console.log(this.appliedRole);
             console.log(this.displayListings[0]);
-            // setTimeout(() => {
-            //   this.success_model = false;
-            // }, 3000);
+            setTimeout(() => {
+              this.success_model = false;
+            }, 3000);
 
           } else {
             this.showModal = false;
