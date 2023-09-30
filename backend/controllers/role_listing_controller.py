@@ -7,6 +7,8 @@ from models.role_listing import RoleListing
 from models.role_skill import RoleSkill 
 from models.role import Role 
 from models.job_application import JobApplication
+from models.category import Category
+from models.staff import Staff
 from blueprints.hr_blueprint import hr_blueprint
 from blueprints.staff_blueprint import staff_blueprint
 from models.staff_skill import StaffSkill
@@ -302,6 +304,37 @@ def view_applied_roles_with_skill_match(staff_id):
             return jsonify({"code": 200, "data": {"applied_roles_with_skill_match": results}}), 200
         else:
             return jsonify({"code": 404, "message": "No applied roles found for the given staff ID."}), 404
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(error=str(e)), 500
+    
+
+# STAFF: GET ALL FILTER OPTIONS 
+@staff_blueprint.route('/filter_options', methods=['GET'])
+def get_filter_options():
+    try:
+        # Get all the categories in the database
+        categories = Category.query.all()
+
+        result_category = []
+        for category in categories:
+            # Check if category is unique
+            if category.category not in result_category:
+                result_category.append(category.category)
+
+        # Get all the staff in the database
+        staffs = Staff.query.all()
+
+        result_dept = []
+        for staff in staffs:
+            if staff.dept not in result_dept:
+                result_dept.append(staff.dept)
+
+        if result_category and result_dept:
+            return jsonify({"code": 200, "data": {"department": result_dept, "category": result_category}}), 200
+        else:
+            return jsonify({"code": 404, "message": "Was no able to retrieve filter options"}), 404
 
     except Exception as e:
         db.session.rollback()
