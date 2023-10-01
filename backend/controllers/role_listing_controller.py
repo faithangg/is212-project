@@ -247,11 +247,15 @@ def browse_listing(staff_id, search_input):
         # For each role listing, get the role skill match and append it to results
         for listing in role_listings:
             skill_match_data = role_skill_match(staff_id, listing.role_name)
+            roles = Role.query.filter_by(role_name=listing.role_name).first()
+            listing = listing.json()
+            role_desc = roles.role_desc
+            listing["role_desc"] = role_desc
             
             # If the role skill match was successful, add it to results
             if skill_match_data.get('code') == 200:
                 results.append({
-                    "role_listing": listing.json(),
+                    "role_listing": listing,
                     "role_skill_match": skill_match_data['data']
                 })
 
