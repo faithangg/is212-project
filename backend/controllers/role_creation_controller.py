@@ -91,7 +91,7 @@ def get_role_description(role_name):
         return jsonify({"error": str(e)}), 500
     
 # GET DEPARTMENTS FROM STAFF TABLE
-@staff_blueprint.route('/departments', methods=['GET'])
+@hr_blueprint.route('/departments', methods=['GET'])
 def get_departments():
     try:
         staffs = Staff.query.all()
@@ -105,7 +105,7 @@ def get_departments():
         return jsonify({"error": str(e)}), 500
     
 # GET ALL CATEGORY NAMES
-@hr_blueprint.route('/get_category_names', methods=['GET'])
+@hr_blueprint.route('/categories', methods=['GET'])
 def get_category_names():
     try:
         categories = Category.query.all()
