@@ -103,15 +103,6 @@
                                 </v-alert>
                             </v-row>
                             <v-row dense class="mx-16">
-                                <!-- Success Message -->
-                                <v-alert
-                                    v-if="successMessage"
-                                    type="success"
-                                    >
-                                    {{ successMessage }}
-                                </v-alert>
-                            </v-row>
-                            <v-row dense class="mx-16">
                                 <v-btn
                                     block
                                     class="mt-8"
@@ -124,7 +115,16 @@
                                     <b>Create</b>
                                 </v-btn>
                             </v-row>
-                            
+                            <!-- show success message -->
+                            <v-dialog v-model="success_model" hide-overlay class="w-50">
+                                <!-- Modal content goes here -->
+                                <v-alert
+                                    id="success_alert"
+                                    color="success"
+                                    icon="$success"
+                                    title="New role created successfully."
+                                ></v-alert>
+                            </v-dialog>
                         </v-card>
                     </form>
                 </v-container>
@@ -155,7 +155,7 @@ export default {
             selectedDateFormatted: '', // Displayed date in the text field
             // showDatePicker: false,    // Flag to show/hide the date picker
             errorMessage: '',          // Error message to display to the user
-            successMessage: '',        // Success message to display to the user
+            success_model: false, // Control the visibility of the full-screen success modal
         };
     },
     async created() {
@@ -272,22 +272,33 @@ export default {
                 if (response.status === 201) {
                     // Role created successfully
                     this.errorMessage = "";
-                    this.successMessage = "New role created successfully.";
-                    console.log("successMessage", this.successMessage);
+
+                    // Reset the form and set timeout to hide the success message
+                    this.success_model = true;
+                    this.role_name = "";
+                    this.departments = "";
+                    this.categories = "";
+                    this.selectedDateFormatted = "";
+                    this.description = "";
+                    this.skills = [];
+                    this.get_roles();
+                    this.get_departments();
+                    this.get_categories();
+                    setTimeout(() => {
+                        this.success_model = false;
+                    }, 10000);
                 }
             } catch (error) {
                 if (error.response && error.response.status === 400) {
                     // duplicate roles detected
                     // Display an error message to the user
                     console.error("Error creating roles:", error); // Log the error response
-                    this.successMessage = "";
                     this.errorMessage = "This role already exists. Please check your input and try again.";
                     console.log("errorMessage", this.errorMessage);
                 } else {
                     // Errors when calling the service; such as network error, service offline, etc
                     console.log('Network error or service offline:', error);
                     // Display a generic error message
-                    this.successMessage = "";
                     this.errorMessage = "An error occurred while communicating with the server. Please try again later.";
                     console.log("errorMessage", this.errorMessage);
                 }
