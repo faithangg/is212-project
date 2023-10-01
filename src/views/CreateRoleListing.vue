@@ -230,7 +230,7 @@ export default {
             try{
                 console.log("trying get_departments()");
 
-                const response = await axios.get('http://127.0.0.1:5000/staff/departments');
+                const response = await axios.get('http://127.0.0.1:5000/hr/departments');
                 console.log("response", response.data);
 
                 // Save departments to departments
@@ -249,7 +249,7 @@ export default {
             try{
                 console.log("trying get_categories()");
 
-                const response = await axios.get('http://127.0.0.1:5000/hr/get_category_names');
+                const response = await axios.get('http://127.0.0.1:5000/hr/categories');
                 console.log("response", response);
 
                 this.categories_list=response.data;
