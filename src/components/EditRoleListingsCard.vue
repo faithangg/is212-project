@@ -30,6 +30,7 @@
                     </v-col>
                     <v-col class="d-flex justify-end me-4 mb-4 align-end">
                         <!-- open role description page -->
+                        <v-btn @click="viewApplicants(role.listing_id)" class="me-3" id="view_applicants" icon="mdi-account-multiple"></v-btn>
                         <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)" id="open_modal"></v-btn>
                         <!-- edit role -->
                         <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
@@ -110,6 +111,14 @@ export default {
             this.roleToDisplay = role;
             this.showModal = true;
         },
+        viewApplicants(listing_id) {
+        // Navigate to the page where you can view all job applicants for the specific role
+        // You can use Vue Router's push method or any other method you prefer
+        this.$router.replace({ 
+            name: 'RoleApplicantsPage', 
+            query: { listing_id: listing_id } 
+        });
+    },
     },
 
     computed: {
