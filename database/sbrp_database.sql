@@ -9,6 +9,17 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `sbrp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `sbrp`;
 
+
+DROP TABLE IF EXISTS `staff_skill`;
+DROP TABLE IF EXISTS `role_skill`;
+DROP TABLE IF EXISTS `job_application`;
+DROP TABLE IF EXISTS `role_listing`;
+DROP TABLE IF EXISTS `login_details`;
+DROP TABLE IF EXISTS `role_listing`;
+DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `staff`;   
+
 DROP TABLE IF EXISTS `access_rights`;
 CREATE TABLE IF NOT EXISTS `access_rights`(
     access_right integer NOT NULL,
