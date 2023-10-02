@@ -3,9 +3,9 @@ import HomePage from "../views/HomePage.vue";
 import CreateRoleListing from "../views/CreateRoleListing.vue";
 import ViewRolesPage from "../views/ViewRolesPage.vue";
 import ManageRolesPage from "../views/ManageRolesPage.vue";
+import RoleApplicantsPage from "../views/RoleApplicantsPage.vue";
 
 import LoginPage from "../views/LoginPage.vue";
-import RoleApplicantsPage from "../views/RoleApplicantsPage.vue";
 
 const routes = [
   {
