@@ -7,52 +7,49 @@
         <v-col :cols="3" class="justify-start">
             <div class="text-h5 mt-9 text-left">
               Filters
-          </div>
+            </div>
+       
+
           <v-col cols="12" sm="9" md="4" class="text-left">
-            <v-btn flat text size="small">Clear All</v-btn>
+            <v-btn @click="applyFilter" flat text size="small">Clear All</v-btn>
           </v-col>
           <v-expansion-panels
             multiple>
+            <!--Category Filter-->
             <v-expansion-panel>
               <v-expansion-panel-title>Category</v-expansion-panel-title>
               <v-expansion-panel-text>
                 <v-container fluid>
-                  <p>{{ selected }}</p>
                   <v-checkbox
-                    v-model="selected"
-                    label="Administration and Support"
-                    value="Administration and Support"
+                    v-for="(item, index) in categoryItems"
+                    :key="index"
+                    v-model="selectedItems"
+                    :label="item"
+                    :value="item"
                   ></v-checkbox>
-                  <v-checkbox
-                    v-model="selected"
-                    label="Engineering"
-                    value="Engineering"
-                  ></v-checkbox>
+
                 </v-container>
               </v-expansion-panel-text>  
             </v-expansion-panel>
-
+            <!--Department Filter -->
             <v-expansion-panel>
               <v-expansion-panel-title>Department</v-expansion-panel-title>
               <v-expansion-panel-text>
                 <v-container fluid>
-                  <p>{{ selected }}</p>
                   <v-checkbox
-                    v-model="selected"
-                    label="HR"
-                    value="HR"
+                    v-for="(item, index) in departmentItems"
+                    :key="index"
+                    v-model="selectedItems"
+                    :label="item"
+                    :value="item"
                   ></v-checkbox>
-                  <v-checkbox
-                    v-model="selected"
-                    label="IT"
-                    value="IT"
-                  ></v-checkbox>
-                </v-container>
-              </v-expansion-panel-text>
-            </v-expansion-panel>
 
+                </v-container>
+              </v-expansion-panel-text>  
+            </v-expansion-panel>
+            <!--Match Percentage Filter hardcoded-->
             <v-expansion-panel>
-              <v-expansion-panel-title>Percentage Match</v-expansion-panel-title>
+              <v-expansion-panel-title>Match Percentage </v-expansion-panel-title>
               <v-expansion-panel-text>
                 <v-container fluid>
                   <p>{{ selected }}</p>
@@ -66,12 +63,52 @@
                     label="11-20"
                     value="11-20"
                   ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="21 - 30"
+                    value="21 - 30"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="31 - 40"
+                    value="31 - 40"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="41 - 50"
+                    value="41 - 50"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="51 - 60"
+                    value="51 - 60"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="61 - 70"
+                    value="61 - 70"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="71 - 80"
+                    value="71 - 80"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="81 - 90"
+                    value="81 - 90"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="selected"
+                    label="91 - 100"
+                    value="91 - 100"
+                  ></v-checkbox>
                 </v-container>
               </v-expansion-panel-text>
             </v-expansion-panel>
           </v-expansion-panels>
           <v-col cols="12" sm="9" md="4">
-            <v-btn  density="default">Apply</v-btn>
+            <v-btn @click="applyFilter" density="default">Apply Filter</v-btn>
           </v-col>
         </v-col>
         
@@ -274,7 +311,24 @@ export default {
       success_model: false, // Control the visibility of the full-screen success modal
       failure_model: false, // Control the visibility of the full-screen failure modal
       appliedRole: null,
+      items: [],
+      selectedItems: [],
     };
+  },
+  mounted(){
+    // Fetch filter options from the API
+    axios.get(`http://127.0.0.1:5000/staff/filter_options`)
+        .then((response) => {
+            console.log(response.data.data);
+            console.log(response.data.data.category);
+
+            this.categoryItems = response.data.data.category;
+            this.departmentItems = response.data.data.department;
+        })
+        .catch((error) => {
+            console.error('Error fetching filter options:', error);
+        });
+
   },
 
   computed: {
@@ -285,7 +339,7 @@ export default {
 
       this.appliedRole = null;
       return filtered;
-    }
+    },
   },
 
   methods: {
@@ -335,6 +389,12 @@ export default {
           }, 3000);
         });
     },
+    applyFilter(){
+      // Fetch results
+    },
+    clearFilter(){
+      // Clear all filters
+    }
   },
 
 };
@@ -346,5 +406,10 @@ export default {
   border: 1px solid #ccc;
   padding: 16px;
   margin: 16px;
+}
+.custom-checkbox {
+  margin: 1px 0; /* Adjust this value to control vertical spacing */
+  padding: 1px; /* Adjust this value to control horizontal spacing */
+
 }
 </style>
