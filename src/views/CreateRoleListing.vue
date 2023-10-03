@@ -6,7 +6,16 @@
                 <v-container fluid>
                     <form @submit.prevent="submit">
                         <v-card elevation="2" class="pa-14">
-                            <h1 class="ps-0 pb-8">Create A Role Listing</h1>
+                            <v-row dense>
+                                <v-col cols="3">
+                                    <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
+                                        Back
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="9">
+                                    <h1 class="text-left ml-12 pb-8">Create A Role Listing</h1>
+                                </v-col>
+                            </v-row>
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
@@ -14,13 +23,13 @@
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="menu" v-model="role_name" label="Select role" variant="outlined" required :items="this.role_name_list" @update:model-value="display_description"></v-select>
+                                    <v-select type="menu" v-model="role_name" label="Select a role to populate description and skills required" variant="outlined" required :items="this.role_name_list" @update:model-value="display_description"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Description
+                                        Description*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -30,7 +39,7 @@
                             <v-row dense>
                                 <v-col cols="4">
                                     <p class="text-h6 font-weight-bold pt-4">
-                                        Skills Required
+                                        Skills Required*
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
@@ -64,7 +73,7 @@
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="menu" v-model="categories" label="Select category(s)" variant="outlined" required :items="this.categories_list"></v-select>
+                                    <v-select type="menu" v-model="categories" label="Select category" variant="outlined" required :items="this.categories_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
