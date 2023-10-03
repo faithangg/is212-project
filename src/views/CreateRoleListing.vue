@@ -89,16 +89,8 @@
                                         label="Select a Date"
                                         variant="outlined" 
                                         required
+                                        :min="minDate"
                                     ></v-text-field>
-                                    
-                                    <!-- <v-date-picker
-                                        v-model="selectedDate"
-                                        v-if="showDatePicker"
-                                        scrollable
-                                        locale="en-us"
-                                        show-current
-                                        @input="updateDate"
-                                    ></v-date-picker>          -->
                                 </v-col>
                             </v-row>
                             <v-row dense class="mx-16">
@@ -174,10 +166,8 @@ export default {
             categories_list: [],
             skills: [],
             selectedDate: new Date(), // Initialize with the current date
-            // minDate: new Date(),      // Minimum date (e.g., today)
-            // maxDate: null,            // Maximum date (optional)
             selectedDateFormatted: '', // Displayed date in the text field
-            // showDatePicker: false,    // Flag to show/hide the date picker
+            minDate: this.showDateinSGT(), // Minimum date allowed to select
             errorMessage: '',          // Error message to display to the user
             success_model: false, // Control the visibility of the full-screen success modal
         };
@@ -187,13 +177,33 @@ export default {
         await this.get_roles();
         await this.get_departments();
         await this.get_categories();
+        await this.showDateinSGT();
     },
     methods: {
-        updateDate() {
-            // Format the selected date and update the text field
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            this.selectedDateFormatted = this.selectedDate.toLocaleDateString('en-US', options);
-            this.showDatePicker = false; // Hide the date picker after selection
+        showDateinSGT() {
+            // Get today's date in Singapore Time Zone
+            // Specify the desired time zone (Singapore Time Zone)
+            const timeZone = "Asia/Singapore";
+
+            // Create a DateTimeFormat object with the specified time zone
+            const dateFormatter = new Intl.DateTimeFormat("en-US", {
+            timeZone,
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            });
+
+            // Get today's date in the specified time zone
+            const singaporeDate = dateFormatter.format(new Date());
+
+            // Split the input string by '/'
+            const parts = singaporeDate.split('/');
+
+            // Rearrange the parts to the desired format (yyyy-mm-dd)
+            const singaporeDateFormatted = `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+
+            return singaporeDateFormatted;
+            // console.log(singaporeDateFormatted);
         },
         //get roles
         async get_roles() {
