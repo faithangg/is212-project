@@ -112,17 +112,32 @@
                                 </v-alert>
                             </v-row>
                             <v-row dense class="mx-16">
-                                <v-btn
-                                    block
-                                    class="mt-8"
-                                    color="teal-lighten-1"
-                                    size="large"
-                                    variant="tonal"
-                                    :disabled="!isFieldsNotEmpty"
-                                    @click="create_role()"
-                                >
-                                    <b>Create</b>
-                                </v-btn>
+                                <v-col>
+                                    <v-btn
+                                        block
+                                        class="mt-8 mr-6"
+                                        color="default"
+                                        size="large"
+                                        variant="tonal"
+                                        :disabled="!isFormFilledAtAll"
+                                        @click="reset_form()"
+                                    >
+                                        <b>Reset</b>
+                                    </v-btn>
+                                </v-col>
+                                <v-col>
+                                    <v-btn
+                                        block
+                                        class="mt-8 ml-6"
+                                        color="teal-lighten-1"
+                                        size="large"
+                                        variant="tonal"
+                                        :disabled="!isFieldsNotEmpty"
+                                        @click="create_role()"
+                                    >
+                                        <b>Create</b>
+                                    </v-btn>
+                                </v-col>
                             </v-row>
                             <!-- show success message -->
                             <v-dialog v-model="success_model" hide-overlay class="w-50">
@@ -314,11 +329,25 @@ export default {
             }
 
         },
+        reset_form() {
+            // Reset the form
+            this.role_name = "";
+            this.departments = "";
+            this.categories = "";
+            this.selectedDateFormatted = "";
+            this.description = "";
+            this.skills = [];
+            this.errorMessage = "";
+        },
     },
     computed: {
         isFieldsNotEmpty() {
             // Check if all required fields are valid before enabling the create button
             return !!this.role_name && !!this.departments && !!this.categories && !!this.selectedDateFormatted;
+        },
+        isFormFilledAtAll() {
+            // Check if any of the fields are not empty before enabling the reset button
+            return this.role_name || this.departments || this.categories || this.selectedDateFormatted;
         },
     },
 }
