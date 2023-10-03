@@ -7,7 +7,7 @@
         <!-- Search input field -->
         <v-container>
             <!-- Search input field -->
-            <v-row class="d-flex justify-center mt-3 mb-6 ">
+            <v-row class="d-flex justify-center mt-3 mb-0 ">
                 <v-col cols="7" class="pe-0">
                     <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details id="search_bar"
                         class="rounded-top-left rounded-bottom-left"></v-text-field>
@@ -15,6 +15,31 @@
                 <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
                     <!-- Search button attached to the end of the search bar -->
                     <v-btn @click="performSearch" color="primary" class="ma-0" style="height: 100%;" id="search_btn">Search</v-btn>
+                </v-col>
+            </v-row>
+            <!-- error message -->
+            <v-row class="d-flex justify-center mt-0 mb-6" >
+                <v-col cols="8" class="pt-0 h-25" >
+                    <v-alert
+                        v-if="searchQueryError == 400"
+                        type="error" 
+                        variant="outlined"
+                        icon="$error"
+                        
+                        style="font-size: 12px; padding: 8px; height: auto;"
+                        dismissible>
+                        {{ searchQueryErrorMsg }}            
+                    </v-alert>
+                    <v-alert
+                        v-if="searchQueryError == 404"
+                        type="info" 
+                        variant="outlined"
+                        icon="$info"
+                        
+                        style="font-size: 12px; padding: 8px; height: auto;"
+                        dismissible>
+                        {{ searchQueryErrorMsg }}            
+                    </v-alert>
                 </v-col>
             </v-row>
 
@@ -36,6 +61,8 @@ export default {
             rolesFromDb: [], // Initialize as an empty array
             displayListings: [],
             searchQuery: '', // Initialize as an empty string
+            searchQueryError: null,  
+            searchQueryErrorMsg:  '', // Initialize as an empty string
         };
     },
     mounted() {
@@ -74,7 +101,9 @@ export default {
     methods: {
         performSearch() {
             // This method is called when the Search button is clicked.
-           
+           this.searchQueryError = '';
+           this.searchQueryErrorMsg = '';
+
             if (this.searchQuery == '') {
                 this.displayListings = this.rolesFromDb;
                 return;
@@ -90,6 +119,17 @@ export default {
             })
             .catch((error) => {
                 console.error('Error fetching role listings:', error);
+
+                console.log(error.response.status);
+
+                if (error.response.status == 404) {
+                    this.searchQueryErrorMsg = 'No role listings found';
+                    this.searchQueryError = 404;
+                }
+                else if (error.response.status == 400) {
+                    this.searchQueryErrorMsg = 'Invalid search query - No special characters';
+                    this.searchQueryError = 400;
+                }
             });
         },
     },
