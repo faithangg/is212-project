@@ -25,7 +25,7 @@
                             <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ role.department }}</span>
                         </v-card-text>
                         <v-card-text class="d-flex justify-start text-h6 pt-0">
-                            <span class="font-weight-bold">Deadline: </span>&nbsp;<span>{{ role.deadline }}</span>
+                            <span class="font-weight-bold">Deadline: </span>&nbsp;<span :style="isDeadlinePassed(role.deadline)">{{ role.deadline }}</span>
                         </v-card-text>
                     </v-col>
                     <v-col class="d-flex justify-end me-4 mb-4 align-end">
@@ -55,6 +55,9 @@
                                     {{ roleToDisplay.category }}
                                 </v-chip>
                             </v-col>
+                            <v-col class="d-flex justify-end">
+                                <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
+                            </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
@@ -62,7 +65,7 @@
                                     <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ roleToDisplay.department }}</span>
                                 </v-card-text>
                                 <v-card-text class="d-flex justify-start text-h6 pt-0">
-                                    <span class="font-weight-bold">Deadline: </span>&nbsp;<span>{{ roleToDisplay.deadline }}</span>
+                                    <span class="font-weight-bold">Deadline: </span>&nbsp;<span :style="isDeadlinePassed(roleToDisplay.deadline)">{{ roleToDisplay.deadline }}</span>
                                 </v-card-text>
                             </v-col>
                         </v-row>
@@ -104,6 +107,9 @@ export default {
         return {
             showModal: false, // Control the visibility of the full-screen modal
             roleToDisplay: null, // Store the role data for the modal
+            deadlineStyle: {
+                color: 'red',
+            },
         };
     },
     methods: {
@@ -112,13 +118,22 @@ export default {
             this.showModal = true;
         },
         viewApplicants(listing_id) {
-        // Navigate to the page where you can view all job applicants for the specific role
-        // You can use Vue Router's push method or any other method you prefer
-        this.$router.replace({ 
-            name: 'RoleApplicantsPage', 
-            query: { listing_id: listing_id } 
-        });
-    },
+            // Navigate to the page where you can view all job applicants for the specific role
+            // You can use Vue Router's push method or any other method you prefer
+            this.$router.replace({ 
+                name: 'RoleApplicantsPage', 
+                query: { listing_id: listing_id } 
+            });
+        },
+        isDeadlinePassed(date) {
+            // Check if the deadline has passed
+            // Return true if the deadline has passed, false otherwise
+            console.log(new Date());
+            console.log(new Date(date) > new Date());
+
+            console.log(date);
+            return (new Date(date) < new Date()) ? {color: 'red'} : '';
+        },
     },
 
     computed: {
