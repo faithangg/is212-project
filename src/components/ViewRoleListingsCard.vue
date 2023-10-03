@@ -4,14 +4,14 @@
   <div>
     <v-row class="d-flex justify-center">
             <!-- display filter listings -->
-        <v-col :cols="3" class="justify-start">
-            <div class="text-h5 mt-9 text-left">
+        <v-col :cols="2" class="justify-start">
+            <div class="text-h5 text-left">
               Filters
             </div>
        
 
           <v-col cols="12" sm="9" md="4" class="text-left">
-            <v-btn @click="applyFilter" flat text size="small">Clear All</v-btn>
+            <v-btn @click="clearFilter" flat text size="small">Clear All</v-btn>
           </v-col>
           <v-expansion-panels
             multiple>
