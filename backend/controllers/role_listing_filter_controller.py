@@ -42,8 +42,50 @@ def role_skill_match(staff_id, role_name):
             "error": str(e)
         }
 
+# HELPER FUNCTION TO GET THE ROLE DESC AND THE SKILL MATCH TO RETURN BACK TO FRONTEND
+def get_results(role_listings_query, staff_id):
+    results = []
+
+    # For each role listing, get the role skill match and check if its between the match percentage
+    for role_listing in role_listings_query:
+        skill_match = role_skill_match(staff_id, role_listing.role_name)
+        # If the skill match is successful
+        if skill_match['code'] == 200:
+            # Get the role description
+            roles = Role.query.filter_by(role_name=role_listing.role_name).first()
+            role_desc = roles.role_desc
+            listing = role_listing.json()
+            # Add the role description to the role listing
+            listing["role_desc"] = role_desc
+            # Append the role listing information and the skill match information to results
+            results.append({
+                "role_listing": listing,
+                "role_skill_match": skill_match['data']
+            })
+    return results
+
+# HELPER FUNCTION TO GET THE ROLE LISTINGS THAT MEET THE DEPT FILTERS
+def get_dept_filtered_listings(dept_filters, role_listings_query):
+    results = []
+    # For each role listing, check if it has the given department
+    for role_listing in role_listings_query:
+        if role_listing.department in dept_filters:
+            # Append to the role_listings_query list if it has both
+            results.append(role_listing)
+    return results
+
+# HELPER FUNCTION TO GET THE ROLE LISTINGS THAT MEET THE CATEGORY FILTERS
+def get_cat_filtered_listings(cat_filters, role_listing_query):
+    results = []
+    # For each role listing, check if it has the given category
+    for role_listing in role_listing_query:
+        if role_listing.category in cat_filters:
+            # Append to the role_listings_query list if it has both
+            results.append(role_listing)
+    return results
+
 # HELPER FUNCTION TO GET ROLE LISTINGS WITHIN THE MATCH PERCENTAGE RANGE
-def get_match_percentage_records(role_listings_query, match_percentage, staff_id):
+def get_match_percentage_filtered_listings(role_listings_query, match_percentage, staff_id):
         results = []
         # Get the upper and lower bound of the match percentage filter
         bounds = match_percentage.split('-')
@@ -60,28 +102,6 @@ def get_match_percentage_records(role_listings_query, match_percentage, staff_id
                 if match_percentage >= lower_bound and match_percentage <= upper_bound:
                     # Append the role listing to results if its between the bounds
                     results.append(role_listing)
-        return results
-
-# HELPER FUNCTION TO GET THE ROLE DESC AND THE SKILL MATCH TO RETURN BACK TO FRONTEND
-def get_results(role_listings_query, staff_id):
-        results = []
-
-        # For each role listing, get the role skill match and check if its between the match percentage
-        for role_listing in role_listings_query:
-            skill_match = role_skill_match(staff_id, role_listing.role_name)
-            # If the skill match is successful
-            if skill_match['code'] == 200:
-                # Get the role description
-                roles = Role.query.filter_by(role_name=role_listing.role_name).first()
-                role_desc = roles.role_desc
-                listing = role_listing.json()
-                # Add the role description to the role listing
-                listing["role_desc"] = role_desc
-                # Append the role listing information and the skill match information to results
-                results.append({
-                    "role_listing": listing,
-                    "role_skill_match": skill_match['data']
-                })
         return results
 
 ####################################################################################################################################
@@ -116,19 +136,17 @@ def get_filter_options():
         db.session.rollback()
         return jsonify(error=str(e)), 500
         
-    
 
-# STAFF: GET THE FILTERED ROLE LISTINGS
 @staff_blueprint.route('/filter_role_listings/<int:staff_id>', methods=['GET'])
 def get_filtered_roles(staff_id):
     try:
-
         # Extract data from the request
         data = request.get_json() 
 
-        # Check if any one of the filter option is chosen
-        if len(data['category']) == 0 and len(data["department"]) == 0 and len(data['match_percentage']) == 0:
-            return jsonify({"code": 404, "message": "No filter options were chosen."}), 404
+        # Get the filter options chosen for category, department and match percentage
+        category_filters = data['category']
+        department_filters = data['department']
+        match_percentage_filters = data['match_percentage']
 
         all_role_listings = RoleListing.query
         # Get all role listing applicable for the staff
@@ -136,62 +154,75 @@ def get_filtered_roles(staff_id):
 
         role_listings_query = []
 
+        # If category, department and match percentage are in the filter options
+        if len(category_filters) != 0 and len(department_filters) != 0 and len(match_percentage_filters) != 0:
+            print("category, department and match percentage are in the filter options")
+            dept_result = get_dept_filtered_listings(department_filters, avaliable_role_listings)
+            print("dept ", dept_result)
+            cat_result = get_cat_filtered_listings(category_filters, dept_result)
+            print("cat ", cat_result)
+            for match_percentage in match_percentage_filters:
+                match_result = get_match_percentage_filtered_listings(cat_result, match_percentage, staff_id)
+                if match_result:
+                    for listing in match_result:
+                        role_listings_query.append(listing)
+                print("role_listings_query ", role_listings_query)
+
         # If both category and department are in the filter options
-        if len(data['category']) != 0 and len(data["department"]) != 0:
-            # Get the list of department and category from the filter options
-            filter_category = data['category']
-            filter_department = data['department']
+        elif len(category_filters) != 0 and len(department_filters) != 0:
+            dept_result = get_dept_filtered_listings(department_filters, avaliable_role_listings)
+            role_listings_query = get_cat_filtered_listings(category_filters, dept_result)
 
-            # For each role listing, check if it has the given department
-            for role_listing in avaliable_role_listings:
-                if role_listing.department in filter_department:
-                    # Check if the role listing has the given category
-                    if role_listing.category in filter_category:
-                        # Append to the role_listings_query list if it has both
-                        role_listings_query.append(role_listing)
-        
-        # If only category is in the filter option
-        elif len(data['category']) != 0 :
-            # Get the list of department and category from the filter options
-            filter_category = data['category']
+        # If both category and match percentage are in the filter option
+        elif len(category_filters) != 0 and len(match_percentage_filters) != 0:
+            cat_result = get_cat_filtered_listings(category_filters, avaliable_role_listings)
+            for match_percentage in match_percentage_filters:
+                match_result = get_match_percentage_filtered_listings(cat_result, match_percentage, staff_id)
+                if match_result:
+                    for listing in match_result:
+                        role_listings_query.append(listing)
 
-            # For each role listing, check if it has the given category
-            for role_listing in avaliable_role_listings:
-                if role_listing.category in filter_category:
-                    # Append to the role_listings_query list if it has both
-                    role_listings_query.append(role_listing)
-        
+        # If both department and match percentage are in the filter option
+        elif len(department_filters) != 0 and len(match_percentage_filters) != 0:
+            dept_result = get_dept_filtered_listings(department_filters, avaliable_role_listings)
+            for match_percentage in match_percentage_filters:
+                match_result = get_match_percentage_filtered_listings(dept_result, match_percentage, staff_id)
+                if match_result:
+                    for listing in match_result:
+                        role_listings_query.append(listing)
+
+        # If only category is in the filter option 
+        elif len(category_filters) != 0:
+            role_listings_query = get_cat_filtered_listings(category_filters, avaliable_role_listings)
+
         # If only department is in the filter option
-        elif len(data["department"]) != 0:
-            # Get the list of department and category from the filter options
-            filter_department = data['department']
+        elif len(department_filters) != 0:
+            role_listings_query = get_dept_filtered_listings(department_filters, avaliable_role_listings)
 
-            # For each role listing, check if it has the given department
-            for role_listing in avaliable_role_listings:
-                if role_listing.department in filter_department:
-                    # Append to the role_listings_query list if it has both
-                    role_listings_query.append(role_listing)        
-        
-        match_results = []
-        # If match percentage if in the filter option along with the other filter options
-        if len(data['match_percentage']) != 0 and len(role_listings_query) != 0:
-            match_results = get_match_percentage_records(role_listings_query, data['match_percentage'], staff_id)
         # If only match percentage is in the filter option
-        elif len(data['match_percentage']) != 0:
-            match_results = get_match_percentage_records(avaliable_role_listings, data['match_percentage'], staff_id)
-        # If only category and/or department are in the filter option
+        elif len(match_percentage_filters) != 0:
+            for match_percentage in match_percentage_filters:
+                match_result = get_match_percentage_filtered_listings(avaliable_role_listings, match_percentage, staff_id)
+                if match_result:
+                    for listing in match_result:
+                        role_listings_query.append(listing)
+        # Else it means no filter options where chosen
+        else:
+            # Return that no filter options were chosen
+            return jsonify({"code": 404, "message": "No filter options were chosen."}), 404
         
-        # If there are match results then return the match results
-        if match_results:
-            results = get_results(match_results, staff_id)
-            return jsonify({"code": 200, "data": {"role_listings": results}}), 200
-        # If match percentage was not chosen as a filter option return role listing query results if there are any
-        elif role_listings_query:
+        # If there are role listings that meet the chosen filter options
+        if role_listings_query:
+            print("role_listings_query ", role_listings_query)
+            # Get the role listing information and the skill match information
             results = get_results(role_listings_query, staff_id)
+            print("results ", results)
+            # Return the result
             return jsonify({"code": 200, "data": {"role_listings": results}}), 200
         # Else return that no role listings were found
         else:
             return jsonify({"code": 404, "message": "No role listings found for the given filter options."}), 404
+
 
     except Exception as e:
         db.session.rollback()
