@@ -53,7 +53,7 @@ def role_skill_match(staff_id, role_name):
         staff_dont = [skill for skill in role_skills if skill not in staff_skills]
 
         # Calculate the percentage of roles matched
-        match_percentage = (len(staff_have) / len(role_skills)) * 100
+        match_percentage = round((len(staff_have) / (len(staff_have) + len(staff_dont))) * 100)
 
         return {
             "code": 200,
