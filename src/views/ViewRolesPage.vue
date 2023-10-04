@@ -50,81 +50,159 @@
         <v-row class="d-flex justify-center">
 
         <v-col :cols="3" class="justify-start">
-            <div class="text-h5 text-left">
-              Filters
-            </div>
-         <!-- Clear filter button --> 
-          <v-col cols="12" sm="8" class="text-left">
+        <v-card
+          class="mx-auto"
+        >
+          <v-toolbar
+            flat
+            dark
+          >
+            <v-toolbar-title>Filter results</v-toolbar-title>
+          </v-toolbar>
+
+          <v-card-text>
+            <h2 class="text-h6 mb-2">
+              Category
+            </h2>
+
+            <v-chip-group
+              v-model="selectedCategory"
+              column
+              multiple
+            >
+            <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+                v-for="category in categoryItems"
+                :key="category"
+              >
+                {{ category }}    
+
+              </v-chip>
+
+            </v-chip-group>
+          </v-card-text>
+
+          <v-card-text>
+            <h2 class="text-h6 mb-2">
+              Department
+            </h2>
+
+            <v-chip-group
+              v-model="selectedDepartment"
+              column
+              multiple
+            >
+            <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+                v-for="department in departmentItems"
+                :key="department"
+              >
+                {{ department }}    
+
+              </v-chip>
+
+            </v-chip-group>
+          </v-card-text>
+          <v-card-text>
+            <h2 class="text-h6 mb-2">
+              Match Percentage(%)
+            </h2>
+
+            <v-chip-group
+              v-model="selectedPercentage"
+              column
+              multiple
+            >
+            <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                0-10 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                11-20
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                21-30 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                31-40 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                41-50 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                51-60 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                61-70 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                71-80 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                81-90 
+              </v-chip>
+              <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+              >
+                91-100 
+              </v-chip>
+
+            </v-chip-group>
+          </v-card-text>
+        </v-card>
+        
+          <!-- Clear filter button --> 
+          <v-col cols="4" sm="8" class="text-left">
             <v-btn @click="clearFilter" flat text size="small">Clear All</v-btn>
           </v-col>
 
-  <v-card
-    class="mx-auto"
-  >
-    <v-toolbar
-      flat
-      dark
-    >
-      <v-btn icon>
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-      <v-toolbar-title>Filter results</v-toolbar-title>
-    </v-toolbar>
-
-    <v-card-text>
-      <h2 class="text-h6 mb-2">
-        Choose category
-      </h2>
-
-      <v-chip-group
-        v-model="selectedCategory"
-        column
-        multiple
-      >
-      <v-chip
-          class="me-2"
-          filter
-          variant="outlined"
-          v-for="category in categoryItems"
-          :key="category"
-        >
-          {{ category }}    
-
-        </v-chip>
-
-      </v-chip-group>
-    </v-card-text>
-
-    <v-card-text>
-      <h2 class="text-h6 mb-2">
-        Choose Department
-      </h2>
-
-      <v-chip-group
-        v-model="selectedDepartment"
-        column
-        multiple
-      >
-      <v-chip
-          class="me-2"
-          filter
-          variant="outlined"
-          v-for="department in departmentItems"
-          :key="department"
-        >
-          {{ department }}    
-
-        </v-chip>
-
-      </v-chip-group>
-    </v-card-text>
-  </v-card>
-
           <!-- Apply filter button --> 
-          <v-col >
+          <v-col cols="8" sm="8" class="text-right">
             <v-btn @click="applyFilter" density="default">Apply Filter</v-btn>
           </v-col>
         </v-col>
+ 
         <!-- display role listings -->
         <v-col :cols="8" class="justify-end">
         <ViewRoleListingsCard :role_listings_with_skill_match="displayListings" />
@@ -150,6 +228,7 @@ export default {
             departmentItems: [],
             selectedCategory: [],
             selectedDepartment: [],
+            selectedPercentage: [],
       
         };
     },
