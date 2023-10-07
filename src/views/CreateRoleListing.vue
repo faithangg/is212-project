@@ -23,7 +23,7 @@
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="menu" v-model="role_name" label="Select a role to populate description and skills required" variant="outlined" required :items="this.role_name_list" @update:model-value="display_description"></v-select>
+                                    <v-select type="menu" id="role" v-model="role_name" label="Select a role to populate description and skills required" variant="outlined" required :items="this.role_name_list" @update:model-value="display_description"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
@@ -63,7 +63,7 @@
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="menu" v-model="departments" label="Select department" variant="outlined" required :items="this.departments_list"></v-select>
+                                    <v-select type="menu" id="department" v-model="departments" label="Select department" variant="outlined" required :items="this.departments_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
