@@ -10,11 +10,14 @@
             <v-row class="d-flex justify-center mt-3 mb-0 ">
                 <v-col cols="7" class="pe-0">
                     <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details id="search_bar"
-                        class="rounded-top-left rounded-bottom-left"></v-text-field>
+                        class="rounded-top-left rounded-bottom-left" clearable></v-text-field>
                 </v-col>
                 <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
                     <!-- Search button attached to the end of the search bar -->
                     <v-btn @click="performSearch" color="primary" class="ma-0" style="height: 100%;" id="search_btn">Search</v-btn>
+                </v-col>
+                <v-col cols="4" sm="8" class="text-left pt-0">
+                  <v-btn @click="clearSearch" flat text size="small">Clear Search</v-btn>
                 </v-col>
             </v-row>
             <!-- error message -->
@@ -264,10 +267,12 @@ export default {
                 if (error.response.status == 404) {
                     this.searchQueryErrorMsg = 'No role listings found';
                     this.searchQueryError = 404;
+                    this.displayListings = [];
                 }
                 else if (error.response.status == 400) {
                     this.searchQueryErrorMsg = 'Invalid search query - No special characters';
                     this.searchQueryError = 400;
+                    this.displayListings = [];
                 }
             });
         },
@@ -322,7 +327,15 @@ export default {
           this.selectedDepartment = [];
           this.selectedPercentage = [];
           this.displayListings = this.rolesFromDb;
-        }
+        },
+
+        clearSearch(){
+        // Clear search bar
+          this.searchQuery = '';
+          this.displayListings = this.rolesFromDb;
+          this.searchQueryError = null;
+          this.searchQueryErrorMsg = '';
+        },
     },
 
     components: {
