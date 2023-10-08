@@ -90,6 +90,7 @@
                                         variant="outlined" 
                                         required
                                         :min="minDate"
+                                        :rules="[rules.dateBeforeToday]"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -124,7 +125,7 @@
                                         color="teal-lighten-1"
                                         size="large"
                                         variant="tonal"
-                                        :disabled="!isFieldsNotEmpty"
+                                        :disabled="!isFieldsNotEmpty || date_before_today()"
                                         @click="create_role()"
                                     >
                                         <b>Create</b>
@@ -170,6 +171,11 @@ export default {
             minDate: this.showDateinSGT(), // Minimum date allowed to select
             errorMessage: '',          // Error message to display to the user
             success_model: false, // Control the visibility of the full-screen success modal
+            rules: {
+                // Checks if the input date is before or today's date
+                // If rule returns true -> valid
+                dateBeforeToday: v => (new Date(v).setHours(0, 0, 0, 0)) >= (new Date(this.minDate).setHours(0, 0, 0, 0)) || "Deadline cannot be before or today's date",
+            },
         };
     },
     async created() {
@@ -181,10 +187,10 @@ export default {
     },
     methods: {
         showDateinSGT() {
-            // Get today's date in Singapore Time Zone
+            // GOAL: Get tomorrow's date in Singapore Time Zone
             // Specify the desired time zone (Singapore Time Zone)
             const timeZone = "Asia/Singapore";
-
+            
             // Create a DateTimeFormat object with the specified time zone
             const dateFormatter = new Intl.DateTimeFormat("en-US", {
             timeZone,
@@ -194,16 +200,22 @@ export default {
             });
 
             // Get today's date in the specified time zone
-            const singaporeDate = dateFormatter.format(new Date());
+            const currentDate = new Date();
+
+            // Calculate tomorrow's date
+            const tomorrowDate = new Date(currentDate);
+            tomorrowDate.setDate(currentDate.getDate() + 1);
+            // console.log("tomorrowDate", tomorrowDate);
+            // console.log("tomorrowDate", dateFormatter.format(tomorrowDate));
 
             // Split the input string by '/'
-            const parts = singaporeDate.split('/');
+            const parts = dateFormatter.format(tomorrowDate).split('/');
 
             // Rearrange the parts to the desired format (yyyy-mm-dd)
             const singaporeDateFormatted = `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+            // console.log(singaporeDateFormatted);
 
             return singaporeDateFormatted;
-            // console.log(singaporeDateFormatted);
         },
         //get roles
         async get_roles() {
@@ -300,7 +312,7 @@ export default {
             try{
                 console.log("trying create_role()");
                 // console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
-
+                console.log(this.selectedDateFormatted);
                 const response = await axios.post(`http://127.0.0.1:5000/hr/create_role_listing`, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
                 console.log("response", response);
                 if (response.status === 201) {
@@ -349,6 +361,24 @@ export default {
             this.skills = [];
             this.errorMessage = "";
         },
+        date_before_today() {
+            // Parse the input date string into a Date object
+            const inputDate = new Date(this.selectedDateFormatted);
+
+            // Get tmr's date
+            const tmrDate = new Date(this.minDate);
+
+            // Remove the time component from both dates to compare only the dates
+            inputDate.setHours(0, 0, 0, 0);
+            tmrDate.setHours(0, 0, 0, 0);
+
+            // Compare the two dates
+            if (inputDate < tmrDate) {
+                return true;
+            }else{
+                return false;
+            }
+        }
     },
     computed: {
         isFieldsNotEmpty() {
