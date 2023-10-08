@@ -318,6 +318,10 @@ export default {
 
         clearFilter(){
         // Clear all filters
+          this.selectedCategory = [];
+          this.selectedDepartment = [];
+          this.selectedPercentage = [];
+          this.displayListings = this.rolesFromDb;
         }
     },
 
