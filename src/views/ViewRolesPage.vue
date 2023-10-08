@@ -80,6 +80,7 @@
                 v-for="category in categoryItems"
                 :key="category"
                 :value="category"
+                :id = "'category_' + category"
               >
                 {{ category }}    
 
@@ -105,6 +106,7 @@
                 v-for="department in departmentItems"
                 :key="department"
                 :value="department"
+                :id = "'department_' + department"
               >
                 {{ department }}    
 
@@ -129,6 +131,7 @@
                 v-for="percentageMatch in percentageMatchItems"
                 :key="percentageMatch"
                 :value="percentageMatch"
+                :id = "percentageMatch"
               >
                 {{ percentageMatch }}    
 
@@ -145,12 +148,12 @@
 
           <!-- Apply filter button --> 
           <v-col cols="8" sm="8" class="text-right">
-            <v-btn @click="applyFilter" density="default">Apply Filter</v-btn>
+            <v-btn @click="applyFilter" density="default" id="apply_filter_btn">Apply Filter</v-btn>
           </v-col>
         </v-col>
  
         <!-- display role listings -->
-        <v-col :cols="8" class="justify-end">
+        <v-col :cols="8" class="justify-end" id="filter_alert">
           <v-alert
                         v-if="filterError == 404"
                         type="info" 

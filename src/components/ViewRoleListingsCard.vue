@@ -28,7 +28,7 @@
           <v-col >
             <v-card-text class="d-flex justify-start text-h6">
               <span class="font-weight-bold">Department: </span> &nbsp;
-              <span>{{ role.role_listing.department }}</span>
+              <span id="listing_department">{{ role.role_listing.department }}</span>
             </v-card-text>
             <v-card-text class="d-flex justify-start text-h6 pt-0 ">
               <span class="font-weight-bold">Deadline: </span>&nbsp;<span
