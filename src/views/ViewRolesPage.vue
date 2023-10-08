@@ -76,6 +76,7 @@
                 variant="outlined"
                 v-for="category in categoryItems"
                 :key="category"
+                :value="category"
               >
                 {{ category }}    
 
@@ -100,6 +101,7 @@
                 variant="outlined"
                 v-for="department in departmentItems"
                 :key="department"
+                :value="department"
               >
                 {{ department }}    
 
@@ -121,71 +123,12 @@
                 class="me-2"
                 filter
                 variant="outlined"
+                v-for="percentageMatch in percentageMatchItems"
+                :key="percentageMatch"
+                :value="percentageMatch"
               >
-                0-10 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                11-20
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                21-30 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                31-40 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                41-50 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                51-60 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                61-70 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                71-80 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                81-90 
-              </v-chip>
-              <v-chip
-                class="me-2"
-                filter
-                variant="outlined"
-              >
-                91-100 
+                {{ percentageMatch }}    
+
               </v-chip>
 
             </v-chip-group>
@@ -205,7 +148,17 @@
  
         <!-- display role listings -->
         <v-col :cols="8" class="justify-end">
-        <ViewRoleListingsCard :role_listings_with_skill_match="displayListings" />
+          <v-alert
+                        v-if="filterError == 404"
+                        type="info" 
+                        variant="outlined"
+                        icon="$info"
+                        
+                        style="font-size: 16px; padding: 8px; height: auto;"
+                        dismissible>
+                        {{ filterErrorMsg }}            
+                    </v-alert>
+          <ViewRoleListingsCard :role_listings_with_skill_match="displayListings" />
         </v-col>
         </v-row>
     </div>
@@ -223,7 +176,11 @@ export default {
             displayListings: [],
             searchQuery: '', // Initialize as an empty string
             searchQueryError: null,  
+            filterError: null,
             searchQueryErrorMsg:  '', // Initialize as an empty string
+            filterErrorMsg: '',
+            // percentageMatchItems: ["0-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91-100"],
+            percentageMatchItems: ["0-20", "21-40", "41-60", "61-80", "81-100"],
             categoryItems: [],
             departmentItems: [],
             selectedCategory: [],
@@ -283,6 +240,8 @@ export default {
             // This method is called when the Search button is clicked.
            this.searchQueryError = '';
            this.searchQueryErrorMsg = '';
+           this.filterError = '';
+           this.filterErrorMsg = '';
 
             if (this.searchQuery == '') {
                 this.displayListings = this.rolesFromDb;
@@ -314,7 +273,49 @@ export default {
         },
         applyFilter(){
         // Fetch results
+          this.searchQueryError = '';
+          this.searchQueryErrorMsg = '';
+          this.filterError = '';
+          this.filterErrorMsg = '';
+
+          if (this.selectedCategory.length == 0 && this.selectedDepartment.length == 0 && this.selectedPercentage.length == 0) {
+            this.displayListings = this.rolesFromDb;
+            return;
+          }
+
+          console.log(this.selectedCategory);
+          console.log(this.selectedDepartment);
+          console.log(this.selectedPercentage);
+          const selectedCategoriesArray = Array.from(this.selectedCategory);
+          console.log(selectedCategoriesArray);
+          let  userId = this.getUserId;
+
+          let payload = {
+            category: Array.from(this.selectedCategory),
+            department: Array.from(this.selectedDepartment),
+            match_percentage: Array.from(this.selectedPercentage),
+          };
+          
+
+          axios.post(`http://127.0.0.1:5000/staff/filter_role_listings/${userId}`, payload)
+            .then((response) => {
+                console.log(response.data.data);
+                this.displayListings = response.data.data.role_listings;
+
+   
+            })
+            .catch((error) => {
+                console.error('Error fetching role listings:', error);
+                this.filterErrorMsg = 'No role listings found based on your input filters';
+                this.filterError = 404;
+                this.displayListings = [];
+
+            });
+
+
+          
         },
+
         clearFilter(){
         // Clear all filters
         }
