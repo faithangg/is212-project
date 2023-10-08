@@ -137,7 +137,7 @@ def get_filter_options():
         return jsonify(error=str(e)), 500
         
 
-@staff_blueprint.route('/filter_role_listings/<int:staff_id>', methods=['GET'])
+@staff_blueprint.route('/filter_role_listings/<int:staff_id>', methods=['GET', 'POST'])
 def get_filtered_roles(staff_id):
     try:
         # Extract data from the request
