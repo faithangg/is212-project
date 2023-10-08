@@ -22,7 +22,7 @@
             </v-row>
             <!-- error message -->
             <v-row class="d-flex justify-center mt-0 mb-6" >
-                <v-col cols="8" class="pt-0 h-25" >
+                <v-col cols="8" class="pt-0 h-25" id="search_alert">
                     <v-alert
                         v-if="searchQueryError == 400"
                         type="error" 
