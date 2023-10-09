@@ -3,6 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+
 
 
 driver = webdriver.Chrome()
@@ -28,43 +32,49 @@ time.sleep(3)
 
 # Select the role
 role = driver.find_element(By.ID, "role")
-# role.select_by_visible_text("Software Engineer")
-role.send_keys(Keys.DOWN)
 role.send_keys(Keys.RETURN)
-
-time.sleep(3)
-
-print(role.text)
-
+time.sleep(1)
+driver.find_element(By.XPATH, '//*[text() = "Software Engineer"]').click()
 
 time.sleep(1)
 
 
-print("here")
-# # Select the department
-# dept = Select(driver.find_element(By.ID, "department"))
-# dept.select_by_visible_text("IT")
-
-dept = driver.find_element(By.ID, "department").click()
-# role.select_by_visible_text("Software Engineer")
+# Select the department
+dept = driver.find_element(By.ID, "department")
+dept.send_keys(Keys.RETURN)
+time.sleep(1)
+driver.find_element(By.XPATH, '//*[text() = "IT"]').click()
 dept.send_keys(Keys.DOWN)
 dept.send_keys(Keys.RETURN)
 
-# # Select the category
-# category = Select(driver.find_element(By.ID, "category"))
-# category.select_by_visible_text("Engineering")
+# Select the category
+dept = driver.find_element(By.ID, "category")
+dept.send_keys(Keys.RETURN)
+time.sleep(1)
+driver.find_element(By.XPATH, '//*[text() = "Information Technology"]').click()
+dept.send_keys(Keys.DOWN)
+dept.send_keys(Keys.RETURN)
 
-# # Select the application deadline
-# category = driver.find_element(By.ID, "application_deadline")
-# category.send_keys("08/08/2024")
+time.sleep(1)
 
-# driver.find_element(By.ID, "create_role_btn").click()
+# Select the application deadline
+category = driver.find_element(By.ID, "application_deadline")
+category.send_keys("08/08/2024")
 
-# text = driver.find_element(By.ID, "alert").text
+time.sleep(1)
 
-# assert "New role created successfully" in text
+driver.find_element(By.ID, "create_role_btn").click()
 
-# print("TEST PASSED : Create Role Listing")
+time.sleep(3)
+
+try: 
+    text = driver.find_element(By.ID, "success_alert").text
+    assert "New role created successfully" in text
+except:
+    text = driver.find_element(By.ID, "error_alert").text
+    assert "This role already exists. Please check your input and try again." in text
+
+print("TEST PASSED : Create Role Listing")
 
 print("Application title ", driver.title)
 print("Application url is ", driver.current_url)

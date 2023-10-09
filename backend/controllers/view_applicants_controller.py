@@ -6,6 +6,7 @@ from models.job_application import JobApplication
 from blueprints.hr_blueprint import hr_blueprint
 from .role_listing_controller import role_skill_match
 
+# HR: VIEW ALL APPLICANTS FOR A PARTICULAR ROLE
 @hr_blueprint.route('/role_applicants/<int:listing_id>', methods=['GET'])
 def view_role_applicants(listing_id):
     try:
@@ -28,12 +29,27 @@ def view_role_applicants(listing_id):
 
         for application, staff in applications:
             skill_match_data = role_skill_match(staff.staff_id, role_listing.role_name)
-            applicant_data.append({
-                "name": f"{staff.staff_fname} {staff.staff_lname}",
-                "email": staff.email,
-                "application_date": application.application_date.strftime('%Y-%m-%d'),
-                "match_percentage": skill_match_data['data']['match_percentage'] if skill_match_data['code'] == 200 else "Error"
-            })
+            
+            if skill_match_data['code'] == 200:
+                applicant_data.append({
+                    "name": f"{staff.staff_fname} {staff.staff_lname}",
+                    "email": staff.email,
+                    "department": staff.dept,  
+                    "application_date": application.application_date.strftime('%Y-%m-%d'),
+                    "match_percentage": skill_match_data['data']['match_percentage'],
+                    "skills_have": skill_match_data['data']['have'],
+                    "skills_dont": skill_match_data['data']['dont']
+                })
+            else:
+                applicant_data.append({
+                    "name": f"{staff.staff_fname} {staff.staff_lname}",
+                    "email": staff.email,
+                    "department": staff.dept,  
+                    "application_date": application.application_date.strftime('%Y-%m-%d'),
+                    "match_percentage": "Error",
+                    "skills_have": [],
+                    "skills_dont": []
+                })
 
         data = {
             "role_name": role_listing.role_name,

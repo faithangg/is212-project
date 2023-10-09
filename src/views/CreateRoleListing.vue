@@ -73,7 +73,7 @@
                                     </p>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-select type="menu" v-model="categories" label="Select category" variant="outlined" required :items="this.categories_list"></v-select>
+                                    <v-select type="menu" id="category" v-model="categories" label="Select category" variant="outlined" required :items="this.categories_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
@@ -91,12 +91,14 @@
                                         required
                                         :min="minDate"
                                         :rules="[rules.dateBeforeToday]"
+                                        id="application_deadline"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
                             <v-row dense class="mx-16">
                                 <!-- Error Message -->
                                 <v-alert
+                                    id="error_alert"
                                     v-if="errorMessage"
                                     color="error"
                                     icon="mdi-alert"
@@ -127,6 +129,7 @@
                                         variant="tonal"
                                         :disabled="!isFieldsNotEmpty || date_before_today()"
                                         @click="create_role()"
+                                        id="create_role_btn"
                                     >
                                         <b>Create</b>
                                     </v-btn>
