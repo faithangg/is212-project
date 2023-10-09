@@ -4,7 +4,7 @@ import CreateRoleListing from "../views/CreateRoleListing.vue";
 import ViewRolesPage from "../views/ViewRolesPage.vue";
 import ManageRolesPage from "../views/ManageRolesPage.vue";
 import RoleApplicantsPage from "../views/RoleApplicantsPage.vue";
-
+import UpdateRoleListing from "../views/UpdateRoleListing.vue";
 import LoginPage from "../views/LoginPage.vue";
 
 const routes = [
@@ -41,7 +41,12 @@ const routes = [
     name: "RoleApplicantsPage",
     component: RoleApplicantsPage, 
   },
-  
+
+  {
+    path: "/UpdateRoleListing",
+    name: "UpdateRoleListing",
+    component: UpdateRoleListing, 
+  },
 
 ];
 

@@ -33,7 +33,7 @@
                         <v-btn @click="viewApplicants(role.listing_id)" class="me-3" id="view_applicants" icon="mdi-account-multiple"></v-btn>
                         <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)" id="open_modal"></v-btn>
                         <!-- edit role -->
-                        <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
+                        <v-btn @click="editRole(role.listing_id)" icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
                     </v-col>
                 </v-row>
             </v-card>
@@ -122,6 +122,14 @@ export default {
             // You can use Vue Router's push method or any other method you prefer
             this.$router.replace({ 
                 name: 'RoleApplicantsPage', 
+                query: { listing_id: listing_id } 
+            });
+        },
+        editRole(listing_id) {
+            // Navigate to the page where you can view all job applicants for the specific role
+            // You can use Vue Router's push method or any other method you prefer
+            this.$router.replace({ 
+                name: 'UpdateRoleListing', 
                 query: { listing_id: listing_id } 
             });
         },
