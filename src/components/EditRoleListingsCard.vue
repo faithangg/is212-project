@@ -56,7 +56,7 @@
                                 </v-chip>
                             </v-col>
                             <v-col class="d-flex justify-end">
-                                <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
+                                <v-btn @click="editRole(roleToDisplay.listing_id)" icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
                             </v-col>
                         </v-row>
                         <v-row>
@@ -126,8 +126,7 @@ export default {
             });
         },
         editRole(listing_id) {
-            // Navigate to the page where you can view all job applicants for the specific role
-            // You can use Vue Router's push method or any other method you prefer
+            // Navigate to the page where you can edit the specific role
             this.$router.replace({ 
                 name: 'UpdateRoleListing', 
                 query: { listing_id: listing_id } 
