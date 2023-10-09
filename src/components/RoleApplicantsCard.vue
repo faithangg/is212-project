@@ -4,43 +4,82 @@
         <v-row class="d-flex justify-center">
             <!-- display role listings -->
             <v-card v-for="applicant in role_applicants" :key="applicant.email" class="role-card w-50 h-25">
-                <v-row class="mt-3">
-                    <v-col class="d-flex justify-start">
-                        <v-card-title class="text-h5 font-weight-bold">
-                            {{ applicant.name }}
-                        </v-card-title>
+                <v-row>
+                    <v-col class="pb-0"><v-row class="my-0 ">
+                            <v-col class="d-flex justify-start">
+                                <v-card-title class="text-h6 font-weight-bold">
+                                    {{ applicant.name }}
+                                </v-card-title>
+                            </v-col>
+                        </v-row>
+                        <v-row class="pt-0 mt-0">
+                            <v-col>
+                                <v-card-text class="d-flex justify-start text-h6">
+                                    <span class="font-weight-bold">Email: </span>&nbsp;<span>{{ applicant.email }}</span>
+                                </v-card-text>
+                                <v-card-text class="d-flex justify-start text-h6">
+                                    <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ applicant.department }}</span>
+                                </v-card-text>
+                                <v-card-text class="d-flex justify-start text-h6">
+                                    <span class="font-weight-bold">Application Date: </span> &nbsp; <span>{{ applicant.application_date }}</span>
+                                </v-card-text>
+                                
+                            </v-col>
+                            <!--<v-col class="d-flex justify-end me-4 mb-4 align-end">
+                                
+                                <v-btn @click="viewApplicants(role.listing_id)" class="me-3" id="view_applicants" icon="mdi-account-multiple"></v-btn>
+                                <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)" id="open_modal"></v-btn>
+                                
+                                <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
+                            </v-col>-->
+                        </v-row>
+                    </v-col>
+                    <v-col class="pb-0">
+                        <v-card-text>
+                            <v-row class="px-0 py-4 my-1 mx-1 d-flex justify-center">
+                                <span class="font-weight-bold text-h6">Your Match: </span>
+                            </v-row>
+                            <v-row class="px-0 py-4 my-1 mx-1 d-flex justify-center">
+                                <v-progress-circular
+                                    :rotate="180"
+                                    :size="100"
+                                    :width="15"
+                                    :model-value="applicant.match_percentage"
+                                    color="teal"
+                                >
+                                    {{ applicant.match_percentage }}%
+                                </v-progress-circular>
+                            </v-row>
+                        </v-card-text>
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col>
-                        <v-card-text class="d-flex justify-start text-h6">
-                            <span class="font-weight-bold">Application Date: </span> &nbsp; <span>{{ applicant.application_date }}</span>
-                        </v-card-text>
-                        <v-card-text class="d-flex justify-start text-h6 pt-0">
-                            <span class="font-weight-bold">Email: </span>&nbsp;<span>{{ applicant.email }}</span>
-                        </v-card-text>
-                    </v-col>
-                    <v-col>
-                        <v-card-text>
-                        <span class="font-weight-bold text-h6">Your Match: </span>
-                        <v-progress-circular
-                            :rotate="180"
-                            :size="100"
-                            :width="15"
-                            :model-value="applicant.match_percentage"
-                            color="teal"
-                        >
-                            {{ applicant.match_percentage }}%
-                        </v-progress-circular>
+                    <v-col class="py-0">
+                        <v-card-text class="d-flex justify-start text-h6 pb-0">
+                            <span class="font-weight-bold">Skills held: </span>&nbsp;
+                                <v-chip
+                            class="me-2"
+                            v-for="skill in applicant.skills_have"
+                            :key="skill"
+                            color="blue">
+                            {{ skill }}
+                                </v-chip>
                         </v-card-text>
                     </v-col>
-                    <!--<v-col class="d-flex justify-end me-4 mb-4 align-end">
-                        
-                        <v-btn @click="viewApplicants(role.listing_id)" class="me-3" id="view_applicants" icon="mdi-account-multiple"></v-btn>
-                        <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)" id="open_modal"></v-btn>
-                        
-                        <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
-                    </v-col>-->
+                </v-row>
+                <v-row>
+                    <v-col class="py-0">
+                        <v-card-text class="d-flex justify-start text-h6 pb-8">
+                            <span class="font-weight-bold">Skills missing: </span>&nbsp;
+                            <v-chip
+                                class="me-2"
+                                v-for="skill in applicant.skills_dont"
+                                :key="skill"
+                                color="red">
+                                {{ skill }}
+                            </v-chip>
+                        </v-card-text>
+                    </v-col>
                 </v-row>
             </v-card>
             <!-- Modal content goes here -->
@@ -55,7 +94,7 @@
                     <v-container>
                         <v-row class="mt-3">
                             <v-col class="d-flex justify-start align-center">
-                                <v-card-title class="text-h5 font-weight-bold">
+                                <v-card-title class="text-h6 font-weight-bold">
                                     {{ roleToDisplay.role_name }}
                                 </v-card-title>
                                 <v-chip color="primary">
@@ -134,4 +173,6 @@ export default {
     padding: 16px;
     margin: 16px;
 }
+
+
 </style>
