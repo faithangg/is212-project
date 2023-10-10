@@ -52,7 +52,7 @@
         <!-- display filter listings -->
         <v-row class="d-flex justify-center">
 
-        <v-col :cols="2" class="justify-start">
+        <v-col :cols="3" class="justify-start">
         <v-card
           class="mx-auto"
         >
