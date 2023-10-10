@@ -11,10 +11,10 @@
             <!-- Title and Create Roles Btn-->
             <v-row dense>
                 <v-col cols="9">
-                    <h1 class="ps-0 pb-8 mt-9">Manage Role Listings</h1>
+                    <h1 class="ps-0 pb-8 mt-9 mr-16 pr-16 text-right">Manage Role Listings</h1>
                 </v-col>
                 <v-col cols="3">
-                    <v-btn class="ms-4 mb-8 mt-9" to="/CreateRoleListing" id="create_role_listing_btn">Create</v-btn>
+                    <v-btn class="ms-4 mb-4 mt-9 mr-8" to="/CreateRoleListing" id="create_role_listing_btn"><b>Create Role Listing</b></v-btn>
                 </v-col>
             </v-row>
             <!-- Search input field -->
