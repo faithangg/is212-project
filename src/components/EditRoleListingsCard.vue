@@ -93,12 +93,22 @@
 
                 </v-card>
             </v-dialog>
+            <v-dialog v-model="showAlert" hide-overlay class="w-50">
+                <v-alert
+                    color="blue"
+                    outlined
+                    icon="$info"
+                    title="Alert"
+                    text="No applicants for this role."
+                    
+                ></v-alert>
+            </v-dialog>
         </v-row>
     </div>
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
     props: {
         roleListings: [], // Receive role listings as props
@@ -110,6 +120,7 @@ export default {
             deadlineStyle: {
                 color: 'red',
             },
+            showAlert: false,
         };
     },
     methods: {
@@ -117,13 +128,31 @@ export default {
             this.roleToDisplay = role;
             this.showModal = true;
         },
-        viewApplicants(listing_id) {
-            // Navigate to the page where you can view all job applicants for the specific role
-            // You can use Vue Router's push method or any other method you prefer
-            this.$router.replace({ 
-                name: 'RoleApplicantsPage', 
-                query: { listing_id: listing_id } 
-            });
+        async viewApplicants(listing_id) {
+            // Fetch the number of applicants for the specific role using the listing_id
+            axios.get(`http://127.0.0.1:5000/hr/role_applicants/${listing_id}`)
+                .then((response) => {
+                    console.log(response.data);
+                    // Navigate to the RoleApplicantsPage
+                    this.$router.replace({ 
+                        name: 'RoleApplicantsPage', 
+                        query: { listing_id: listing_id } 
+                    });
+                })
+                .catch((error) => {
+                    if (error.response.status === 404) {
+                        // Display an error message using a Vue Toast or Snackbar
+                        this.showAlert = true;
+                        setTimeout(() => {
+                            this.showAlert= false;
+                            }, 3000);
+                        //alert('No applicants for this role.');
+                    } else {
+                        // Handle other errors or display a generic error message
+                        error('An error occurred while fetching the applicants.');
+                    }
+                });
+            
         },
         editRole(listing_id) {
             // Navigate to the page where you can edit the specific role
