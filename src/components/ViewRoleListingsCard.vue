@@ -82,7 +82,7 @@
               </v-col>
               <v-col cols="auto">
                 <v-btn
-                  class="bg-blue-accent-4 text-h6"
+                  class="bg-teal-lighten-3 text-h6"
                   @click="applyrole()"
                   id="apply_role"
                   >Apply Now</v-btn
