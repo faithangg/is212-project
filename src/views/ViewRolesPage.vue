@@ -14,9 +14,11 @@
                 </v-col>
                 <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
                     <!-- Search button attached to the end of the search bar -->
-                    <v-btn @click="performSearch" color="primary" class="ma-0" style="height: 100%;" id="search_btn">Search</v-btn>
+                    <v-btn @click="performSearch" color="teal-lighten-3
+
+" class="ma-0" style="height: 100%;" id="search_btn">Search</v-btn>
                 </v-col>
-                <v-col cols="4" sm="8" class="text-left pt-0">
+                <v-col cols="8" class="text-center pt-0">
                   <v-btn @click="clearSearch" flat text size="small">Clear Search</v-btn>
                 </v-col>
             </v-row>
@@ -53,11 +55,12 @@
 
     <v-row class="d-flex justify-center">
       <!-- Display filter button on mobile screens -->
-      <v-btn @click="showFilterModal" class="d-md-none" color="primary">
+      <v-btn @click="showFilter()" class="d-lg-none justify-center" color="teal-lighten-3
+">
         Filter
       </v-btn>
 
-      <v-dialog v-model="showFilterModal" max-width="400px">
+      <v-dialog v-model="showFilterModal" hide-overlay max-width="400px">
         <v-card>
           <v-toolbar flat dark>
             <v-toolbar-title>Filter Results</v-toolbar-title>
@@ -68,8 +71,90 @@
           </v-toolbar>
 
           <v-card-text>
-            <!-- Filter section content here -->
+          <!-- Filter section content here -->
             <!-- ... -->
+            <v-card
+          class="mx-auto"
+        >
+
+
+          <v-card-text>
+            <h2 class="text-h6 mb-2">
+              Category
+            </h2>
+
+            <v-chip-group
+              v-model="selectedCategory"
+              column
+              multiple
+            >
+            <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+                v-for="category in categoryItems"
+                :key="category"
+                :value="category"
+                :id = "'category_' + category"
+              >
+                {{ category }}    
+
+              </v-chip>
+
+            </v-chip-group>
+          </v-card-text>
+
+          <v-card-text>
+            <h2 class="text-h6 mb-2">
+              Department
+            </h2>
+
+            <v-chip-group
+              v-model="selectedDepartment"
+              column
+              multiple
+            >
+            <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+                v-for="department in departmentItems"
+                :key="department"
+                :value="department"
+                :id = "'department_' + department"
+              >
+                {{ department }}    
+
+              </v-chip>
+
+            </v-chip-group>
+          </v-card-text>
+          <v-card-text>
+            <h2 class="text-h6 mb-2">
+              Match Percentage(%)
+            </h2>
+
+            <v-chip-group
+              v-model="selectedPercentage"
+              column
+              multiple
+            >
+            <v-chip
+                class="me-2"
+                filter
+                variant="outlined"
+                v-for="percentageMatch in percentageMatchItems"
+                :key="percentageMatch"
+                :value="percentageMatch"
+                :id = "percentageMatch"
+              >
+                {{ percentageMatch }}    
+
+              </v-chip>
+
+            </v-chip-group>
+          </v-card-text>
+        </v-card>
           </v-card-text>
 
           <v-card-actions>
@@ -80,7 +165,7 @@
       </v-dialog>
 
 
-        <v-col cols="3" class="d-sm-block">
+        <v-col cols="3" class="d-md-none d-sm-none d-none d-lg-block">
         <!-- Use v-if to conditionally render the filter section -->
         <!-- <v-card v-if="!isMobileScreen"> -->
         <v-card
@@ -185,7 +270,7 @@
     
       <!-- </div> -->
         <!-- display role listings -->
-        <v-col :cols="8" class="justify-end" id="filter_alert">
+        <v-col :cols="12" lg="8" class="justify-end" id="filter_alert">
           <v-alert
                         v-if="filterError == 404"
                         type="info" 
@@ -226,7 +311,6 @@ export default {
             selectedDepartment: [],
             selectedPercentage: [],
             showFilterModal: false, // Initialize as false to hide the modal initially
-            isMobileScreen: false, // Initialize as false to hide the sidebar initially
         };
     },
     mounted() {
@@ -376,7 +460,7 @@ export default {
           this.searchQueryError = null;
           this.searchQueryErrorMsg = '';
         },
-        showFilterModal() {
+        showFilter() {
           this.showFilterModal = true; // Show the filter modal
         },
 
