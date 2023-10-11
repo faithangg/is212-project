@@ -25,7 +25,7 @@
                 </v-col>
                 <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
                     <!-- Search button attached to the end of the search bar -->
-                    <v-btn @click="performSearch" color="primary" class="ma-0" style="height: 100%;">Search</v-btn>
+                    <v-btn @click="performSearch" color="teal-lighten-3" class="ma-0" style="height: 100%;">Search</v-btn>
                 </v-col>
             </v-row>
 
