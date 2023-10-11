@@ -49,10 +49,40 @@
             <!-- Search button -->
         
         </v-container>
-        <!-- display filter listings -->
-        <v-row class="d-flex justify-center">
 
-        <v-col :cols="3" class="justify-start">
+
+    <v-row class="d-flex justify-center">
+      <!-- Display filter button on mobile screens -->
+      <v-btn @click="showFilterModal" class="d-md-none" color="primary">
+        Filter
+      </v-btn>
+
+      <v-dialog v-model="showFilterModal" max-width="400px">
+        <v-card>
+          <v-toolbar flat dark>
+            <v-toolbar-title>Filter Results</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon @click="hideFilterModal">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+
+          <v-card-text>
+            <!-- Filter section content here -->
+            <!-- ... -->
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn @click="applyFilter" color="primary">Apply Filter</v-btn>
+            <v-btn @click="clearFilter" color="error">Clear All</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+
+        <v-col cols="3" class="d-sm-block">
+        <!-- Use v-if to conditionally render the filter section -->
+        <!-- <v-card v-if="!isMobileScreen"> -->
         <v-card
           class="mx-auto"
         >
@@ -150,8 +180,10 @@
           <v-col cols="8" sm="8" class="text-right">
             <v-btn @click="applyFilter" density="default" id="apply_filter_btn">Apply Filter</v-btn>
           </v-col>
+        <!-- </v-card> -->
         </v-col>
- 
+    
+      <!-- </div> -->
         <!-- display role listings -->
         <v-col :cols="8" class="justify-end" id="filter_alert">
           <v-alert
@@ -167,7 +199,8 @@
           <ViewRoleListingsCard :role_listings_with_skill_match="displayListings" />
         </v-col>
         </v-row>
-    </div>
+        </div>
+   
 </template>
 
 <script>
@@ -192,7 +225,8 @@ export default {
             selectedCategory: [],
             selectedDepartment: [],
             selectedPercentage: [],
-      
+            showFilterModal: false, // Initialize as false to hide the modal initially
+            isMobileScreen: false, // Initialize as false to hide the sidebar initially
         };
     },
     mounted() {
@@ -237,6 +271,9 @@ export default {
         getUserId() {
             // Access the user's role from your Vuex store getter
             return this.$store.getters.getUserId;
+        },
+        isMobileScreen() {
+          return window.innerWidth <= 768; // Adjust the width as needed
         },
 
     },
@@ -339,6 +376,13 @@ export default {
           this.searchQueryError = null;
           this.searchQueryErrorMsg = '';
         },
+        showFilterModal() {
+          this.showFilterModal = true; // Show the filter modal
+        },
+
+        hideFilterModal() {
+          this.showFilterModal = false; // Hide the filter modal
+        },
     },
 
     components: {
@@ -349,6 +393,38 @@ export default {
 };
 </script>
 <style> 
+
+/* Styles for mobile screens */
+.sidebar {
+  display: none; /* Hide the sidebar by default */
+  /* Add any necessary styles for your sidebar, e.g., background color, width, etc. */
+}
+
+/* Styles for larger screens */
+.main-content {
+  /* Add any necessary styles for the main content area, e.g., margin, padding, width, etc. */
+}
+
+/* Media query for mobile screens (adjust the max-width as needed) */
+@media (max-width: 768px) {
+  .sidebar {
+    display: block; /* Display the sidebar on mobile screens */
+    /* Add styles to make the sidebar appear as a side panel, e.g., fixed position, width, background color, etc. */
+  }
+
+  .main-content {
+    width: 100%; /* Full width for main content on mobile screens */
+    /* Add styles to adjust the main content's appearance on mobile screens */
+  }
+}
+
+/* Additional styles for larger screens (customize as needed) */
+@media (min-width: 769px) {
+  .main-content.full-width {
+    width: 100%; /* Adjust the width for larger screens as needed */
+    /* Add any additional styles for larger screens */
+  }
+}
 
 
 </style> 
