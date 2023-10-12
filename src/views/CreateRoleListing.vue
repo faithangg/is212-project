@@ -169,7 +169,6 @@ export default {
             categories: "",
             categories_list: [],
             skills: [],
-            selectedDate: new Date(), // Initialize with the current date
             selectedDateFormatted: '', // Displayed date in the text field
             minDate: this.showDateinSGT(), // Minimum date allowed to select
             errorMessage: '',          // Error message to display to the user

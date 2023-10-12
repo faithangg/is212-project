@@ -13,7 +13,7 @@
                                     </v-btn>
                                 </v-col>
                                 <v-col cols="9">
-                                    <h1 class="text-left ml-12 pb-8">Create A Role Listing</h1>
+                                    <h1 class="text-left ml-12 pb-8">Update Role Listing</h1>
                                 </v-col>
                             </v-row>
                             <v-row dense>
@@ -126,7 +126,7 @@
                                         size="large"
                                         variant="tonal"
                                         :disabled="!isFieldsNotEmpty || date_before_today()"
-                                        @click="create_role()"
+                                        @click="update_role()"
                                     >
                                         <b>Create</b>
                                     </v-btn>
@@ -155,18 +155,17 @@
 import axios from 'axios';
 
 export default {
-    name: "CreateRoleListing",
+    name: "UpdateRoleListing",
     data() {
         return {
             role_name: "",
             role_name_list: [],
-            description: "",
+            description: "hi",
             departments: "",
             departments_list: [],
             categories: "",
             categories_list: [],
             skills: [],
-            selectedDate: new Date(), // Initialize with the current date
             selectedDateFormatted: '', // Displayed date in the text field
             minDate: this.showDateinSGT(), // Minimum date allowed to select
             errorMessage: '',          // Error message to display to the user
@@ -184,6 +183,24 @@ export default {
         await this.get_departments();
         await this.get_categories();
         await this.showDateinSGT();
+    },
+    mounted() {
+        // Fetch role listing from the API
+        this.listing_id = this.$route.query.listing_id;
+        axios.get('http://127.0.0.1:5000/hr/role_listings/' + this.listing_id)
+            .then((response) => {
+                console.log("EXISTING ROLE LISTING DATA", response.data.data);
+                this.selectedDateFormatted = response.data.data.role_listing.deadline,
+                this.categories = response.data.data.role_listing.category;
+                this.departments = response.data.data.role_listing.department;
+                this.role_name = response.data.data.role_listing.role_name;
+                this.description = response.data.data.role_listing.role_desc;
+                this.skills = response.data.data.role_listing.skills_required;
+            })
+            .catch((error) => {
+                console.error('Error fetching role listings:', error);
+            });
+
     },
     methods: {
         showDateinSGT() {
@@ -308,13 +325,12 @@ export default {
             }
 
         },
-        async create_role() {
+        async update_role() {
             try{
-                console.log("trying create_role()");
+                console.log("trying update_role()");
                 // console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
-                console.log(this.selectedDateFormatted);
                 const response = await axios.post(`http://127.0.0.1:5000/hr/create_role_listing`, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
-                console.log("response", response);
+                console.log("get roles for update", response);
                 if (response.status === 201) {
                     // Role created successfully
                     this.errorMessage = "";
