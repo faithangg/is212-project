@@ -128,7 +128,7 @@
                                         :disabled="!isFieldsNotEmpty || date_before_today()"
                                         @click="update_role()"
                                     >
-                                        <b>Create</b>
+                                        <b>Update</b>
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -139,7 +139,7 @@
                                     id="success_alert"
                                     color="success"
                                     icon="$success"
-                                    title="New role created successfully."
+                                    title="Role updated successfully."
                                 ></v-alert>
                             </v-dialog>
                         </v-card>
@@ -328,33 +328,36 @@ export default {
         async update_role() {
             try{
                 console.log("trying update_role()");
-                // console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
-                const response = await axios.post(`http://127.0.0.1:5000/hr/create_role_listing`, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
-                console.log("get roles for update", response);
-                if (response.status === 201) {
+                console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
+                const response = await axios.put(`http://127.0.0.1:5000/hr/update_role_listing/`+this.listing_id, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
+                console.log("update outcome", response);
+                if (response.status === 200) {
                     // Role created successfully
                     this.errorMessage = "";
 
                     // Reset the form and set timeout to hide the success message
                     this.success_model = true;
-                    this.role_name = "";
-                    this.departments = "";
-                    this.categories = "";
-                    this.selectedDateFormatted = "";
-                    this.description = "";
-                    this.skills = [];
-                    this.get_roles();
-                    this.get_departments();
-                    this.get_categories();
+                    console.log("success message", this.success_model);
+
+                    // this.role_name = "";
+                    // this.departments = "";
+                    // this.categories = "";
+                    // this.selectedDateFormatted = "";
+                    // this.description = "";
+                    // this.skills = [];
+                    // this.get_roles();
+                    // this.get_departments();
+                    // this.get_categories();
                     setTimeout(() => {
+                        this.$router.replace({ name: "ManageRolesPage" });
                         this.success_model = false;
-                    }, 10000);
+                    }, 5000);
                 }
             } catch (error) {
                 if (error.response && error.response.status === 400) {
                     // duplicate roles detected
                     // Display an error message to the user
-                    console.error("Error creating roles:", error); // Log the error response
+                    console.error("Error updating roles:", error); // Log the error response
                     this.errorMessage = "This role already exists. Please check your input and try again.";
                     console.log("errorMessage", this.errorMessage);
                 } else {
