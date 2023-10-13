@@ -7,42 +7,42 @@
                     <form @submit.prevent="submit">
                         <v-card elevation="2" class="pa-14">
                             <v-row dense>
-                                <v-col cols="3">
-                                    <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
+                                <v-col cols="12" sm="3" md="3" lg="3">
+                                    <v-btn class="text-left ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
                                         Back
                                     </v-btn>
                                 </v-col>
-                                <v-col cols="9">
-                                    <h1 class="text-left ml-12 pb-8">Create A Role Listing</h1>
+                                <v-col cols="12" sm="9" md="9" lg="9">
+                                    <h1 class=" ml-12 pb-8 text-h5 text-md-h4 text-lg-h4"><b>Create A Role Listing</b></h1>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
+                                <v-col cols="12" sm="4" md="4" lg="4">
+                                    <p class="text-h6 text-left font-weight-bold pt-4">
                                         Role*
                                     </p>
                                 </v-col>
-                                <v-col cols="8">
+                                <v-col cols="12" sm="8" md="8" lg="8">
                                     <v-select type="menu" id="role" v-model="role_name" label="Select a role to populate description and skills required" variant="outlined" required :items="this.role_name_list" @update:model-value="display_description"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
+                                <v-col cols="12" sm="4" md="4" lg="4">
+                                    <p class="text-h6 text-left font-weight-bold pt-4">
                                         Description*
                                     </p>
                                 </v-col>
-                                <v-col cols="8">
+                                <v-col cols="12" sm="8" md="8" lg="8">
                                     <v-textarea type="text" v-model="description" variant="outlined" readonly required></v-textarea>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
+                                <v-col cols="12" sm="4" md="4" lg="4">
+                                    <p class="text-h6 text-left font-weight-bold pt-4">
                                         Skills Required*
                                     </p>
                                 </v-col>
-                                <v-col cols="8">
+                                <v-col cols="12" sm="8" md="8" lg="8">
                                     <v-chip-group row class="mb-4">
                                         <v-chip
                                             v-for="(skill, index) in skills"
@@ -57,32 +57,32 @@
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
+                                <v-col cols="12" sm="4" md="4" lg="4">
+                                    <p class="text-h6 text-left font-weight-bold pt-4">
                                         Department*
                                     </p>
                                 </v-col>
-                                <v-col cols="8">
+                                <v-col cols="12" sm="8" md="8" lg="8">
                                     <v-select type="menu" id="department" v-model="departments" label="Select department" variant="outlined" required :items="this.departments_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
+                                <v-col cols="12" sm="4" md="4" lg="4">
+                                    <p class="text-h6 text-left font-weight-bold pt-4">
                                         Category*
                                     </p>
                                 </v-col>
-                                <v-col cols="8">
+                                <v-col cols="12" sm="8" md="8" lg="8">
                                     <v-select type="menu" id="category" v-model="categories" label="Select category" variant="outlined" required :items="this.categories_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="4">
-                                    <p class="text-h6 font-weight-bold pt-4">
+                                <v-col cols="12" sm="4" md="4" lg="4">
+                                    <p class="text-h6 text-left font-weight-bold pt-4">
                                         Application Deadline*
                                     </p>
                                 </v-col>
-                                <v-col cols="8">
+                                <v-col cols="12" sm="8" md="8" lg="8">
                                     <v-text-field
                                         type="date"    
                                         v-model="selectedDateFormatted"
@@ -107,10 +107,10 @@
                                 </v-alert>
                             </v-row>
                             <v-row dense class="mx-16">
-                                <v-col>
+                                <v-col cols="6">
                                     <v-btn
                                         block
-                                        class="mt-8 mr-6"
+                                        class="text-h6 mt-8 mr-6"
                                         color="default"
                                         size="large"
                                         variant="tonal"
@@ -120,10 +120,10 @@
                                         <b>Reset</b>
                                     </v-btn>
                                 </v-col>
-                                <v-col>
+                                <v-col cols="6">
                                     <v-btn
                                         block
-                                        class="mt-8 ml-6"
+                                        class="text-h6 mt-8 ml-6"
                                         color="teal-lighten-1"
                                         size="large"
                                         variant="tonal"
