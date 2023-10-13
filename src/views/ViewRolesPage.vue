@@ -358,6 +358,8 @@ export default {
       this.selectedDepartment = [];
       this.selectedPercentage = [];
       this.displayListings = this.rolesFromDb;
+      this.filterError = '';
+      this.filterErrorMsg = '';
     },
 
     clearSearch() {
