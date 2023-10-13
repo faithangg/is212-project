@@ -10,7 +10,7 @@
             <v-row class="d-flex justify-center mt-3 mb-0 ">
                 <v-col cols="7" class="pe-0">
                     <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details id="search_bar"
-                        class="rounded-top-left rounded-bottom-left" clearable></v-text-field>
+                        class="rounded-top-left rounded-bottom-left"></v-text-field>
                 </v-col>
                 <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
                     <!-- Search button attached to the end of the search bar -->
