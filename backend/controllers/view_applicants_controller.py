@@ -65,7 +65,6 @@ def view_role_applicants(listing_id):
         }), 200
         
     except Exception as e:
+
         return jsonify({"error": str(e)}), 500
-
-
 

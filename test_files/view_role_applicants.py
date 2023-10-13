@@ -22,19 +22,18 @@ text = driver.find_element(By.ID, "managed").click()
 
 time.sleep(3)
 
-
-element = driver.find_element(By.ID, "open_modal")
+element = driver.find_element(By.ID, "view_applicants")
+element.click()
 time.sleep(3)
 
-element.click()
-
-text = driver.find_element(By.ID, "edit").get_attribute("class")
-
-print("text", text)
-
-assert "mdi-pencil" in text
-
-print("TEST PASSED : Role Listing Details HR")
+try:
+    text = driver.find_element(By.ID, "role_name").text
+    assert "Role Name:" in text
+    print("TEST PASSED : View Role Applicants.")
+except:
+    text = driver.find_element(By.ID, "no_applicants_alert").text
+    assert "No applicants for this role." in text
+    print("TEST PASSED : View Role Applicants.")
 
 print("Application title ", driver.title)
 print("Application url is ", driver.current_url)

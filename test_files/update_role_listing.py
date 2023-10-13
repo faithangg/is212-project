@@ -22,20 +22,20 @@ text = driver.find_element(By.ID, "managed").click()
 
 time.sleep(3)
 
-
-element = driver.find_element(By.ID, "open_modal")
+element = driver.find_element(By.ID, "edit")
+element.click()
 time.sleep(3)
 
-element.click()
+application_deadline = driver.find_element(By.ID, "application_deadline")
+application_deadline.send_keys("08/08/2024")
+driver.find_element(By.ID, "update_btn").click()
 
-text = driver.find_element(By.ID, "edit").get_attribute("class")
+time.sleep(2)
 
-print("text", text)
+text = driver.find_element(By.ID, "updated_success_alert").text
 
-assert "mdi-pencil" in text
-
-print("TEST PASSED : Role Listing Details HR")
-
+assert "Role updated successfully" in text
+print("TEST PASSED : UPDATE ROLE LISTING.")
 print("Application title ", driver.title)
 print("Application url is ", driver.current_url)
 driver.quit()

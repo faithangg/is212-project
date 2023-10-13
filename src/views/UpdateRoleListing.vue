@@ -7,42 +7,42 @@
                     <form @submit.prevent="submit">
                         <v-card elevation="2" class="pa-14">
                             <v-row dense>
-                                <v-col cols="12" sm="3" md="3" lg="3">
-                                    <v-btn class="text-left ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
+                                <v-col cols="3">
+                                    <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
                                         Back
                                     </v-btn>
                                 </v-col>
-                                <v-col cols="12" sm="9" md="9" lg="9">
-                                    <h1 class=" ml-12 pb-8 text-h5 text-md-h4 text-lg-h4"><b>Create A Role Listing</b></h1>
+                                <v-col cols="9">
+                                    <h1 class="text-left ml-12 pb-8">Update Role Listing</h1>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="12" sm="4" md="4" lg="4">
-                                    <p class="text-h6 text-left font-weight-bold pt-4">
+                                <v-col cols="4">
+                                    <p class="text-h6 font-weight-bold pt-4">
                                         Role*
                                     </p>
                                 </v-col>
-                                <v-col cols="12" sm="8" md="8" lg="8">
+                                <v-col cols="8">
                                     <v-select type="menu" id="role" v-model="role_name" label="Select a role to populate description and skills required" variant="outlined" required :items="this.role_name_list" @update:model-value="display_description"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="12" sm="4" md="4" lg="4">
-                                    <p class="text-h6 text-left font-weight-bold pt-4">
+                                <v-col cols="4">
+                                    <p class="text-h6 font-weight-bold pt-4">
                                         Description*
                                     </p>
                                 </v-col>
-                                <v-col cols="12" sm="8" md="8" lg="8">
+                                <v-col cols="8">
                                     <v-textarea type="text" v-model="description" variant="outlined" readonly required></v-textarea>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="12" sm="4" md="4" lg="4">
-                                    <p class="text-h6 text-left font-weight-bold pt-4">
+                                <v-col cols="4">
+                                    <p class="text-h6 font-weight-bold pt-4">
                                         Skills Required*
                                     </p>
                                 </v-col>
-                                <v-col cols="12" sm="8" md="8" lg="8">
+                                <v-col cols="8">
                                     <v-chip-group row class="mb-4">
                                         <v-chip
                                             v-for="(skill, index) in skills"
@@ -57,32 +57,32 @@
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="12" sm="4" md="4" lg="4">
-                                    <p class="text-h6 text-left font-weight-bold pt-4">
+                                <v-col cols="4">
+                                    <p class="text-h6 font-weight-bold pt-4">
                                         Department*
                                     </p>
                                 </v-col>
-                                <v-col cols="12" sm="8" md="8" lg="8">
+                                <v-col cols="8">
                                     <v-select type="menu" id="department" v-model="departments" label="Select department" variant="outlined" required :items="this.departments_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="12" sm="4" md="4" lg="4">
-                                    <p class="text-h6 text-left font-weight-bold pt-4">
+                                <v-col cols="4">
+                                    <p class="text-h6 font-weight-bold pt-4">
                                         Category*
                                     </p>
                                 </v-col>
-                                <v-col cols="12" sm="8" md="8" lg="8">
-                                    <v-select type="menu" id="category" v-model="categories" label="Select category" variant="outlined" required :items="this.categories_list"></v-select>
+                                <v-col cols="8">
+                                    <v-select type="menu" v-model="categories" label="Select category" variant="outlined" required :items="this.categories_list"></v-select>
                                 </v-col>
                             </v-row>
                             <v-row dense>
-                                <v-col cols="12" sm="4" md="4" lg="4">
-                                    <p class="text-h6 text-left font-weight-bold pt-4">
+                                <v-col cols="4">
+                                    <p class="text-h6 font-weight-bold pt-4">
                                         Application Deadline*
                                     </p>
                                 </v-col>
-                                <v-col cols="12" sm="8" md="8" lg="8">
+                                <v-col cols="8">
                                     <v-text-field
                                         type="date"    
                                         v-model="selectedDateFormatted"
@@ -98,7 +98,6 @@
                             <v-row dense class="mx-16">
                                 <!-- Error Message -->
                                 <v-alert
-                                    id="error_alert"
                                     v-if="errorMessage"
                                     color="error"
                                     icon="mdi-alert"
@@ -107,10 +106,10 @@
                                 </v-alert>
                             </v-row>
                             <v-row dense class="mx-16">
-                                <v-col cols="6">
+                                <!-- <v-col>
                                     <v-btn
                                         block
-                                        class="text-h6 mt-8 mr-6"
+                                        class="mt-8 mr-6"
                                         color="default"
                                         size="large"
                                         variant="tonal"
@@ -119,30 +118,30 @@
                                     >
                                         <b>Reset</b>
                                     </v-btn>
-                                </v-col>
-                                <v-col cols="6">
+                                </v-col> -->
+                                <v-col>
                                     <v-btn
                                         block
-                                        class="text-h6 mt-8 ml-6"
+                                        class="mt-8 ml-6"
                                         color="teal-lighten-1"
                                         size="large"
                                         variant="tonal"
                                         :disabled="!isFieldsNotEmpty || date_before_today()"
-                                        @click="create_role()"
-                                        id="create_role_btn"
+                                        @click="update_role()"
+                                        id="update_btn"
                                     >
-                                        <b>Create</b>
+                                        <b>Update</b>
                                     </v-btn>
                                 </v-col>
                             </v-row>
                             <!-- show success message -->
-                            <v-dialog v-model="success_model" hide-overlay class="w-50">
+                            <v-dialog v-model="success_model" hide-overlay class="w-50" id="updated_success_alert">
                                 <!-- Modal content goes here -->
                                 <v-alert
                                     id="success_alert"
                                     color="success"
                                     icon="$success"
-                                    title="New role created successfully."
+                                    title="Role updated successfully."
                                 ></v-alert>
                             </v-dialog>
                         </v-card>
@@ -158,12 +157,12 @@
 import axios from 'axios';
 
 export default {
-    name: "CreateRoleListing",
+    name: "UpdateRoleListing",
     data() {
         return {
             role_name: "",
             role_name_list: [],
-            description: "",
+            description: "hi",
             departments: "",
             departments_list: [],
             categories: "",
@@ -186,6 +185,24 @@ export default {
         await this.get_departments();
         await this.get_categories();
         await this.showDateinSGT();
+    },
+    mounted() {
+        // Fetch role listing from the API
+        this.listing_id = this.$route.query.listing_id;
+        axios.get('http://127.0.0.1:5000/hr/role_listings/' + this.listing_id)
+            .then((response) => {
+                console.log("EXISTING ROLE LISTING DATA", response.data.data);
+                this.selectedDateFormatted = response.data.data.role_listing.deadline,
+                this.categories = response.data.data.role_listing.category;
+                this.departments = response.data.data.role_listing.department;
+                this.role_name = response.data.data.role_listing.role_name;
+                this.description = response.data.data.role_listing.role_desc;
+                this.skills = response.data.data.role_listing.skills_required;
+            })
+            .catch((error) => {
+                console.error('Error fetching role listings:', error);
+            });
+
     },
     methods: {
         showDateinSGT() {
@@ -310,37 +327,30 @@ export default {
             }
 
         },
-        async create_role() {
+        async update_role() {
             try{
-                console.log("trying create_role()");
-                // console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
-                console.log(this.selectedDateFormatted);
-                const response = await axios.post(`http://127.0.0.1:5000/hr/create_role_listing`, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
-                console.log("response", response);
-                if (response.status === 201) {
+                console.log("trying update_role()");
+                console.log("to send:", this.role_name, this.departments, this.categories, this.selectedDateFormatted);
+                const response = await axios.put(`http://127.0.0.1:5000/hr/update_role_listing/`+this.listing_id, {role_name:this.role_name, department:this.departments, category:this.categories, deadline:this.selectedDateFormatted});
+                console.log("update outcome", response);
+                if (response.status === 200) {
                     // Role created successfully
                     this.errorMessage = "";
 
                     // Reset the form and set timeout to hide the success message
                     this.success_model = true;
-                    this.role_name = "";
-                    this.departments = "";
-                    this.categories = "";
-                    this.selectedDateFormatted = "";
-                    this.description = "";
-                    this.skills = [];
-                    this.get_roles();
-                    this.get_departments();
-                    this.get_categories();
+                    console.log("success message", this.success_model);
+
                     setTimeout(() => {
+                        this.$router.replace({ name: "ManageRolesPage" });
                         this.success_model = false;
-                    }, 10000);
+                    }, 5000);
                 }
             } catch (error) {
                 if (error.response && error.response.status === 400) {
                     // duplicate roles detected
                     // Display an error message to the user
-                    console.error("Error creating roles:", error); // Log the error response
+                    console.error("Error updating roles:", error); // Log the error response
                     this.errorMessage = "This role already exists. Please check your input and try again.";
                     console.log("errorMessage", this.errorMessage);
                 } else {

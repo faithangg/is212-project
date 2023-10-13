@@ -4,9 +4,14 @@
             View Role Applicants
         </div>
         <v-container>
+            <v-col cols="3">
+                <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
+                    Back
+                </v-btn>
+            </v-col>
             <v-row class="mt-1">
                 <v-col cols="6" class="text-center">
-                    <div class="text-h6"><strong>Role Name:</strong> {{ role_name }}</div>
+                    <div class="text-h6" id="role_name"><strong>Role Name:</strong> {{ role_name }}</div>
                 </v-col>
                 <v-col cols="6" class="text-center">
                     <div class="text-h6"><strong>Department:</strong> {{ department }}</div>
@@ -21,22 +26,6 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-container>
-            <!-- Search input field -->
-            <!--<v-row class="d-flex justify-center mt-3 mb-6 ">
-                <v-col cols="7" class="pe-0">
-                    <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details id="search_bar"
-                        class="rounded-top-left rounded-bottom-left"></v-text-field>
-                </v-col>
-                <v-col cols="1" class="d-flex justify-start ms-0 ps-0">-->
-                    <!-- Search button attached to the end of the search bar -->
-                    <!--<v-btn @click="performSearch" color="primary" class="ma-0" style="height: 100%;" id="search_btn">Search</v-btn>
-                </v-col>
-            </v-row>-->
-
-            <!-- Search button -->
-        </v-container>
-
         <RoleApplicantsCard :role_applicants="role_applicants" />
 
     </div>

@@ -3,51 +3,78 @@
     <div>
         <v-row class="d-flex justify-center">
             <!-- display role listings -->
-            <v-card v-for="applicant in role_applicants" :key="applicant.email" class="role-card w-50 h-25">
+            <v-card v-for="applicant in role_applicants" :key="applicant.email" class="role-card role-card w-md-100 w-lg-50 h-25">
                 <v-row>
-                    <v-col><v-row class="my-0 py-1 px-2">
+                    <v-col cols="12" md="6"><v-row class="my-0 py-1 px-2">
                             <v-col class="d-flex justify-start">
-                                <v-card-title class="text-h7 font-weight-bold">
+                                <v-card-title class="text-h6 font-weight-bold">
                                     {{ applicant.name }}
                                 </v-card-title>
                             </v-col>
                         </v-row>
                         <v-row class="pt-0 mt-0">
                             <v-col>
-                                <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Email: </span>&nbsp;<span>{{ applicant.email }}</span>
+                                <v-card-text class="d-flex justify-start text-h6 ">
+                                    <span class="font-weight-bold">Email: </span>&nbsp;<span class="wrap-text">{{ applicant.email }}</span>
                                 </v-card-text>
                                 <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ applicant.department }}</span>
+                                    <span class="font-weight-bold">Department: </span> &nbsp; <span class="wrap-text">{{ applicant.department }}</span>
                                 </v-card-text>
                                 <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Application Date: </span> &nbsp; <span>{{ applicant.application_date }}</span>
+                                    <span class="font-weight-bold">Application Date: </span> &nbsp; <span class="wrap-text">{{ applicant.application_date }}</span>
                                 </v-card-text>
                                 
                             </v-col>
-                            <!--<v-col class="d-flex justify-end me-4 mb-4 align-end">
-                                
-                                <v-btn @click="viewApplicants(role.listing_id)" class="me-3" id="view_applicants" icon="mdi-account-multiple"></v-btn>
-                                <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)" id="open_modal"></v-btn>
-                                
-                                <v-btn icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
-                            </v-col>-->
                         </v-row>
                     </v-col>
-                    <v-col>
+                    <v-col cols="12" md="6">
                         <v-card-text>
-                        <span class="font-weight-bold text-h6">Your Match: </span>
-                        <v-progress-circular
-                            :rotate="180"
-                            :size="100"
-                            :width="15"
-                            :model-value="applicant.match_percentage"
-                            color="teal"
-                        >
-                            {{ applicant.match_percentage }}%
-                        </v-progress-circular>
+                            <v-row class="px-0 py-4 my-1 mx-1 d-flex justify-center">
+                                <span class="font-weight-bold text-h6">Your Match: </span>
+                            </v-row>
+                            <v-row class="px-0 py-4 my-1 mx-1 d-flex justify-center">
+                                <v-progress-circular
+                                    :rotate="180"
+                                    :size="100"
+                                    :width="15"
+                                    :model-value="applicant.match_percentage"
+                                    color="teal"
+                                >
+                                    {{ applicant.match_percentage }}%
+                                </v-progress-circular>
+                            </v-row>
                         </v-card-text>
                     </v-col>
+                </v-row>
+                <v-row>
+                    <v-col>
+                        <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container">
+                            <span class="font-weight-bold">Skills held: </span>&nbsp;
+                                <v-chip
+                                class="me-2"
+                            v-for="skill in applicant.skills_have"
+                            :key="skill"
+                            color="blue">
+                            {{ skill }}
+                                </v-chip>
+                        </v-card-text>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col>
+                        <v-card-text class="d-flex justify-start text-h6 chip-container">
+                            <span class="font-weight-bold">Skills missing: </span>&nbsp;
+                            <v-chip
+                                class="me-2"
+                                v-for="skill in applicant.skills_dont"
+                                :key="skill"
+                                color="red">
+                                {{ skill }}
+                            </v-chip>
+                        </v-card-text>
+                    </v-col>
+                </v-row>
+            </v-card>
                 </v-row>
                 <v-row>
                     <v-col>
@@ -143,16 +170,12 @@ export default {
     },
     data() {
         return {
-            //showModal: false, // Control the visibility of the full-screen modal
-            //roleToDisplay: null, // Store the role data for the modal
+            
             
         };
     },
     methods: {
-        //openModal(role) {
-            //this.roleToDisplay = role;
-            //this.showModal = true;
-        //},
+       
         
     },
 
@@ -170,5 +193,20 @@ export default {
     margin: 16px;
 }
 
+.chip-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.wrap-text {
+    white-space: nowrap;
+}
+@media (max-width: 600px) {
+    .wrap-text {
+        white-space: normal; /* Allows the text to wrap to the next line */
+        overflow-wrap: break-word; /* Breaks long words to prevent overflow */
+        word-wrap: break-word; /* Older browsers might require this property */
+        word-break: break-word; /* Breaks the word at the end of the line */
+    }
+}
 
 </style>
