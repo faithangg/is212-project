@@ -91,6 +91,7 @@
                                         required
                                         :min="minDate"
                                         :rules="[rules.dateBeforeToday]"
+                                        id="application_deadline"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -127,13 +128,14 @@
                                         variant="tonal"
                                         :disabled="!isFieldsNotEmpty || date_before_today()"
                                         @click="update_role()"
+                                        id="update_btn"
                                     >
                                         <b>Update</b>
                                     </v-btn>
                                 </v-col>
                             </v-row>
                             <!-- show success message -->
-                            <v-dialog v-model="success_model" hide-overlay class="w-50">
+                            <v-dialog v-model="success_model" hide-overlay class="w-50" id="updated_success_alert">
                                 <!-- Modal content goes here -->
                                 <v-alert
                                     id="success_alert"

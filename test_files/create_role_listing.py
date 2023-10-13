@@ -58,8 +58,8 @@ dept.send_keys(Keys.RETURN)
 time.sleep(1)
 
 # Select the application deadline
-category = driver.find_element(By.ID, "application_deadline")
-category.send_keys("08/08/2024")
+application_deadline = driver.find_element(By.ID, "application_deadline")
+application_deadline.send_keys("08/08/2024")
 
 time.sleep(1)
 
