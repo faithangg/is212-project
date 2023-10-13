@@ -6,7 +6,7 @@
         <v-container>
             <v-row class="mt-1">
                 <v-col cols="6" class="text-center">
-                    <div class="text-h6"><strong>Role Name:</strong> {{ role_name }}</div>
+                    <div class="text-h6" id="role_name"><strong>Role Name:</strong> {{ role_name }}</div>
                 </v-col>
                 <v-col cols="6" class="text-center">
                     <div class="text-h6"><strong>Department:</strong> {{ department }}</div>
