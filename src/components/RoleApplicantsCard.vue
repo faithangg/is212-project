@@ -75,88 +75,6 @@
                     </v-col>
                 </v-row>
             </v-card>
-                </v-row>
-                <v-row>
-                    <v-col>
-                        <v-card-text class="d-flex justify-start text-h6">
-                            <span class="font-weight-bold">Skills held: </span>&nbsp;
-                                <v-chip
-                            class="me-2"
-                            v-for="skill in applicant.skills_have"
-                            :key="skill"
-                            color="red">
-                            {{ skill }}
-                                </v-chip>
-                        </v-card-text>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col>
-                        <v-card-text class="d-flex justify-start text-h6">
-                            <span class="font-weight-bold">Skills missing: </span>&nbsp;
-                            <v-chip
-                                class="me-2"
-                                v-for="skill in applicant.skills_dont"
-                                :key="skill"
-                                color="blue">
-                                {{ skill }}
-                            </v-chip>
-                        </v-card-text>
-                    </v-col>
-                </v-row>
-            </v-card>
-            <!-- Modal content goes here -->
-            <!--
-            <v-dialog v-model="showModal" hide-overlay>
-
-                
-                <v-card>
-                    <v-card-actions>
-                        <v-btn @click="showModal = false">Close</v-btn>
-                    </v-card-actions>
-                    <v-container>
-                        <v-row class="mt-3">
-                            <v-col class="d-flex justify-start align-center">
-                                <v-card-title class="text-h6 font-weight-bold">
-                                    {{ roleToDisplay.role_name }}
-                                </v-card-title>
-                                <v-chip color="primary">
-                                    {{ roleToDisplay.category }}
-                                </v-chip>
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col>
-                                <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ roleToDisplay.department }}</span>
-                                </v-card-text>
-                                <v-card-text class="d-flex justify-start text-h6 pt-0">
-                                    <span class="font-weight-bold">Deadline: </span>&nbsp;<span>{{ roleToDisplay.deadline }}</span>
-                                </v-card-text>
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col>
-                                <v-card-text class="text-h6">
-                                    {{ roleToDisplay.role_desc }}
-                                </v-card-text>
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col >
-                                <v-card-text>
-                                    <span class="font-weight-bold text-h6">Skills Required: </span>
-                                    <v-chip class="me-2" v-for="skill in roleToDisplay.skills_required" :key="skill" color="blue">
-                                        {{ skill }}
-                                    </v-chip>
-                                    
-                                </v-card-text>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-
-                </v-card>
-            </v-dialog>-->
         </v-row>
     </div>
 </template>
@@ -192,7 +110,6 @@ export default {
     padding: 16px;
     margin: 16px;
 }
-
 .chip-container {
     display: flex;
     flex-wrap: wrap;
@@ -208,5 +125,4 @@ export default {
         word-break: break-word; /* Breaks the word at the end of the line */
     }
 }
-
 </style>
