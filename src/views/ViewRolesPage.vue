@@ -120,8 +120,6 @@
 
 
       <v-col cols="3" class="d-none d-lg-block ms-2">
-        <!-- Use v-if to conditionally render the filter section -->
-        <!-- <v-card v-if="!isMobileScreen"> -->
         <v-card class="mx-auto">
           <v-toolbar flat dark>
             <v-toolbar-title>Filter results</v-toolbar-title>
