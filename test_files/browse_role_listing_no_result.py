@@ -29,19 +29,24 @@ text = driver.find_element(By.ID, "role_listings").click()
 # Wait for 3 seconds (for the page to load)
 time.sleep(3)
 
-# Open the first modal 
-element = driver.find_element(By.ID, "open_modal").click()
+# Search for software engineer role
+search_bar = driver.find_element(By.ID, "search_bar")
+search_bar.clear()
+search_bar.send_keys("cannot")
+
+# Click search button
+driver.find_element(By.ID, "search_btn").click()
 
 # Wait for 3 seconds (for the page to load)
 time.sleep(3)
 
-driver.find_element(By.ID, "apply_role").click
+# Get the first role listing name
+text = driver.find_element(By.ID, "search_alert").text
 
-text = driver.find_element(By.ID, "apply_alerts").get_attribute("id")
+# Check if role listing has the word software in it
+assert "no role listings found" in text.lower()
 
-assert "apply_alerts" in text
-
-print("TEST PASSED : Apply Role")
+print("TEST PASSED : BROWSE ROLE LISTING STAFF NO RESULT")
 
 print("Application title ", driver.title)
 print("Application url is ", driver.current_url)

@@ -58,6 +58,7 @@ def role_skill_match(staff_id, role_name):
         else:
             match_percentage = round((len(staff_have) / (len(staff_have) + len(staff_dont))) * 100)
 
+
         return {
             "code": 200,
             "data": {
@@ -82,8 +83,6 @@ def get_all_role_listings():
     try:
         # Get all the records from the database
         role_listings = RoleListing.query.all()
-
-
 
         role_data = []
         for listing in role_listings:
@@ -301,129 +300,3 @@ def view_applied_roles_with_skill_match(staff_id):
         db.session.rollback()
         return jsonify(error=str(e)), 500
     
-
-# STAFF: GET ALL FILTER OPTIONS 
-@staff_blueprint.route('/filter_options', methods=['GET'])
-def get_filter_options():
-    try:
-        # Get all the categories in the database
-        categories = Category.query.all()
-
-        result_category = []
-        for category in categories:
-            # Check if category is unique
-            if category.category not in result_category:
-                result_category.append(category.category)
-
-        # Get all the staff in the database
-        staffs = Staff.query.all()
-
-        result_dept = []
-        for staff in staffs:
-            if staff.dept not in result_dept:
-                result_dept.append(staff.dept)
-
-        if result_category and result_dept:
-            return jsonify({"code": 200, "data": {"department": result_dept, "category": result_category}}), 200
-        else:
-            return jsonify({"code": 404, "message": "Was no able to retrieve filter options"}), 404
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify(error=str(e)), 500
-    
-
-# STAFF: GET THE FILTERED ROLE LISTINGS
-@staff_blueprint.route('/filter_role_listings/<int:staff_id>', methods=['GET'])
-def get_filtered_roles(staff_id):
-    try:
-
-        # Extract data from the request
-        data = request.get_json() 
-        print("cat ", data["category"])
-
-        all_role_listings = RoleListing.query
-        # Get all role listing applicable for the staff
-        avaliable_role_listings = filter_listings_by_staff_and_deadline(all_role_listings, staff_id).all()
-
-        # If both category and department are in the filter options
-        if len(data['category']) != 0 and len(data["department"]) != 0:
-            role_listings_query = []
-            # Get the list of department and category from the filter options
-            filter_category = data['category']
-            filter_department = data['department']
-
-            # For each role listing, check if it has the given department
-            for role_listing in avaliable_role_listings:
-                if role_listing.department in filter_department:
-                    # Check if the role listing has the given category
-                    if role_listing.category in filter_category:
-                        # Append to the role_listings_query list if it has both
-                        role_listings_query.append(role_listing)
-        
-        # If only category is in the filter option
-        elif len(data['category']) != 0 :
-            role_listings_query = []
-            # Get the list of department and category from the filter options
-            filter_category = data['category']
-
-            # For each role listing, check if it has the given category
-            for role_listing in avaliable_role_listings:
-                if role_listing.category in filter_category:
-                    # Append to the role_listings_query list if it has both
-                    role_listings_query.append(role_listing)
-        
-        # If only department is in the filter option
-        elif len(data["department"]) != 0:
-            role_listings_query = []
-            # Get the list of department and category from the filter options
-            filter_department = data['department']
-
-            # For each role listing, check if it has the given department
-            for role_listing in avaliable_role_listings:
-                if role_listing.department in filter_department:
-                    # Append to the role_listings_query list if it has both
-                    role_listings_query.append(role_listing)        
-        else:
-            return jsonify({"code": 400, "message": "Invalid filter option."}), 400
-        
-        print("role_listings_query ", [each.json() for each in role_listings_query])
-
-        results = []
-        # If match percentage if in the filter option
-        if len(data['match_percentage']) != 0 and len(role_listings_query) != 0:
-            # Get the upper and lower bound of the match percentage filter
-            bounds = data['match_percentage'].split('-')
-            lower_bound = int(bounds[0])
-            upper_bound = int(bounds[1])
-            print(upper_bound ,"-", lower_bound)
-
-            # For each role listing, get the role skill match and check if its between the match percentage
-            for role_listing in role_listings_query:
-                print("role listing name ", role_listing.role_name)
-                skill_match = role_skill_match(staff_id, role_listing.role_name)
-                if skill_match['code'] == 200:
-                    match_percentage = int(float(skill_match['data']["match_percentage"]))
-                    # Check if match percentage if between the lower and upper bound
-                    if match_percentage >= lower_bound and match_percentage <= upper_bound:
-                        # Get the role description
-                        roles = Role.query.filter_by(role_name=role_listing.role_name).first()
-                        role_desc = roles.role_desc
-                        listing = role_listing.json()
-                        # Add the role description to the role listing
-                        listing["role_desc"] = role_desc
-                        # Append the role listing information and the skill match information to results
-                        results.append({
-                            "role_listing": listing,
-                            "role_skill_match": skill_match['data']
-                        })
-        
-        # If there are results, return the results, else return that no results were found
-        if results:
-            return jsonify({"code": 200, "data": {"role_listings": results}}), 200
-        else:
-            return jsonify({"code": 404, "message": "No role listings found for the given filter options."}), 404
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify(error=str(e)), 500

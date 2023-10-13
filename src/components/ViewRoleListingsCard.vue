@@ -3,80 +3,8 @@
 <template>
   <div>
     <v-row class="d-flex justify-center">
-            <!-- display filter listings -->
-        <v-col :cols="3" class="justify-start">
-            <div class="text-h5 mt-9 text-left">
-              Filters
-          </div>
-          <v-col cols="12" sm="9" md="4" class="text-left">
-            <v-btn flat text size="small">Clear All</v-btn>
-          </v-col>
-          <v-expansion-panels
-            multiple>
-            <v-expansion-panel>
-              <v-expansion-panel-title>Category</v-expansion-panel-title>
-              <v-expansion-panel-text>
-                <v-container fluid>
-                  <p>{{ selected }}</p>
-                  <v-checkbox
-                    v-model="selected"
-                    label="Administration and Support"
-                    value="Administration and Support"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="selected"
-                    label="Engineering"
-                    value="Engineering"
-                  ></v-checkbox>
-                </v-container>
-              </v-expansion-panel-text>  
-            </v-expansion-panel>
-
-            <v-expansion-panel>
-              <v-expansion-panel-title>Department</v-expansion-panel-title>
-              <v-expansion-panel-text>
-                <v-container fluid>
-                  <p>{{ selected }}</p>
-                  <v-checkbox
-                    v-model="selected"
-                    label="HR"
-                    value="HR"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="selected"
-                    label="IT"
-                    value="IT"
-                  ></v-checkbox>
-                </v-container>
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-
-            <v-expansion-panel>
-              <v-expansion-panel-title>Percentage Match</v-expansion-panel-title>
-              <v-expansion-panel-text>
-                <v-container fluid>
-                  <p>{{ selected }}</p>
-                  <v-checkbox
-                    v-model="selected"
-                    label="0 - 10"
-                    value="0 - 10"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="selected"
-                    label="11-20"
-                    value="11-20"
-                  ></v-checkbox>
-                </v-container>
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-          </v-expansion-panels>
-          <v-col cols="12" sm="9" md="4">
-            <v-btn  density="default">Apply</v-btn>
-          </v-col>
-        </v-col>
-        
+ 
       <!-- display role listings -->
-      <v-col :cols="8" class="justify-end">
 
       <v-card
         v-for="role in displayListings"
@@ -100,7 +28,7 @@
           <v-col >
             <v-card-text class="d-flex justify-start text-h6">
               <span class="font-weight-bold">Department: </span> &nbsp;
-              <span>{{ role.role_listing.department }}</span>
+              <span id="listing_department">{{ role.role_listing.department }}</span>
             </v-card-text>
             <v-card-text class="d-flex justify-start text-h6 pt-0 ">
               <span class="font-weight-bold">Deadline: </span>&nbsp;<span
@@ -134,7 +62,7 @@
           </v-col>
         </v-row>
       </v-card>
-    </v-col>
+  
 
       <v-dialog v-model="showModal" hide-overlay>
         <!-- Modal content goes here -->
@@ -154,7 +82,7 @@
               </v-col>
               <v-col cols="auto">
                 <v-btn
-                  class="bg-blue-accent-4 text-h6"
+                  class="bg-teal-lighten-3 text-h6"
                   @click="applyrole()"
                   id="apply_role"
                   >Apply Now</v-btn
@@ -274,7 +202,12 @@ export default {
       success_model: false, // Control the visibility of the full-screen success modal
       failure_model: false, // Control the visibility of the full-screen failure modal
       appliedRole: null,
+
     };
+  },
+  mounted(){
+
+
   },
 
   computed: {
@@ -285,7 +218,7 @@ export default {
 
       this.appliedRole = null;
       return filtered;
-    }
+    },
   },
 
   methods: {
@@ -335,6 +268,7 @@ export default {
           }, 3000);
         });
     },
+
   },
 
 };
@@ -347,4 +281,5 @@ export default {
   padding: 16px;
   margin: 16px;
 }
+
 </style>
