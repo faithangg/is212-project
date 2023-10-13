@@ -105,7 +105,7 @@
                                 </v-alert>
                             </v-row>
                             <v-row dense class="mx-16">
-                                <v-col>
+                                <!-- <v-col>
                                     <v-btn
                                         block
                                         class="mt-8 mr-6"
@@ -117,7 +117,7 @@
                                     >
                                         <b>Reset</b>
                                     </v-btn>
-                                </v-col>
+                                </v-col> -->
                                 <v-col>
                                     <v-btn
                                         block
@@ -339,15 +339,6 @@ export default {
                     this.success_model = true;
                     console.log("success message", this.success_model);
 
-                    // this.role_name = "";
-                    // this.departments = "";
-                    // this.categories = "";
-                    // this.selectedDateFormatted = "";
-                    // this.description = "";
-                    // this.skills = [];
-                    // this.get_roles();
-                    // this.get_departments();
-                    // this.get_categories();
                     setTimeout(() => {
                         this.$router.replace({ name: "ManageRolesPage" });
                         this.success_model = false;
