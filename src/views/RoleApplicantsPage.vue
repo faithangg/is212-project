@@ -4,6 +4,11 @@
             View Role Applicants
         </div>
         <v-container>
+            <v-col cols="3">
+                <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
+                    Back
+                </v-btn>
+            </v-col>
             <v-row class="mt-1">
                 <v-col cols="6" class="text-center">
                     <div class="text-h6" id="role_name"><strong>Role Name:</strong> {{ role_name }}</div>
