@@ -29,19 +29,24 @@ text = driver.find_element(By.ID, "role_listings").click()
 # Wait for 3 seconds (for the page to load)
 time.sleep(3)
 
-# Open the first modal 
-element = driver.find_element(By.ID, "open_modal").click()
+# Click the filters
+search_bar = driver.find_element(By.ID, "category_Finance").click()
+search_bar = driver.find_element(By.ID, "department_Finance").click()
+search_bar = driver.find_element(By.ID, "0-20").click()
+
+# Click apply filter button
+driver.find_element(By.ID, "apply_filter_btn").click()
 
 # Wait for 3 seconds (for the page to load)
 time.sleep(3)
 
-driver.find_element(By.ID, "apply_role").click
+# Get the first role listing name
+text = driver.find_element(By.ID, "filter_alert").text
 
-text = driver.find_element(By.ID, "apply_alerts").get_attribute("id")
+# Check if role listing has the word software in it
+assert "No role listings found based on your input filters" in text
 
-assert "apply_alerts" in text
-
-print("TEST PASSED : Apply Role")
+print("TEST PASSED : FILTER ROLE LISTING STAFF NO RESULT")
 
 print("Application title ", driver.title)
 print("Application url is ", driver.current_url)
