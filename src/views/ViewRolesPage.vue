@@ -14,10 +14,10 @@
         </v-col>
         <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
           <!-- Search button attached to the end of the search bar -->
-          <v-btn @click="performSearch" color="teal-lighten-3" class="ma-0" style="height: 100%;"
-            id="search_btn">Search</v-btn>
+          <v-btn @click="performSearch" color="teal-lighten-3" style="height: 100%;"
+            id="search_btn" text="Search"></v-btn>
         </v-col>
-        <v-col cols="8" class="text-center pt-0">
+        <v-col cols="8" class="text-end pt-0">
           <v-btn @click="clearSearch" flat text size="small">Clear Search</v-btn>
         </v-col>
       </v-row>
