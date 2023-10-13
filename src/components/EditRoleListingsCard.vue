@@ -93,7 +93,7 @@
 
                 </v-card>
             </v-dialog>
-            <v-dialog v-model="showAlert" hide-overlay class="w-50">
+            <v-dialog v-model="showAlert" hide-overlay class="w-50" id="no_applicants_alert">
                 <v-alert
                     color="blue"
                     outlined
