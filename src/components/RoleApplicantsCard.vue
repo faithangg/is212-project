@@ -14,14 +14,14 @@
                         </v-row>
                         <v-row class="pt-0 mt-0">
                             <v-col>
-                                <v-card-text class="d-flex justify-start text-h6 wrap-text">
-                                    <span class="font-weight-bold">Email: </span>&nbsp;<span>{{ applicant.email }}</span>
+                                <v-card-text class="d-flex justify-start text-h6 ">
+                                    <span class="font-weight-bold">Email: </span>&nbsp;<span class="wrap-text">{{ applicant.email }}</span>
                                 </v-card-text>
                                 <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Department: </span> &nbsp; <span>{{ applicant.department }}</span>
+                                    <span class="font-weight-bold">Department: </span> &nbsp; <span class="wrap-text">{{ applicant.department }}</span>
                                 </v-card-text>
                                 <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Application Date: </span> &nbsp; <span>{{ applicant.application_date }}</span>
+                                    <span class="font-weight-bold">Application Date: </span> &nbsp; <span class="wrap-text">{{ applicant.application_date }}</span>
                                 </v-card-text>
                                 
                             </v-col>
@@ -171,9 +171,14 @@ export default {
     flex-wrap: wrap;
 }
 .wrap-text {
-    white-space: normal; /* Allows the text to wrap to the next line */
-    overflow-wrap: break-word; /* Breaks long words to prevent overflow */
-    word-wrap: break-word; /* Older browsers might require this property */
-    word-break: break-word; /* Breaks the word at the end of the line */
+    white-space: nowrap;
+}
+@media (max-width: 600px) {
+    .wrap-text {
+        white-space: normal; /* Allows the text to wrap to the next line */
+        overflow-wrap: break-word; /* Breaks long words to prevent overflow */
+        word-wrap: break-word; /* Older browsers might require this property */
+        word-break: break-word; /* Breaks the word at the end of the line */
+    }
 }
 </style>
