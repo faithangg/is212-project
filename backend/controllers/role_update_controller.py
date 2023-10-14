@@ -18,6 +18,11 @@ def update_role_listing(listing_id):
         # Extract data from the request
         data = request.get_json()
 
+        # Store original values before update
+        original_role_name = existing_role_listing.role_name
+        original_department = existing_role_listing.department
+        original_category = existing_role_listing.category
+
         # Update the provided fields if they differ from the original
         if 'role_name' in data and data['role_name'] != existing_role_listing.role_name:
             existing_role_listing.role_name = data['role_name']
@@ -32,13 +37,19 @@ def update_role_listing(listing_id):
             existing_role_listing.deadline = data['deadline']
 
         # Check for duplicate role listing after update
-        duplicate_role = RoleListing.query.filter_by(
-            role_name=existing_role_listing.role_name,
-            department=existing_role_listing.department,
-            category=existing_role_listing.category
+        duplicate_role = RoleListing.query.filter(
+            RoleListing.role_name == existing_role_listing.role_name,
+            RoleListing.department == existing_role_listing.department,
+            RoleListing.category == existing_role_listing.category,
+            RoleListing.listing_id != listing_id  # Exclude the current listing from the query
         ).first()
 
-        if duplicate_role and duplicate_role.listing_id != listing_id:
+        if duplicate_role:
+            # Reset to the original values to avoid unwanted changes in the database
+            existing_role_listing.role_name = original_role_name
+            existing_role_listing.department = original_department
+            existing_role_listing.category = original_category
+
             return jsonify({"error": "Duplicate role listing after update"}), 400
 
         # Commit the changes to the database
