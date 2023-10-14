@@ -13,6 +13,7 @@ import controllers.job_application_controller
 import controllers.role_update_controller
 import controllers.view_applicants_controller
 import controllers.role_listing_filter_controller
+import controllers.staff_profile_controller
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL') or 'mysql+mysqlconnector://root@localhost:3306/sbrp'

@@ -269,34 +269,5 @@ def browse_listing(staff_id, search_input):
         db.session.rollback()
         return jsonify(error=str(e)), 500
 
-# STAFF: VIEW ALL ROLES APPLIED
-@staff_blueprint.route('/applied_roles/<int:staff_id>', methods=['GET'])
-def view_applied_roles(staff_id):
-    try:
-        # Get all the applications by the staff
-        applications = JobApplication.query.filter_by(staff_id=staff_id).all()
 
-        results = []
-        for application in applications:
-            # Get associated role listing for this application
-            role_listing = RoleListing.query.filter_by(listing_id=application.listing_id).first()
-            if role_listing:
-                # Get skill match for this role
-                skill_match_data = role_skill_match(staff_id, role_listing.role_name)
-                if skill_match_data['code'] == 200:
-                    role_skill_data = skill_match_data['data']
-                    role_skill_data = skill_match_data['data']
-                    results.append({
-                        "role_listing": role_listing.json(),
-                        "role_skill_match": role_skill_data
-                    })
-
-        if results:
-            return jsonify({"code": 200, "data": {"applied_roles": results}}), 200
-        else:
-            return jsonify({"code": 404, "message": "No applied roles found for the given staff ID."}), 404
-
-    except Exception as e:
-        db.session.rollback()
-        return jsonify(error=str(e)), 500
     
