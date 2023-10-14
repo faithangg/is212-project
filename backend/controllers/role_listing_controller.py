@@ -270,8 +270,8 @@ def browse_listing(staff_id, search_input):
         return jsonify(error=str(e)), 500
 
 # STAFF: VIEW ALL ROLES APPLIED
-@staff_blueprint.route('/applied_roles_with_skill_match/<int:staff_id>', methods=['GET'])
-def view_applied_roles_with_skill_match(staff_id):
+@staff_blueprint.route('/applied_roles/<int:staff_id>', methods=['GET'])
+def view_applied_roles(staff_id):
     try:
         # Get all the applications by the staff
         applications = JobApplication.query.filter_by(staff_id=staff_id).all()
@@ -292,7 +292,7 @@ def view_applied_roles_with_skill_match(staff_id):
                     })
 
         if results:
-            return jsonify({"code": 200, "data": {"applied_roles_with_skill_match": results}}), 200
+            return jsonify({"code": 200, "data": {"applied_roles": results}}), 200
         else:
             return jsonify({"code": 404, "message": "No applied roles found for the given staff ID."}), 404
 
