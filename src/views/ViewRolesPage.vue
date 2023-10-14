@@ -57,128 +57,33 @@
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-toolbar>
+          
+            <!--Filter component 1-->
+            <RoleFilterCard
+              :categoryItems="categoryItems"
+              :departmentItems="departmentItems"
+              :percentageMatchItems="percentageMatchItems"
+              @filter-applied="handleFilterApplied"
+              @filter-cleared="handleFilterCleared"
+            ></RoleFilterCard>
 
-            <v-card-text>
-              <!-- Filter section content here -->
-              <!-- ... -->
-              <v-card class="mx-auto">
 
-
-                <v-card-text>
-                  <h2 class="text-h6 mb-2">
-                    Category
-                  </h2>
-
-                  <v-chip-group v-model="selectedCategory" column multiple>
-                    <v-chip class="me-2" filter variant="outlined" v-for="category in categoryItems" :key="category"
-                      :value="category" :id="'category_' + category">
-                      {{ category }}
-
-                    </v-chip>
-
-                  </v-chip-group>
-                </v-card-text>
-
-                <v-card-text>
-                  <h2 class="text-h6 mb-2">
-                    Department
-                  </h2>
-
-                  <v-chip-group v-model="selectedDepartment" column multiple>
-                    <v-chip class="me-2" filter variant="outlined" v-for="department in departmentItems" :key="department"
-                      :value="department" :id="'department_' + department">
-                      {{ department }}
-
-                    </v-chip>
-
-                  </v-chip-group>
-                </v-card-text>
-                <v-card-text>
-                  <h2 class="text-h6 mb-2">
-                    Match Percentage(%)
-                  </h2>
-
-                  <v-chip-group v-model="selectedPercentage" column multiple>
-                    <v-chip class="me-2" filter variant="outlined" v-for="percentageMatch in percentageMatchItems"
-                      :key="percentageMatch" :value="percentageMatch" :id="percentageMatch">
-                      {{ percentageMatch }}
-
-                    </v-chip>
-
-                  </v-chip-group>
-                </v-card-text>
-              </v-card>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn @click="applyFilter();hideFilterModal()">Apply Filter</v-btn>
-              <v-btn @click="clearFilter();hideFilterModal()" color="error">Clear All</v-btn>
-            </v-card-actions>
           </v-card>
         </v-dialog>
       </v-col>
 
 
       <v-col cols="3" class="d-none d-lg-block ms-2">
-        <v-card class="mx-auto">
-          <v-toolbar flat dark>
-            <v-toolbar-title>Filter results</v-toolbar-title>
-          </v-toolbar>
+            <!--Filter component 2-->
+            <RoleFilterCard
+              :categoryItems="categoryItems"
+              :departmentItems="departmentItems"
+              :percentageMatchItems="percentageMatchItems"
+              @filter-applied="handleFilterApplied"
+              @filter-cleared="handleFilterCleared"
+            ></RoleFilterCard>
 
-          <v-card-text>
-            <h2 class="text-h6 mb-2">
-              Category
-            </h2>
 
-            <v-chip-group v-model="selectedCategory" column multiple>
-              <v-chip class="me-2" filter variant="outlined" v-for="category in categoryItems" :key="category"
-                :value="category" :id="'category_' + category">
-                {{ category }}
-
-              </v-chip>
-
-            </v-chip-group>
-          </v-card-text>
-
-          <v-card-text>
-            <h2 class="text-h6 mb-2">
-              Department
-            </h2>
-
-            <v-chip-group v-model="selectedDepartment" column multiple>
-              <v-chip class="me-2" filter variant="outlined" v-for="department in departmentItems" :key="department"
-                :value="department" :id="'department_' + department">
-                {{ department }}
-
-              </v-chip>
-
-            </v-chip-group>
-          </v-card-text>
-          <v-card-text>
-            <h2 class="text-h6 mb-2">
-              Match Percentage(%)
-            </h2>
-
-            <v-chip-group v-model="selectedPercentage" column multiple>
-              <v-chip class="me-2" filter variant="outlined" v-for="percentageMatch in percentageMatchItems"
-                :key="percentageMatch" :value="percentageMatch" :id="percentageMatch">
-                {{ percentageMatch }}
-
-              </v-chip>
-
-            </v-chip-group>
-          </v-card-text>
-        </v-card>
-
-        <!-- Clear filter button -->
-        <v-col cols="4" sm="8" class="text-left">
-          <v-btn @click="clearFilter" flat text size="small">Clear All</v-btn>
-        </v-col>
-
-        <!-- Apply filter button -->
-        <v-col cols="8" sm="8" class="text-right">
-          <v-btn @click="applyFilter" density="default" id="apply_filter_btn" >Apply Filter</v-btn>
-        </v-col>
         <!-- </v-card> -->
       </v-col>
 
@@ -198,6 +103,7 @@
 <script>
 import axios from 'axios';
 import ViewRoleListingsCard from '../components/ViewRoleListingsCard.vue'; // Import the ViewRoleListingsCard component
+import RoleFilterCard from '../components/RoleFilterCard.vue'; // Import the ViewRoleListingsCard component
 
 
 export default {
@@ -351,6 +257,21 @@ export default {
 
 
     },
+    handleFilterApplied(selectedOptions) {
+      // Handle the applied filter here
+      this.selectedCategory = selectedOptions.selectedCategory;
+      this.selectedDepartment = selectedOptions.selectedDepartment;
+      this.selectedPercentage = selectedOptions.selectedPercentage;
+
+      this.applyFilter(); // Call the method to apply the filter with the updated options
+    },
+
+    handleFilterCleared() {
+      // Handle the cleared filter here
+      this.selectedCategory = [];
+      // Handle other selected options...
+      this.clearFilter(); // Call the method to clear the filter with the updated options
+    },
 
     clearFilter() {
       // Clear all filters
@@ -380,6 +301,7 @@ export default {
 
   components: {
     ViewRoleListingsCard, // Register the RoleListings component
+    RoleFilterCard, // Register the RoleFilterCard component
   },
 
 
