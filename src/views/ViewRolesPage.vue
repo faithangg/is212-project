@@ -111,8 +111,8 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn @click="applyFilter" color="primary">Apply Filter</v-btn>
-              <v-btn @click="clearFilter" color="error">Clear All</v-btn>
+              <v-btn @click="applyFilter();hideFilterModal()">Apply Filter</v-btn>
+              <v-btn @click="clearFilter();hideFilterModal()" color="error">Clear All</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -177,7 +177,7 @@
 
         <!-- Apply filter button -->
         <v-col cols="8" sm="8" class="text-right">
-          <v-btn @click="applyFilter" density="default" id="apply_filter_btn">Apply Filter</v-btn>
+          <v-btn @click="applyFilter" density="default" id="apply_filter_btn" >Apply Filter</v-btn>
         </v-col>
         <!-- </v-card> -->
       </v-col>
