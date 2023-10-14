@@ -1,11 +1,15 @@
 // Inside your Vue component
 <template>
   <div>
-    <div class="text-h3 mt-9 ">
-      Role Listings
-    </div>
-    <!-- Search input field -->
+
     <v-container>
+            <!-- Title and Create Roles Btn-->
+      <v-row dense>
+          <v-col>
+              <h1 class="ps-0 pb-8 mt-9 text-center">Role Listings</h1>
+          </v-col>
+      </v-row>
+
       <!-- Search input field -->
       <v-row class="d-flex justify-center mt-3 mb-0 ">
         <v-col cols="7" class="pe-0">

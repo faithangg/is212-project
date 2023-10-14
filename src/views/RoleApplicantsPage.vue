@@ -1,8 +1,25 @@
 <template>
     <div>
-        <div class="text-h3 mt-9 ">
-            View Role Applicants
-        </div>
+
+        <v-container>
+            <!-- Title and Create Roles Btn-->
+            <v-row dense>
+                <v-col >
+                    <h1 class="ps-0 pb-8 mt-9 pr-16 text-center">View Role Applicants</h1>
+                </v-col>
+            </v-row>
+            <!-- Search input field -->
+            <v-row class="d-flex justify-center mt-3 mb-6 ">
+                <v-col cols="7" class="pe-0">
+                    <v-text-field v-model="searchQuery" label="Search by ??" outlined dense hide-details
+                        class="rounded-top-left rounded-bottom-left"></v-text-field>
+                </v-col>
+                <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
+                    <!-- Search button attached to the end of the search bar -->
+                    <v-btn @click="performSearch" color="teal-lighten-3" class="ma-0" style="height: 100%;">Search</v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container>
             <v-col cols="3">
                 <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
