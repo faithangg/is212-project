@@ -28,17 +28,23 @@ def create_role_listing():
         if datetime.today() > deadline_date:
             return jsonify({"error": "Deadline must be in the future"}), 400 
 
-
-        # Check for duplicate role listing
+        # Check for existing role listing with same role name, category, and department
         existing_role = RoleListing.query.filter_by(
             role_name=role_name,
             department=department,
             category=category
         ).first()
 
+        # Check if the deadline for the existing role has passed
         if existing_role:
-            return jsonify({"error": "Duplicate role listing"}), 400
+            if isinstance(existing_role.deadline, str):
+                existing_role_deadline = datetime.strptime(existing_role.deadline, '%Y-%m-%d').date()
+            else:
+                existing_role_deadline = existing_role.deadline
 
+            if datetime.today().date() <= existing_role_deadline:
+                return jsonify({"error": "A role listing with the same details exists and its deadline has not passed yet."}), 400
+                
         # Create a new role listing object
         new_role_listing = RoleListing(
             role_name=role_name,
@@ -56,7 +62,6 @@ def create_role_listing():
                 "code": 201,
                 "data": new_role_listing.json(),
             }  
-            
         ), 201
     except Exception as e:
         db.session.rollback()
