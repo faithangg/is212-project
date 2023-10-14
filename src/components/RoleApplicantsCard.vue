@@ -3,7 +3,7 @@
     <div>
         <v-row class="d-flex justify-center">
             <!-- display role listings -->
-            <v-card v-for="applicant in role_applicants" :key="applicant.email" class="role-card role-card w-md-100 w-lg-50 h-25">
+            <v-card v-for="applicant in role_applicants" :key="applicant.email" class="role-card role-card w-100 w-lg-50 h-20">
                 <v-row>
                     <v-col cols="12" md="6"><v-row class="my-0 py-1 px-2">
                             <v-col class="d-flex justify-start">

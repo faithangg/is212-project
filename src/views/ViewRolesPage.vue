@@ -1,15 +1,12 @@
-// Inside your Vue component
 <template>
   <div>
 
     <v-container>
-            <!-- Title and Create Roles Btn-->
       <v-row dense>
           <v-col>
               <h1 class="ps-0 pb-8 mt-9 text-center">Role Listings</h1>
           </v-col>
       </v-row>
-
       <!-- Search input field -->
       <v-row class="d-flex justify-center mt-3 mb-0 ">
         <v-col cols="7" class="pe-0">
@@ -38,9 +35,6 @@
           </v-alert>
         </v-col>
       </v-row>
-
-      <!-- Search button -->
-
     </v-container>
 
 
@@ -51,7 +45,6 @@
         <v-btn @click="showFilter()" class=" " color="teal-lighten-3">
           Filter
         </v-btn>
-
         <v-dialog v-model="showFilterModal" hide-overlay max-width="400px">
           <v-card>
             <v-toolbar flat dark>
@@ -61,7 +54,6 @@
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-toolbar>
-          
             <!--Filter component 1-->
             <RoleFilterCard
               :categoryItems="categoryItems"
@@ -70,8 +62,6 @@
               @filter-applied="handleFilterApplied"
               @filter-cleared="handleFilterCleared"
             ></RoleFilterCard>
-
-
           </v-card>
         </v-dialog>
       </v-col>
@@ -86,12 +76,7 @@
               @filter-applied="handleFilterApplied"
               @filter-cleared="handleFilterCleared"
             ></RoleFilterCard>
-
-
-        <!-- </v-card> -->
       </v-col>
-
-      <!-- </div> -->
       <!-- display role listings -->
       <v-col :cols="9" lg="" class="justify-end" id="filter_alert">
         <v-alert v-if="filterError == 404" type="info" variant="outlined" icon="$info"

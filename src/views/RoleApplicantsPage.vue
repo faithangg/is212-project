@@ -1,11 +1,18 @@
 <template>
     <div>
-
         <v-container>
-            <!-- Title and Create Roles Btn-->
             <v-row dense>
                 <v-col >
-                    <h1 class="ps-0 pb-8 mt-9 pr-16 text-center">View Role Applicants</h1>
+                    <v-row>
+                        <v-col cols="3">
+                             <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
+                             Back
+                             </v-btn>
+                        </v-col>
+                        <v-col cols="6">
+                            <h1 class="ps-0 pb-8 mt-9 pr-16 text-center">View Role Applicants</h1>  
+                        </v-col>
+                    </v-row>
                 </v-col>
             </v-row>
             <!-- Search input field -->
@@ -21,11 +28,6 @@
             </v-row>
         </v-container>
         <v-container>
-            <v-col cols="3">
-                <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
-                    Back
-                </v-btn>
-            </v-col>
             <v-row class="mt-1">
                 <v-col cols="6" class="text-center">
                     <div class="text-h6" id="role_name"><strong>Role Name:</strong> {{ role_name }}</div>
@@ -43,7 +45,156 @@
                 </v-col>
             </v-row>
         </v-container>
+
+        <v-row class="d-flex justify-center">
+      <!-- Display filter button on mobile screens -->
+      <v-col cols="9" class="d-lg-none d-flex justify-end">
+
+        <v-btn @click="showFilter()" class=" " color="teal-lighten-3">
+          Filter
+        </v-btn>
+        <v-dialog v-model="showFilterModal" hide-overlay max-width="400px">
+          <v-card>
+            <v-toolbar flat dark>
+              <v-toolbar-title>Filter Results</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn icon @click="hideFilterModal">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-toolbar>
+            <!--Filter component 1-->
+            <v-card-text>
+  <!-- Filter section content here -->
+  <!-- ... -->
+  <v-card class="mx-auto">
+
+
+    <v-card-text>
+      <h2 class="text-h6 mb-2">
+        Category
+      </h2>
+
+      <v-chip-group v-model="selectedCategory" column multiple>
+        <v-chip class="me-2" filter variant="outlined" v-for="category in categoryItems" :key="category"
+          :value="category" :id="'category_' + category">
+          {{ category }}
+
+        </v-chip>
+
+      </v-chip-group>
+    </v-card-text>
+
+    <v-card-text>
+      <h2 class="text-h6 mb-2">
+        Department
+      </h2>
+
+      <v-chip-group v-model="selectedDepartment" column multiple>
+        <v-chip class="me-2" filter variant="outlined" v-for="department in departmentItems" :key="department"
+          :value="department" :id="'department_' + department">
+          {{ department }}
+
+        </v-chip>
+
+      </v-chip-group>
+    </v-card-text>
+    
+    <v-card-text>
+      <h2 class="text-h6 mb-2">
+        Match Percentage(%)
+      </h2>
+
+      <v-chip-group v-model="selectedPercentage" column multiple>
+        <v-chip class="me-2" filter variant="outlined" v-for="percentageMatch in percentageMatchItems"
+          :key="percentageMatch" :value="percentageMatch" :id="percentageMatch">
+          {{ percentageMatch }}
+
+        </v-chip>
+
+      </v-chip-group>
+    </v-card-text>
+
+    <v-card-actions>
+              <v-btn @click="applyFilter();hideFilterModal()">Apply Filter</v-btn>
+              <v-btn @click="clearFilter();hideFilterModal()" color="error">Clear All</v-btn>
+            </v-card-actions>
+  </v-card>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+      </v-col>
+
+
+      <v-col cols="3" class="d-none d-lg-block ms-2">
+            <!--Filter component 2-->
+            <v-card-text>
+            <!-- Filter section content here -->
+            <!-- ... -->
+            <v-card class="mx-auto">
+
+
+                <v-card-text>
+                <h2 class="text-h6 mb-2">
+                    Category
+                </h2>
+
+                <v-chip-group v-model="selectedCategory" column multiple>
+                    <v-chip class="me-2" filter variant="outlined" v-for="category in categoryItems" :key="category"
+                    :value="category" :id="'category_' + category">
+                    {{ category }}
+
+                    </v-chip>
+
+                </v-chip-group>
+                </v-card-text>
+
+                <v-card-text>
+                <h2 class="text-h6 mb-2">
+                    Department
+                </h2>
+
+                <v-chip-group v-model="selectedDepartment" column multiple>
+                    <v-chip class="me-2" filter variant="outlined" v-for="department in departmentItems" :key="department"
+                    :value="department" :id="'department_' + department">
+                    {{ department }}
+
+                    </v-chip>
+
+                </v-chip-group>
+                </v-card-text>
+                
+                <v-card-text>
+                <h2 class="text-h6 mb-2">
+                    Match Percentage(%)
+                </h2>
+
+                <v-chip-group v-model="selectedPercentage" column multiple>
+                    <v-chip class="me-2" filter variant="outlined" v-for="percentageMatch in percentageMatchItems"
+                    :key="percentageMatch" :value="percentageMatch" :id="percentageMatch">
+                    {{ percentageMatch }}
+
+                    </v-chip>
+
+                </v-chip-group>
+                </v-card-text>
+
+                <v-card-actions>
+                        <v-btn @click="applyFilter();hideFilterModal()">Apply Filter</v-btn>
+                        <v-btn @click="clearFilter();hideFilterModal()" color="error">Clear All</v-btn>
+                        </v-card-actions>
+            </v-card>
+            </v-card-text>
+      </v-col>
+      <!-- display role listings -->
+      <v-col :cols="9" lg="" class="justify-end" id="filter_alert">
+        <v-alert v-if="filterError == 404" type="info" variant="outlined" icon="$info"
+          style="font-size: 16px; padding: 8px; height: auto;" dismissible>
+          {{ filterErrorMsg }}
+        </v-alert>
         <RoleApplicantsCard :role_applicants="role_applicants" />
+      </v-col>
+        </v-row>  
+        
 
     </div>
 </template>
