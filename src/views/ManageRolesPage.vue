@@ -25,7 +25,15 @@
                 </v-col>
                 <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
                     <!-- Search button attached to the end of the search bar -->
-                    <v-btn @click="performSearch" color="teal-lighten-3" class="ma-0" style="height: 100%;">Search</v-btn>
+                    <v-btn @click="performSearch" 
+                    color="teal-lighten-3" 
+                    style="height: 100%;"
+                    id="search_btn" 
+                    icon="mdi-magnify"
+                    class="square-button"
+                    border-radius="0"
+                    density="default">
+                </v-btn>
                 </v-col>
             </v-row>
 
