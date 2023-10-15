@@ -15,8 +15,15 @@
         </v-col>
         <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
           <!-- Search button attached to the end of the search bar -->
-          <v-btn @click="performSearch" color="teal-lighten-3" style="height: 100%;"
-            id="search_btn" text="Search"></v-btn>
+          <v-btn @click="performSearch" 
+            color="teal-lighten-3" 
+            style="height: 100%;"
+            id="search_btn" 
+            icon="mdi-magnify"
+            class="square-button"
+            border-radius="0"
+            density="default">
+          </v-btn>
         </v-col>
         <v-col cols="8" class="text-end pt-0">
           <v-btn @click="clearSearch" flat text size="small">Clear Search</v-btn>
@@ -69,6 +76,10 @@
 
       <v-col cols="3" class="d-none d-lg-block ms-2">
             <!--Filter component 2-->
+            <v-card>
+            <v-toolbar flat dark>
+              <v-toolbar-title>Filters</v-toolbar-title>
+            </v-toolbar>
             <RoleFilterCard
               :categoryItems="categoryItems"
               :departmentItems="departmentItems"
@@ -76,6 +87,7 @@
               @filter-applied="handleFilterApplied"
               @filter-cleared="handleFilterCleared"
             ></RoleFilterCard>
+          </v-card>
       </v-col>
       <!-- display role listings -->
       <v-col :cols="9" lg="" class="justify-end" id="filter_alert">
@@ -257,7 +269,9 @@ export default {
 
     handleFilterCleared() {
       // Handle the cleared filter here
-      this.selectedCategory = [];
+      this.selectedCategory = []; 
+      this.selectedDepartment = [];
+      this.selectedPercentage = [];
       // Handle other selected options...
       this.clearFilter(); // Call the method to clear the filter with the updated options
     },
@@ -331,4 +345,11 @@ export default {
      /* Add any additional styles for larger screens */
    }
  }
+ .square-button {
+  border-radius: 0 !important;
+  min-width: 56px !important ;
+  min-height:56px !important;
+  height: 36px ;
+  padding: 0 16px;
+}
 </style> 
