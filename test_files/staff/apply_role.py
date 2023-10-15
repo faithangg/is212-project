@@ -35,11 +35,14 @@ element = driver.find_element(By.ID, "open_modal").click()
 # Wait for 3 seconds (for the page to load)
 time.sleep(3)
 
-driver.find_element(By.ID, "apply_role").click
+driver.find_element(By.ID, "apply_role").click()
+time.sleep(1)
 
-text = driver.find_element(By.ID, "apply_alerts").get_attribute("id")
+text = driver.find_element(By.ID, "apply_success_alert").text
 
-assert "apply_alerts" in text
+print(text)
+
+assert "You have successfully applied for the role" in text
 
 print("TEST PASSED : Apply Role")
 
