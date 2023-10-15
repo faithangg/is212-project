@@ -76,6 +76,10 @@
 
       <v-col cols="3" class="d-none d-lg-block ms-2">
             <!--Filter component 2-->
+            <v-card>
+            <v-toolbar flat dark>
+              <v-toolbar-title>Filters</v-toolbar-title>
+            </v-toolbar>
             <RoleFilterCard
               :categoryItems="categoryItems"
               :departmentItems="departmentItems"
@@ -83,6 +87,7 @@
               @filter-applied="handleFilterApplied"
               @filter-cleared="handleFilterCleared"
             ></RoleFilterCard>
+          </v-card>
       </v-col>
       <!-- display role listings -->
       <v-col :cols="9" lg="" class="justify-end" id="filter_alert">
