@@ -160,8 +160,7 @@
       </v-dialog>
 
       <!-- show success message -->
-      <div id="apply_alerts">
-        <v-dialog v-model="success_model" hide-overlay class="w-50">
+        <v-dialog v-model="success_model" hide-overlay class="w-50" id="apply_success_alert">
           <!-- Modal content goes here -->
           <v-alert
             id="success_alert"
@@ -183,7 +182,6 @@
             text="Your application for the role has failed. Please try again later"
           ></v-alert>
         </v-dialog>
-      </div>
     </v-row>
   </div>
 </template>
