@@ -19,8 +19,8 @@
       </v-app-bar-nav-icon>
       <v-app-bar-title style="text-align: left">
         <img
-          v-bind:src="require('../assets/sbrp.png')"
-          style="width: 200px; margin-top: 20px"
+          v-bind:src="require('../assets/sbrp3.png')"
+          style="width: 150px; margin-top: 12px; margin-bottom: 10px;"
       /></v-app-bar-title>
 
       <v-spacer></v-spacer>
