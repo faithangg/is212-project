@@ -54,25 +54,18 @@
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
-        <v-btn
-          v-if="isLoggedIn"
-          to="/viewRolesPage"
-          id="role_listings"
-          class="d-none d-lg-block pt-2"
-          >View Role Listings</v-btn
-        >
         <v-list-item-group
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
           <v-list-item>
-            <v-btn to="/viewRolesPage">View Role Listings</v-btn>
+            <v-btn to="/viewRolesPage" id="role_listing">View Role Listings</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn to="/manageRolesPage" v-if="userIsHr">Manage Role Listings</v-btn>
+            <v-btn to="/manageRolesPage" v-if="userIsHr" id="managed">Manage Role Listings</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn to="/profile">Profile</v-btn>
+            <v-btn to="/profile" id="profile">Profile</v-btn>
           </v-list-item>
         </v-list-item-group>
       </v-list>

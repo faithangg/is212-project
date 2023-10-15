@@ -48,7 +48,7 @@
       </v-card-text>
 
         <v-card-actions>
-                  <v-btn @click="applyFilter();hideFilterModal()">Apply Filter</v-btn>
+                  <v-btn @click="applyFilter();hideFilterModal()" id="apply_filter_btn">Apply Filter</v-btn>
                   <v-btn @click="clearFilter();hideFilterModal()" color="error">Clear All</v-btn>
         </v-card-actions>
 
