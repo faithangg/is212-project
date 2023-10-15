@@ -4,12 +4,12 @@
             <v-row dense>
                 <v-col >
                     <v-row>
-                        <v-col cols="3">
+                        <v-col cols="1">
                              <v-btn class="ml-12 mt-2" prepend-icon="mdi-arrow-left" variant="text" to="/ManageRolesPage">
                              Back
                              </v-btn>
                         </v-col>
-                        <v-col cols="6">
+                        <v-col cols="11">
                             <h1 class="ps-0 pb-8 mt-9 pr-16 text-center">View Role Applicants</h1>  
                         </v-col>
                     </v-row>
