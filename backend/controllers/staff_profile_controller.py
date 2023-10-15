@@ -15,6 +15,9 @@ def view_applied_roles(staff_id):
         # Get all the applications by the staff
         applications = JobApplication.query.filter_by(staff_id=staff_id).all()
 
+        # Get the details of the staff
+        staff = Staff.query.filter_by(staff_id=staff_id).first()
+
         results = []
         for application in applications:
             # Get associated role listing for this application
@@ -26,6 +29,7 @@ def view_applied_roles(staff_id):
                     skill_match_data = response.get_json()
                     role_skill_data = skill_match_data['data']
                     results.append({
+                        "staff_details": staff.json(),
                         "role_listing": role_listing.json(),
                         "role_skill_match": role_skill_data
                     })
