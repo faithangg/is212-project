@@ -175,7 +175,7 @@
                 rules: {
                     // Checks if the input date is before or today's date
                     // If rule returns true -> valid
-                    dateBeforeToday: v => (new Date(v).setHours(0, 0, 0, 0)) >= (new Date(this.minDate).setHours(0, 0, 0, 0)) || "Deadline cannot be before or today's date",
+                    dateBeforeToday: v => (new Date(v).setHours(0, 0, 0, 0)) >= (new Date(this.minDate).setHours(0, 0, 0, 0)) || "Deadline cannot be today's date or before.",
                 },
             };
         },
