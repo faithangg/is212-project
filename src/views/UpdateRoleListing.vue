@@ -344,7 +344,7 @@
                         setTimeout(() => {
                             this.success_model = false;
                             this.$router.replace({ name: "ManageRolesPage" });
-                        }, 3000);
+                        }, 2000);
                     }
                 } catch (error) {
                     if (error.response && error.response.status === 400) {

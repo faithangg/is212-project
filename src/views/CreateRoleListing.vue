@@ -334,7 +334,7 @@ export default {
                     this.get_categories();
                     setTimeout(() => {
                         this.success_model = false;
-                    }, 10000);
+                    }, 5000);
                 }
             } catch (error) {
                 if (error.response && error.response.status === 400) {
