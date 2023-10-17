@@ -1,57 +1,75 @@
 <template>
   <div>
-    <div class="image-container">
-      <img
-          v-bind:src="require('../assets/office1.jpg')"
-          style="width: 100%;"
-      />
-    
+    <v-container  fluid class="py-0 px-0 position-relative" >
+      <img v-bind:src="require('../assets/office1.jpg')" style="width: 100%" />
 
-    <v-container class="search-container">
-
-      <!-- <v-row dense>
-          <v-col>
-              <h1 class="ps-0 pb-8 mt-9 text-center">Role Listings</h1>
+      <v-container class="search_container">
+        <!-- <v-row dense>
+            <v-col>
+                <h1 class="ps-0 pb-8 mt-9 text-center">Role Listings</h1>
+            </v-col>
+        </v-row> -->
+        <!-- Search input field -->
+        <v-row class="d-flex justify-center mt-3 mb-0">
+          <v-col cols="7" class="pe-0">
+            <v-text-field
+              v-model="searchQuery"
+              label="Search by Job title"
+              outlined
+              dense
+              hide-details
+              id="search_bar"
+              class="rounded-top-left rounded-bottom-left search-bar"
+            ></v-text-field>
           </v-col>
-      </v-row> -->
-      <!-- Search input field -->
-      <v-row class="d-flex justify-center mt-3 mb-0 ">
-        <v-col cols="7" class="pe-0">
-          <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details id="search_bar"
-            class="rounded-top-left rounded-bottom-left search-bar"></v-text-field>
-        </v-col>
-        <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
-          <!-- Search button attached to the end of the search bar -->
-          <v-btn @click="performSearch" 
-            color="teal-lighten-3" 
-            style="height: 100%;"
-            id="search_btn" 
-            icon="mdi-magnify"
-            class="square-button"
-            border-radius="0"
-            density="default">
-          </v-btn>
-        </v-col>
-        <v-col cols="8" class="text-end pt-0">
-          <v-btn @click="clearSearch" flat text size="small">Clear Search</v-btn>
-        </v-col>
-      </v-row>
-      
-      <!-- error message -->
-      <v-row class="d-flex justify-center mt-0 mb-6">
-        <v-col cols="8" class="pt-0 h-25" id="search_alert">
-          <v-alert v-if="searchQueryError == 400" type="error" variant="outlined" icon="$error"
-            style="font-size: 12px; padding: 8px; height: auto;" dismissible>
-            {{ searchQueryErrorMsg }}
-          </v-alert>
-          <v-alert v-if="searchQueryError == 404" type="info" variant="outlined" icon="$info"
-            style="font-size: 12px; padding: 8px; height: auto;" dismissible>
-            {{ searchQueryErrorMsg }}
-          </v-alert>
-        </v-col>
-      </v-row>
+          <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
+            <!-- Search button attached to the end of the search bar -->
+            <v-btn
+              @click="performSearch"
+              color="teal-lighten-3"
+              style="height: 100%"
+              id="search_btn"
+              icon="mdi-magnify"
+              class="square-button"
+              border-radius="0"
+              density="default"
+            >
+            </v-btn>
+          </v-col>
+          <v-col cols="8" class="text-end pt-0">
+            <v-btn @click="clearSearch" flat text size="small"
+              >Clear Search</v-btn
+            >
+          </v-col>
+        </v-row>
+
+        <!-- error message -->
+        <v-row class="d-flex justify-center mt-0 mb-6">
+          <v-col cols="8" class="pt-0 h-25" id="search_alert">
+            <v-alert
+              v-if="searchQueryError == 400"
+              type="error"
+              variant="outlined"
+              icon="$error"
+              style="font-size: 12px; padding: 8px; height: auto"
+              dismissible
+            >
+              {{ searchQueryErrorMsg }}
+            </v-alert>
+            <v-alert
+              v-if="searchQueryError == 404"
+              type="info"
+              variant="outlined"
+              icon="$info"
+              style="font-size: 12px; padding: 8px; height: auto"
+              dismissible
+            >
+              {{ searchQueryErrorMsg }}
+            </v-alert>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-container>
-  </div>
 
     <v-row class="d-flex justify-center">
       <!-- Display filter button on mobile screens -->
@@ -81,7 +99,6 @@
         </v-dialog>
       </v-col>
 
-
       <v-col cols="3" class="d-none d-lg-block ms-2">
             <!--Filter component 2-->
             <v-card>
@@ -110,10 +127,10 @@
 </template>
 
 <script>
-import axios from 'axios';
-import ViewRoleListingsCard from '../components/ViewRoleListingsCard.vue'; // Import the ViewRoleListingsCard component
-import RoleFilterCard from '../components/RoleFilterCard.vue'; // Import the ViewRoleListingsCard component
 
+import axios from "axios";
+import ViewRoleListingsCard from "../components/ViewRoleListingsCard.vue"; // Import the ViewRoleListingsCard component
+import RoleFilterCard from "../components/RoleFilterCard.vue"; // Import the ViewRoleListingsCard component
 
 export default {
   data() {
@@ -181,7 +198,6 @@ export default {
     isMobileScreen() {
       return window.innerWidth <= 768; // Adjust the width as needed
     },
-
   },
 
   methods: {
@@ -192,7 +208,7 @@ export default {
       this.filterError = '';
       this.filterErrorMsg = '';
 
-      if (this.searchQuery == '') {
+      if (this.searchQuery == "") {
         this.displayListings = this.rolesFromDb;
         return;
       }
@@ -211,7 +227,7 @@ export default {
           console.log(error.response.status);
 
           if (error.response.status == 404) {
-            this.searchQueryErrorMsg = 'No role listings found';
+            this.searchQueryErrorMsg = "No role listings found";
             this.searchQueryError = 404;
             this.displayListings = [];
           }
@@ -252,19 +268,13 @@ export default {
         .then((response) => {
           console.log(response.data.data);
           this.displayListings = response.data.data.role_listings;
-
-
         })
         .catch((error) => {
           console.error('Error fetching role listings:', error);
           this.filterErrorMsg = 'No role listings found based on your input filters';
           this.filterError = 404;
           this.displayListings = [];
-
         });
-
-
-
     },
     handleFilterApplied(selectedOptions) {
       // Handle the applied filter here
@@ -277,7 +287,7 @@ export default {
 
     handleFilterCleared() {
       // Handle the cleared filter here
-      this.selectedCategory = []; 
+      this.selectedCategory = [];
       this.selectedDepartment = [];
       this.selectedPercentage = [];
       // Handle other selected options...
@@ -290,16 +300,16 @@ export default {
       this.selectedDepartment = [];
       this.selectedPercentage = [];
       this.displayListings = this.rolesFromDb;
-      this.filterError = '';
-      this.filterErrorMsg = '';
+      this.filterError = "";
+      this.filterErrorMsg = "";
     },
 
     clearSearch() {
       // Clear search bar
-      this.searchQuery = '';
+      this.searchQuery = "";
       this.displayListings = this.rolesFromDb;
       this.searchQueryError = null;
-      this.searchQueryErrorMsg = '';
+      this.searchQueryErrorMsg = "";
     },
     showFilter() {
       this.showFilterModal = true; // Show the filter modal
@@ -314,76 +324,75 @@ export default {
     ViewRoleListingsCard, // Register the RoleListings component
     RoleFilterCard, // Register the RoleFilterCard component
   },
-
-
 };
 </script>
-<style> /* Styles for mobile screens */
- .sidebar {
-   display: none;
-   /* Hide the sidebar by default */
-   /* Add any necessary styles for your sidebar, e.g., background color, width, etc. */
- }
+<style>
+/* Styles for mobile screens */
+.sidebar {
+  display: none;
+  /* Hide the sidebar by default */
+  /* Add any necessary styles for your sidebar, e.g., background color, width, etc. */
+}
 
+/* Media query for mobile screens (adjust the max-width as needed) */
+@media (max-width: 768px) {
+  .sidebar {
+    display: block;
+    /* Display the sidebar on mobile screens */
+    /* Add styles to make the sidebar appear as a side panel, e.g., fixed position, width, background color, etc. */
+  }
 
- /* Media query for mobile screens (adjust the max-width as needed) */
- @media (max-width: 768px) {
-   .sidebar {
-     display: block;
-     /* Display the sidebar on mobile screens */
-     /* Add styles to make the sidebar appear as a side panel, e.g., fixed position, width, background color, etc. */
-   }
+  .main-content {
+    width: 100%;
+    /* Full width for main content on mobile screens */
+    /* Add styles to adjust the main content's appearance on mobile screens */
+  }
+}
 
-   .main-content {
-     width: 100%;
-     /* Full width for main content on mobile screens */
-     /* Add styles to adjust the main content's appearance on mobile screens */
-   }
- }
-
- /* Additional styles for larger screens (customize as needed) */
- @media (min-width: 769px) {
-   .main-content.full-width {
-     width: 100%;
-     /* Adjust the width for larger screens as needed */
-     /* Add any additional styles for larger screens */
-   }
- }
- .square-button {
-
+/* Additional styles for larger screens (customize as needed) */
+@media (min-width: 769px) {
+  .main-content.full-width {
+    width: 100%;
+    /* Adjust the width for larger screens as needed */
+    /* Add any additional styles for larger screens */
+  }
+}
+.square-button {
   border-top-right-radius: 20px !important; /* Adjust the value to change the roundness of the top-left corner */
-  border-bottom-right-radius: 20px !important; 
+  border-bottom-right-radius: 20px !important;
   border-top-left-radius: 0px !important; /* Adjust the value to change the roundness of the top-left corner */
-  border-bottom-left-radius: 0px !important; 
+  border-bottom-left-radius: 0px !important;
   min-width: 56px !important ;
-  min-height:56px !important;
-  height: 36px ;
+  min-height: 56px !important;
+  height: 36px;
   padding: 0 16px;
 }
 
-.search-container {
-  position: absolute;
+/* .search-container { */
+  /* position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
   width: 100%;
   text-align: center;
-  /* text-align: center; */
-  /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-    /* position: relative; */
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; */
+/* } */
 
-.search-bar{
+.search_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* Adjust the width as needed */
+}
+.search-bar {
   background-color: white;
   border-top-left-radius: 20px; /* Adjust the value to change the roundness of the top-left corner */
-  border-bottom-left-radius: 20px; 
+  border-bottom-left-radius: 20px;
 }
-.image-container {
-    position: relative;
-  }
+</style>
 
-
-</style> 
