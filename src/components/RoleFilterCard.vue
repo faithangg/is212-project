@@ -95,7 +95,7 @@ export default {
   methods: {
     applyFilter() {
             // Handle the filter application here
-            this.$emit('filter-applied', {
+        this.$emit('filter-applied', {
         selectedCategory: this.selectedCategory,
         selectedDepartment: this.selectedDepartment,
         selectedPercentage: this.selectedPercentage,
@@ -116,6 +116,7 @@ export default {
     },
     hideFilterModal() {
       this.showFilterModal = false; // Hide the filter modal
+      this.$emit('filter-modal-closed');
     },
   },
 

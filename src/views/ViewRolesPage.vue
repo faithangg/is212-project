@@ -94,6 +94,7 @@
               :percentageMatchItems="percentageMatchItems"
               @filter-applied="handleFilterApplied"
               @filter-cleared="handleFilterCleared"
+              @filter-modal-closed="hideFilterModal"
             ></RoleFilterCard>
           </v-card>
         </v-dialog>
