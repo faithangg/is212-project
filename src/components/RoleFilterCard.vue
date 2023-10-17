@@ -11,7 +11,7 @@
         </h2>
 
         <v-chip-group v-model="selectedCategory" column multiple>
-          <v-chip class="me-2" filter variant="outlined" v-for="category in categoryItems" :key="category"
+          <v-chip class="me-2" filter color="teal-lighten-2" v-for="category in categoryItems" :key="category"
             :value="category" :id="'category_' + category">
             {{ category }}
 
@@ -26,7 +26,7 @@
         </h2>
 
         <v-chip-group v-model="selectedDepartment" column multiple>
-          <v-chip class="me-2" filter variant="outlined" v-for="department in departmentItems" :key="department"
+          <v-chip class="me-2" filter color="teal-lighten-2" v-for="department in departmentItems" :key="department"
             :value="department" :id="'department_' + department">
             {{ department }}
 
@@ -40,7 +40,7 @@
         </h2>
 
         <v-chip-group v-model="selectedPercentage" column multiple>
-          <v-chip class="me-2" filter variant="outlined" v-for="percentageMatch in percentageMatchItems"
+          <v-chip class="me-2" filter color="teal-lighten-2" v-for="percentageMatch in percentageMatchItems"
             :key="percentageMatch" :value="percentageMatch" :id="percentageMatch">
             {{ percentageMatch }}
           </v-chip>
