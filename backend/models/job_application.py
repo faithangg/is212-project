@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../../backend')
+
 from database import db
 
 class JobApplication(db.Model):
