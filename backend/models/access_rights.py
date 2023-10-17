@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../../backend')
+
 from database import db
 
 class AccessRights(db.Model):
@@ -7,3 +10,10 @@ class AccessRights(db.Model):
 
     def __repr__(self):
         return f'<AccessRights {self.access_right} - {self.user_role}>'
+    
+    
+    def json(self):
+        return {
+            'access_right': self.access_right,
+            'user_role': self.user_role
+        }
