@@ -22,13 +22,42 @@ class TestSBRP(unittest.TestCase):
         self.assertEqual(ar.json(),{'access_right': 1, 'user_role': 'staff'})
 
     def test_category(self):
-        ar = Category(category = "IT",category_desc ="information systems")
-        self.assertEqual(ar.json(),{'category': 'IT', 'category_desc': 'information systems'})
+        category = Category(category = "IT",category_desc ="information systems")
+        self.assertEqual(category.json(),{'category': 'IT', 'category_desc': 'information systems'})
 
     def test_job_application(self):
         date_today = datetime.date.today()
-        ar = JobApplication(staff_id = 1,listing_id =1, application_date=date_today)
-        self.assertEqual(ar.json(),{'application_id': None, 'staff_id': 1, 'listing_id': 1, "application_date": date_today.strftime(date_today.strftime('%Y-%m-%d'))})
+        ja = JobApplication(staff_id = 1,listing_id =1, application_date=date_today)
+        self.assertEqual(ja.json(),{'application_id': None, 'staff_id': 1, 'listing_id': 1, "application_date": date_today.strftime(date_today.strftime('%Y-%m-%d'))})
+
+    def test_login_details(self):
+        ld = LoginDetails(staff_id = 1,staff_password ="john")
+        self.assertEqual(ld.json(),{'staff_id': 1, 'staff_password': 'john'})
+
+    def test_role_listing(self):
+        date_today = datetime.date.today()
+        rl = RoleListing(listing_id = 1, role_name = "IT", department = "information systems", category = "IT", deadline =date_today)
+        self.assertEqual(rl.json(), {'listing_id': 1, 'role_name': 'IT', 'department': 'information systems', 'category': 'IT','deadline': date_today.strftime(date_today.strftime('%Y-%m-%d'))})
+
+    def test_role_skill(self):
+        rs = RoleSkill(role_name = "IT", skill_name = "python")
+        self.assertEqual(rs.json(), {'role_name': 'IT', 'skill_name': 'python'})
+
+    def test_role(self):
+        role = Role(role_name = "IT", role_desc = "information systems")
+        self.assertEqual(role.json(), {'role_name': 'IT', 'role_desc': 'information systems'})
+
+    def test_skils(self):
+        skill = Skill(skill_name = "python")
+        self.assertEqual(skill.json(), {'skill_name': 'python'})
+    
+    def test_staff_skill(self):
+        ss = StaffSkill(staff_id = 1, skill_name = "python")
+        self.assertEqual(ss.json(), {'staff_id': 1, 'skill_name': 'python'})
+
+    def test_staff(self):
+        staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "it", email="johntan@email.com", access_rights=1) 
+        self.assertEqual(staff.json(), {'staff_id': 1, 'staff_fname': 'john', 'staff_lname': 'tan', 'dept': 'it', 'email': 'johntan@email.com', "access_rights": 1})
 
 # Making sure the codes in it runs only if u run the file directly
 if __name__ == "__main__":
