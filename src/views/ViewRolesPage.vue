@@ -3,9 +3,9 @@
     <div class="image-container">
       <img
           v-bind:src="require('../assets/office1.jpg')"
-          style="width: 100%;height: 300px;"
+          style="width: 100%;"
       />
-    </div>
+    
 
     <v-container class="search-container">
 
@@ -36,6 +36,7 @@
           <v-btn @click="clearSearch" flat text size="small">Clear Search</v-btn>
         </v-col>
       </v-row>
+      
       <!-- error message -->
       <v-row class="d-flex justify-center mt-0 mb-6">
         <v-col cols="8" class="pt-0 h-25" id="search_alert">
@@ -50,7 +51,7 @@
         </v-col>
       </v-row>
     </v-container>
-
+  </div>
 
     <v-row class="d-flex justify-center">
       <!-- Display filter button on mobile screens -->
