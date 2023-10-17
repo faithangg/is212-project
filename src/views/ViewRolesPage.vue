@@ -1,17 +1,24 @@
 <template>
   <div>
+    <div class="image-container">
+      <img
+          v-bind:src="require('../assets/office1.jpg')"
+          style="width: 100%;height: 300px;"
+      />
+    </div>
 
-    <v-container>
-      <v-row dense>
+    <v-container class="search-container">
+
+      <!-- <v-row dense>
           <v-col>
               <h1 class="ps-0 pb-8 mt-9 text-center">Role Listings</h1>
           </v-col>
-      </v-row>
+      </v-row> -->
       <!-- Search input field -->
       <v-row class="d-flex justify-center mt-3 mb-0 ">
         <v-col cols="7" class="pe-0">
           <v-text-field v-model="searchQuery" label="Search by Job title" outlined dense hide-details id="search_bar"
-            class="rounded-top-left rounded-bottom-left"></v-text-field>
+            class="rounded-top-left rounded-bottom-left search-bar"></v-text-field>
         </v-col>
         <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
           <!-- Search button attached to the end of the search bar -->
@@ -317,10 +324,6 @@ export default {
    /* Add any necessary styles for your sidebar, e.g., background color, width, etc. */
  }
 
- /* Styles for larger screens */
- .main-content {
-   /* Add any necessary styles for the main content area, e.g., margin, padding, width, etc. */
- }
 
  /* Media query for mobile screens (adjust the max-width as needed) */
  @media (max-width: 768px) {
@@ -346,10 +349,40 @@ export default {
    }
  }
  .square-button {
-  border-radius: 0 !important;
+
+  border-top-right-radius: 20px !important; /* Adjust the value to change the roundness of the top-left corner */
+  border-bottom-right-radius: 20px !important; 
+  border-top-left-radius: 0px !important; /* Adjust the value to change the roundness of the top-left corner */
+  border-bottom-left-radius: 0px !important; 
   min-width: 56px !important ;
   min-height:56px !important;
   height: 36px ;
   padding: 0 16px;
 }
+
+.search-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+  /* text-align: center; */
+  /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* position: relative; */
+}
+
+.search-bar{
+  background-color: white;
+  border-top-left-radius: 20px; /* Adjust the value to change the roundness of the top-left corner */
+  border-bottom-left-radius: 20px; 
+}
+.image-container {
+    position: relative;
+  }
+
+
 </style> 
