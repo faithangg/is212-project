@@ -1,14 +1,13 @@
 <template>
   <div>
-    <v-container  fluid class="py-0 px-0 position-relative" >
-      <img v-bind:src="require('../assets/office1.jpg')" style="width: 100%" />
+    <v-container class="">
 
-      <v-container class="search_container">
-        <!-- <v-row dense>
+      <v-container>
+        <v-row dense>
             <v-col>
                 <h1 class="ps-0 pb-8 mt-9 text-center">Role Listings</h1>
             </v-col>
-        </v-row> -->
+        </v-row>
         <!-- Search input field -->
         <v-row class="d-flex justify-center mt-3 mb-0">
           <v-col cols="7" class="pe-0">
@@ -19,7 +18,7 @@
               dense
               hide-details
               id="search_bar"
-              class="rounded-top-left rounded-bottom-left search-bar"
+              class="rounded-input search-bar"
             ></v-text-field>
           </v-col>
           <v-col cols="1" class="d-flex justify-start ms-0 ps-0">
@@ -74,7 +73,6 @@
     <v-row class="d-flex justify-center">
       <!-- Display filter button on mobile screens -->
       <v-col cols="9" class="d-lg-none d-flex justify-end">
-
         <v-btn @click="showFilter()" class=" " color="teal-lighten-3">
           Filter
         </v-btn>
@@ -101,34 +99,41 @@
       </v-col>
 
       <v-col cols="3" class="d-none d-lg-block ms-2">
-            <!--Filter component 2-->
-            <v-card>
-            <v-toolbar flat dark>
-              <v-toolbar-title>Filters</v-toolbar-title>
-            </v-toolbar>
-            <RoleFilterCard
-              :categoryItems="categoryItems"
-              :departmentItems="departmentItems"
-              :percentageMatchItems="percentageMatchItems"
-              @filter-applied="handleFilterApplied"
-              @filter-cleared="handleFilterCleared"
-            ></RoleFilterCard>
-          </v-card>
+        <!--Filter component 2-->
+        <v-card>
+          <v-toolbar flat dark>
+            <v-toolbar-title>Filters</v-toolbar-title>
+          </v-toolbar>
+          <RoleFilterCard
+            :categoryItems="categoryItems"
+            :departmentItems="departmentItems"
+            :percentageMatchItems="percentageMatchItems"
+            @filter-applied="handleFilterApplied"
+            @filter-cleared="handleFilterCleared"
+          ></RoleFilterCard>
+        </v-card>
       </v-col>
       <!-- display role listings -->
       <v-col :cols="9" lg="" class="justify-end" id="filter_alert">
-        <v-alert v-if="filterError == 404" type="info" variant="outlined" icon="$info"
-          style="font-size: 16px; padding: 8px; height: auto;" dismissible>
+        <v-alert
+          v-if="filterError == 404"
+          type="info"
+          variant="outlined"
+          icon="$info"
+          style="font-size: 16px; padding: 8px; height: auto"
+          dismissible
+        >
           {{ filterErrorMsg }}
         </v-alert>
-        <ViewRoleListingsCard :role_listings_with_skill_match="displayListings" />
+        <ViewRoleListingsCard
+          :role_listings_with_skill_match="displayListings"
+        />
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-
 import axios from "axios";
 import ViewRoleListingsCard from "../components/ViewRoleListingsCard.vue"; // Import the ViewRoleListingsCard component
 import RoleFilterCard from "../components/RoleFilterCard.vue"; // Import the ViewRoleListingsCard component
@@ -138,11 +143,11 @@ export default {
     return {
       rolesFromDb: [], // Initialize as an empty array
       displayListings: [],
-      searchQuery: '', // Initialize as an empty string
+      searchQuery: "", // Initialize as an empty string
       searchQueryError: null,
       filterError: null,
-      searchQueryErrorMsg: '', // Initialize as an empty string
-      filterErrorMsg: '',
+      searchQueryErrorMsg: "", // Initialize as an empty string
+      filterErrorMsg: "",
       // percentageMatchItems: ["0-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91-100"],
       percentageMatchItems: ["0-20", "21-40", "41-60", "61-80", "81-100"],
       categoryItems: [],
@@ -158,7 +163,8 @@ export default {
     // fetching role listings that staff has not applied for
     var userId = this.getUserId;
 
-    axios.get(`http://127.0.0.1:5000/staff/role_listings/${userId}`)
+    axios
+      .get(`http://127.0.0.1:5000/staff/role_listings/${userId}`)
       .then((response) => {
         console.log(response.data.data);
 
@@ -168,11 +174,12 @@ export default {
         console.log(this.role_listings_with_skill_match[0].role_listing);
       })
       .catch((error) => {
-        console.error('Error fetching role listings:', error);
+        console.error("Error fetching role listings:", error);
       });
 
     // Fetch filter options from the API
-    axios.get(`http://127.0.0.1:5000/staff/filter_options`)
+    axios
+      .get(`http://127.0.0.1:5000/staff/filter_options`)
       .then((response) => {
         console.log(response.data.data);
         console.log(response.data.data.category);
@@ -181,15 +188,14 @@ export default {
         this.departmentItems = response.data.data.department;
       })
       .catch((error) => {
-        console.error('Error fetching filter options:', error);
+        console.error("Error fetching filter options:", error);
       });
-
   },
 
   computed: {
     userIsHr() {
       // Access the user's role from your Vuex store getter
-      return this.$store.getters.getUserRole === 'hr';
+      return this.$store.getters.getUserRole === "hr";
     },
 
     getUserId() {
@@ -204,10 +210,10 @@ export default {
   methods: {
     performSearch() {
       // This method is called when the Search button is clicked.
-      this.searchQueryError = '';
-      this.searchQueryErrorMsg = '';
-      this.filterError = '';
-      this.filterErrorMsg = '';
+      this.searchQueryError = "";
+      this.searchQueryErrorMsg = "";
+      this.filterError = "";
+      this.filterErrorMsg = "";
 
       if (this.searchQuery == "") {
         this.displayListings = this.rolesFromDb;
@@ -216,14 +222,18 @@ export default {
       // Fetch role listings from the API
       var userId = this.getUserId;
 
-      axios.get(`http://127.0.0.1:5000/staff/browse_role_listings/${userId}/${this.searchQuery}`)
+      axios
+        .get(
+          `http://127.0.0.1:5000/staff/browse_role_listings/${userId}/${this.searchQuery}`
+        )
         .then((response) => {
           console.log(response.data.data);
 
-          this.displayListings = response.data.data.role_listings_with_skill_match;
+          this.displayListings =
+            response.data.data.role_listings_with_skill_match;
         })
         .catch((error) => {
-          console.error('Error fetching role listings:', error);
+          console.error("Error fetching role listings:", error);
 
           console.log(error.response.status);
 
@@ -231,9 +241,9 @@ export default {
             this.searchQueryErrorMsg = "No role listings found";
             this.searchQueryError = 404;
             this.displayListings = [];
-          }
-          else if (error.response.status == 400) {
-            this.searchQueryErrorMsg = 'Invalid search query - No special characters';
+          } else if (error.response.status == 400) {
+            this.searchQueryErrorMsg =
+              "Invalid search query - No special characters";
             this.searchQueryError = 400;
             this.displayListings = [];
           }
@@ -241,12 +251,16 @@ export default {
     },
     applyFilter() {
       // Fetch results
-      this.searchQueryError = '';
-      this.searchQueryErrorMsg = '';
-      this.filterError = '';
-      this.filterErrorMsg = '';
+      this.searchQueryError = "";
+      this.searchQueryErrorMsg = "";
+      this.filterError = "";
+      this.filterErrorMsg = "";
 
-      if (this.selectedCategory.length == 0 && this.selectedDepartment.length == 0 && this.selectedPercentage.length == 0) {
+      if (
+        this.selectedCategory.length == 0 &&
+        this.selectedDepartment.length == 0 &&
+        this.selectedPercentage.length == 0
+      ) {
         this.displayListings = this.rolesFromDb;
         return;
       }
@@ -264,15 +278,19 @@ export default {
         match_percentage: Array.from(this.selectedPercentage),
       };
 
-
-      axios.post(`http://127.0.0.1:5000/staff/filter_role_listings/${userId}`, payload)
+      axios
+        .post(
+          `http://127.0.0.1:5000/staff/filter_role_listings/${userId}`,
+          payload
+        )
         .then((response) => {
           console.log(response.data.data);
           this.displayListings = response.data.data.role_listings;
         })
         .catch((error) => {
-          console.error('Error fetching role listings:', error);
-          this.filterErrorMsg = 'No role listings found based on your input filters';
+          console.error("Error fetching role listings:", error);
+          this.filterErrorMsg =
+            "No role listings found based on your input filters";
           this.filterError = 404;
           this.displayListings = [];
         });
@@ -348,6 +366,13 @@ export default {
     /* Full width for main content on mobile screens */
     /* Add styles to adjust the main content's appearance on mobile screens */
   }
+
+  .search_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* Additional styles for larger screens (customize as needed) */
@@ -359,8 +384,8 @@ export default {
   }
 }
 .square-button {
-  border-top-right-radius: 20px !important; /* Adjust the value to change the roundness of the top-left corner */
-  border-bottom-right-radius: 20px !important;
+  border-top-right-radius: 10px !important; /* Adjust the value to change the roundness of the top-left corner */
+  border-bottom-right-radius: 0px !important;
   border-top-left-radius: 0px !important; /* Adjust the value to change the roundness of the top-left corner */
   border-bottom-left-radius: 0px !important;
   min-width: 56px !important ;
@@ -370,7 +395,7 @@ export default {
 }
 
 /* .search-container { */
-  /* position: absolute;
+/* position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -388,12 +413,14 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%; /* Adjust the width as needed */
 }
 .search-bar {
   background-color: white;
   border-top-left-radius: 20px; /* Adjust the value to change the roundness of the top-left corner */
   border-bottom-left-radius: 20px;
 }
+.image_container{
+  width: 100%;
+  height: 400px;
+}
 </style>
-

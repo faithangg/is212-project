@@ -6,7 +6,7 @@
  
       <!-- display role listings -->
 
-      <v-card
+      <v-card variant="elevated"
         v-for="role in displayListings"
         :key="role.role_listing.listing_id"
         class="role-card w-100 h-20"
