@@ -2,7 +2,7 @@
   
   <v-card-text>
     <!-- Filter section content here -->
-    <v-card class="mx-auto">
+    <v-card class="mx-auto" flat>
 
       <v-card-text>
         <h2 class="text-h6 mb-2">

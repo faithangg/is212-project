@@ -5,7 +5,7 @@
     <div>
         <v-row class="d-flex justify-center">
             <!-- display role listings -->
-            <v-card v-for="role in roleListings" :key="role.listing_id" class="role-cards w-50 h-25">
+            <v-card v-for="role in roleListings" :key="role.listing_id" class="role-cards w-75 h-20" variant="elevated">
                 <v-row class="mt-3">
                     <v-col class="d-flex justify-start">
                         <v-card-title class="text-h5 font-weight-bold">
@@ -181,8 +181,19 @@ export default {
 <style>
 /* Add CSS styles for role cards here */
 .role-cards {
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin: 16px;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+}
+
+@media (max-width: 768px) {
+  .role-cards {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
 }
 </style>

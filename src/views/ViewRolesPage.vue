@@ -387,7 +387,7 @@ export default {
 }
 .square-button {
   border-top-right-radius: 10px !important; /* Adjust the value to change the roundness of the top-left corner */
-  border-bottom-right-radius: 0px !important;
+  border-bottom-right-radius: 10px !important;
   border-top-left-radius: 0px !important; /* Adjust the value to change the roundness of the top-left corner */
   border-bottom-left-radius: 0px !important;
   min-width: 56px !important ;
