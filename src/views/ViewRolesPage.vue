@@ -9,7 +9,7 @@
       <v-container class="search_container">
         <v-row dense>
             <v-col>
-                <h1 class="ps-0 pb-4 mt-4 text-center">Role Listings</h1>
+                <h1 class="ps-0 pb-4 mt-4 text-center text--white" color="white">Role Listings</h1>
             </v-col>
         </v-row>
         <!-- Search input field -->

@@ -10,11 +10,14 @@
         v-for="role in displayListings"
         :key="role.role_listing.listing_id"
         class="role-card w-100 h-20"
+        @click="openModal(role)"
       >
         <v-row class="mt-3">
           <v-col class="d-flex justify-start">
-            <v-card-title class="text-h5 font-weight-bold" id="role_name">
+            <v-card-title class="text-h5 font-weight-bold" id="role_name"
+            >
               {{ role.role_listing.role_name }}
+             
             </v-card-title>
           </v-col>
           <v-col class="d-flex justify-end me-2">
@@ -52,13 +55,13 @@
           </v-col>
           <v-col class="d-flex justify-end me-4 mb-4 align-end">
             <!-- open role description page -->
-            <v-btn
+            <!-- <v-btn
               id="open_modal"
               class="me-3"
               density="default"
               icon="mdi-open-in-new"
               @click="openModal(role)"
-            ></v-btn>
+            ></v-btn> -->
           </v-col>
         </v-row>
       </v-card>
