@@ -1,11 +1,11 @@
-<!-- ViewRoleListingsCard.vue -->
+<!-- EditRoleListingCard.vue -->
 
 
 <template>
     <div>
         <v-row class="d-flex justify-center">
             <!-- display role listings -->
-            <v-card v-for="role in roleListings" :key="role.listing_id" class="role-card w-50 h-25">
+            <v-card v-for="role in roleListings" :key="role.listing_id" class="role-cards w-50 h-25">
                 <v-row class="mt-3">
                     <v-col class="d-flex justify-start">
                         <v-card-title class="text-h5 font-weight-bold">
@@ -180,7 +180,7 @@ export default {
 
 <style>
 /* Add CSS styles for role cards here */
-.role-card {
+.role-cards {
     border: 1px solid #ccc;
     padding: 16px;
     margin: 16px;

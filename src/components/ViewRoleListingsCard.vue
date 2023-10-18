@@ -10,6 +10,7 @@
         v-for="role in displayListings"
         :key="role.role_listing.listing_id"
         class="role-card w-100 h-20"
+        
         @click="openModal(role)"
       >
         <v-row class="mt-3">
@@ -28,7 +29,7 @@
         </v-row>
 
         <v-row>
-          <v-col >
+          <v-col col="8" >
             <v-card-text class="d-flex justify-start text-h6">
               <span class="font-weight-bold">Department: </span> &nbsp;
               <span id="listing_department">{{ role.role_listing.department }}</span>
@@ -39,7 +40,7 @@
               </span>
             </v-card-text>
           </v-col>
-          <v-col>
+          <v-col col="4" style="padding-top: 0px">
             <v-card-text>
               <span class="font-weight-bold text-h6">Your Match: </span>
               <v-progress-circular
@@ -53,7 +54,7 @@
               </v-progress-circular>
             </v-card-text>
           </v-col>
-          <v-col class="d-flex justify-end me-4 mb-4 align-end">
+          <!-- <v-col class="d-flex justify-end me-4 mb-4 align-end"> -->
             <!-- open role description page -->
             <!-- <v-btn
               id="open_modal"
@@ -62,7 +63,7 @@
               icon="mdi-open-in-new"
               @click="openModal(role)"
             ></v-btn> -->
-          </v-col>
+          <!-- </v-col> -->
         </v-row>
       </v-card>
   
@@ -280,7 +281,18 @@ export default {
 .role-card {
   border: 1px solid #ccc;
   padding: 16px;
-  margin: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+}
+
+@media (max-width: 768px) {
+  .role-card {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
 }
 
 </style>
