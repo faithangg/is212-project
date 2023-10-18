@@ -4,34 +4,33 @@
         <v-row class="d-flex justify-center">
             <!-- display role listings -->
             <v-card v-for="applicant in role_applicants" :key="applicant.email" class="role-card role-card w-100 w-lg-50 h-20">
-                <v-row>
-                    <v-col cols="12" md="6"><v-row class="my-0 py-1 px-2">
-                            <v-col class="d-flex justify-start">
-                                <v-card-title class="text-h6 font-weight-bold">
-                                    {{ applicant.name }}
-                                </v-card-title>
-                            </v-col>
-                        </v-row>
-                        <v-row class="pt-0 mt-0">
-                            <v-col>
-                                <v-card-text class="d-flex justify-start text-h6 ">
-                                    <span class="font-weight-bold">Email: </span>&nbsp;<span class="wrap-text">{{ applicant.email }}</span>
-                                </v-card-text>
-                                <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Department: </span> &nbsp; <span class="wrap-text">{{ applicant.department }}</span>
-                                </v-card-text>
-                                <v-card-text class="d-flex justify-start text-h6">
-                                    <span class="font-weight-bold">Application Date: </span> &nbsp; <span class="wrap-text">{{ applicant.application_date }}</span>
-                                </v-card-text>
-                                
-                            </v-col>
-                        </v-row>
+
+                <v-row class="mt-3">
+                    <v-col class="d-flex justify-start">
+                        <v-card-title class="text-h5 font-weight-bold" id="role_name"
+                        >
+                            {{ applicant.name }}
+                            
+                        </v-card-title>
                     </v-col>
-                    <v-col cols="12" md="6">
+                    <v-col class="d-flex justify-end me-2">
+                        <v-chip color="primary">
+                            {{ applicant.department }}
+                        </v-chip>
+                    </v-col>
+                </v-row>                
+                <v-row>
+                    <v-col cols="12" md="8">
+                        <v-card-text class="d-flex justify-start text-h6 ">
+                            <span class="font-weight-bold">Email: </span>&nbsp;<span class="wrap-text">{{ applicant.email }}</span>
+                        </v-card-text>
+                        <v-card-text class="d-flex justify-start text-h6">
+                            <span class="font-weight-bold">Application Date: </span> &nbsp; <span class="wrap-text">{{ applicant.application_date }}</span>
+                        </v-card-text>
+                    </v-col>
+                    <v-col cols="12"  md="4" style="padding-top: 0px;" class="match_percentage_style">
                         <v-card-text>
-                            <v-row class="px-0 py-4 my-1 mx-1 d-flex justify-center">
-                                <span class="font-weight-bold text-h6">Your Match: </span>
-                            </v-row>
+                            <span class="font-weight-bold text-h6 mb-0">Your Match: </span>
                             <v-row class="px-0 py-4 my-1 mx-1 d-flex justify-center">
                                 <v-progress-circular
                                     :rotate="180"
@@ -131,12 +130,19 @@ export default {
 .wrap-text {
     white-space: nowrap;
 }
+
+.match_percentage_style{
+    height: 0px;
+}
 @media (max-width: 600px) {
     .wrap-text {
         white-space: normal; /* Allows the text to wrap to the next line */
         overflow-wrap: break-word; /* Breaks long words to prevent overflow */
         word-wrap: break-word; /* Older browsers might require this property */
         word-break: break-word; /* Breaks the word at the end of the line */
+    }
+    .match_percentage_style{
+        height: 100% !important;
     }
 }
 </style>
