@@ -60,6 +60,8 @@
                                 <v-card-title class="text-h5 font-weight-bold">
                                     {{ roleToDisplay.role_name }}
                                 </v-card-title>
+                            </v-col>
+                            <v-col class="d-flex justify-end me-2" cols="12" sm="4">
                                 <v-chip color="primary">
                                     {{ roleToDisplay.category }}
                                 </v-chip>
@@ -83,7 +85,6 @@
                         <v-row>
                             <v-col>
                                 <v-card-text class="text-h6">
-                                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam aspernatur culpa consequatur corrupti modi quibusdam, vitae mollitia numquam ullam doloremque fuga beatae voluptate molestias itaque dolor soluta molestiae fugit! -->
                                     {{ roleToDisplay.role_desc }}
                                 </v-card-text>
                             </v-col>
