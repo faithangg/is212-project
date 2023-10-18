@@ -16,20 +16,21 @@
       <v-container class="search_container">
         <v-row dense>
           <v-col>
-            <h1 class="ps-0 pb-8 mt-9 mr-16 pr-16 text-right">
+            <h1 class="ps-0 pb-4 mt-4 text-center text--white" color="white">
               Manage Role Listings
             </h1>
           </v-col>
         </v-row>
         <!-- Search input field -->
-        <v-row class="d-flex justify-center mt-3 mb-6">
-          <v-col cols="7" class="pe-0">
+        <v-row class="d-flex mt-3 mb-0 justify-sm-center">
+          <v-col cols="10" md="7" class="pe-0">
             <v-text-field
               v-model="searchQuery"
               label="Search by Job title"
               outlined
               dense
               hide-details
+              id="search_bar"
               class="rounded-input search-bar"
             ></v-text-field>
           </v-col>
@@ -47,13 +48,18 @@
             >
             </v-btn>
           </v-col>
+          <v-col cols="12" md="8" class="text-end pt-0">
+            <v-btn @click="clearSearch" flat text size="small"
+              >Clear Search</v-btn
+            >
+          </v-col>
         </v-row>
       </v-container>
 
       <!-- Search button -->
     </v-container>
 
-    <v-col cols="11" class="d-lg-none d-flex justify-end">
+    <v-col cols="11" class="d-flex justify-end">
       <v-btn
         class="ms-4 mb-4 mt-9 mr-8"
         to="/CreateRoleListing"
