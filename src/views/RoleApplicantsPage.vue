@@ -67,6 +67,7 @@
               :percentageMatchItems="percentageMatchItems"
               @filter-applied="handleFilterApplied"
               @filter-cleared="handleFilterCleared"
+              @filter-modal-closed="hideFilterModal"
             ></ApplicantFilterCard>
           </v-card>
         </v-dialog>

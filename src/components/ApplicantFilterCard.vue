@@ -94,6 +94,8 @@ export default {
     },
     hideFilterModal() {
       this.showFilterModal = false; // Hide the filter modal
+      this.$emit('filter-modal-closed');
+
     },
   },
 
