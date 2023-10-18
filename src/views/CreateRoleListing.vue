@@ -1,194 +1,213 @@
 <template>
-  <v-card max-width="948" class="mx-auto" color="grey-lighten-3">
-    <v-layout>
-      <v-main>
-        <div data-aos="fade-up" data-aos-duration="1000">
-          <v-container fluid>
-            <form @submit.prevent="submit">
-              <v-card elevation="2" class="pa-14">
-                <v-row>
-                    <v-col cols="12" sm="3" md="3" lg="3" class="d-none d-lg-block">
-                    <v-btn
-                      class="text-left ml-12 mt-2"
-                      prepend-icon="mdi-arrow-left"
-                      variant="text"
-                      to="/ManageRolesPage"
+  <v-container class="background_image" fluid>
+    <!-- <img
+          v-bind:src="require('../assets/background1.jpeg')"
+          style="width: 100%; height: 300px; margin-top: 5px;" 
+      /> -->
+    <v-card max-width="948" class="mx-auto" flat dark>
+      <v-layout>
+        <v-main>
+          <div data-aos="fade-up" data-aos-duration="1000">
+            <v-container fluid>
+              <form @submit.prevent="submit">
+                <v-card elevation="2" class="pa-14">
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="3"
+                      md="3"
+                      lg="3"
+                      class="d-none d-lg-block"
                     >
-                      Back
-                    </v-btn>
-                  </v-col>
-                </v-row>
-                <v-row dense>
-                  <v-col>
-                    <h1 class="ps-0 pb-4 mt-4 text-center text--white" color="white">Create A Role Listing</h1>
-                  </v-col>
-                </v-row>
-                <v-row dense>
-                  <v-col cols="12" sm="4" md="4" lg="4">
-                    <p class="text-h6 text-left font-weight-bold pt-4">Role*</p>
-                  </v-col>
-                  <v-col cols="12" md="8" lg="8">
-                    <v-select
-                      type="menu"
-                      id="role"
-                      v-model="role_name"
-                      label="Select a role"
-                      variant="outlined"
-                      required
-                      :items="this.role_name_list"
-                      @update:model-value="display_description"
-                    ></v-select>
-                  </v-col>
-                </v-row>
-                <v-row dense>
-                  <v-col cols="12" sm="4" md="4" lg="4">
-                    <p class="text-h6 text-left font-weight-bold pt-4">
-                      Description*
-                    </p>
-                  </v-col>
-                  <v-col cols="12" sm="8" md="8" lg="8">
-                    <v-textarea
-                      type="text"
-                      v-model="description"
-                      variant="outlined"
-                      readonly
-                      required
-                      disabled
-                    ></v-textarea>
-                  </v-col>
-                </v-row>
-                <v-row dense>
-                  <v-col cols="12" sm="4" md="4" lg="4">
-                    <p class="text-h6 text-left font-weight-bold pt-4">
-                      Skills Required*
-                    </p>
-                  </v-col>
-                  <v-col cols="12" sm="8" md="8" lg="8">
-                    <v-chip-group row class="mb-4">
-                      <v-chip
-                        v-for="(skill, index) in skills"
-                        :key="index"
+                      <v-btn
+                        class="text-left ml-12 mt-2"
+                        prepend-icon="mdi-arrow-left"
+                        variant="text"
+                        to="/ManageRolesPage"
+                      >
+                        Back
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-row dense>
+                    <v-col>
+                      <h1
+                        class="ps-0 pb-4 mt-4 text-center text--white"
+                        color="white"
+                      >
+                        Create A Role Listing
+                      </h1>
+                    </v-col>
+                  </v-row>
+                  <v-row dense>
+                    <v-col cols="12" sm="4" md="4" lg="4">
+                      <p class="text-h6 text-left font-weight-bold pt-4">
+                        Role*
+                      </p>
+                    </v-col>
+                    <v-col cols="12" md="8" lg="8">
+                      <v-select
+                        type="menu"
+                        id="role"
+                        v-model="role_name"
+                        label="Select a role"
+                        variant="outlined"
+                        required
+                        :items="this.role_name_list"
+                        @update:model-value="display_description"
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                  <v-row dense>
+                    <v-col cols="12" sm="4" md="4" lg="4">
+                      <p class="text-h6 text-left font-weight-bold pt-4">
+                        Description*
+                      </p>
+                    </v-col>
+                    <v-col cols="12" sm="8" md="8" lg="8">
+                      <v-textarea
+                        type="text"
+                        v-model="description"
+                        variant="outlined"
+                        readonly
+                        required
+                        disabled
+                      ></v-textarea>
+                    </v-col>
+                  </v-row>
+                  <v-row dense>
+                    <v-col cols="12" sm="4" md="4" lg="4">
+                      <p class="text-h6 text-left font-weight-bold pt-4">
+                        Skills Required*
+                      </p>
+                    </v-col>
+                    <v-col cols="12" sm="8" md="8" lg="8">
+                      <v-chip-group row class="mb-4">
+                        <v-chip
+                          v-for="(skill, index) in skills"
+                          :key="index"
+                          color="default"
+                          size="large"
+                          label
+                        >
+                          {{ skill }}
+                        </v-chip>
+                      </v-chip-group>
+                    </v-col>
+                  </v-row>
+                  <v-row dense>
+                    <v-col cols="12" sm="4" md="4" lg="4">
+                      <p class="text-h6 text-left font-weight-bold pt-4">
+                        Department*
+                      </p>
+                    </v-col>
+                    <v-col cols="12" sm="8" md="8" lg="8">
+                      <v-select
+                        type="menu"
+                        id="department"
+                        v-model="departments"
+                        label="Select department"
+                        variant="outlined"
+                        required
+                        :items="this.departments_list"
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                  <v-row dense>
+                    <v-col cols="12" sm="4" md="4" lg="4">
+                      <p class="text-h6 text-left font-weight-bold pt-4">
+                        Category*
+                      </p>
+                    </v-col>
+                    <v-col cols="12" sm="8" md="8" lg="8">
+                      <v-select
+                        type="menu"
+                        id="category"
+                        v-model="categories"
+                        label="Select category"
+                        variant="outlined"
+                        required
+                        :items="this.categories_list"
+                      ></v-select>
+                    </v-col>
+                  </v-row>
+                  <v-row dense>
+                    <v-col cols="12" sm="4" md="4" lg="4">
+                      <p class="text-h6 text-left font-weight-bold pt-4">
+                        Application Deadline*
+                      </p>
+                    </v-col>
+                    <v-col cols="12" sm="8" md="8" lg="8">
+                      <v-text-field
+                        type="date"
+                        v-model="selectedDateFormatted"
+                        label="Select a Date"
+                        variant="outlined"
+                        required
+                        :min="minDate"
+                        :rules="[rules.dateBeforeToday]"
+                        id="application_deadline"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row dense class="mx-16">
+                    <!-- Error Message -->
+                    <v-alert
+                      id="error_alert"
+                      v-if="errorMessage"
+                      color="error"
+                      icon="mdi-alert"
+                    >
+                      {{ errorMessage }}
+                    </v-alert>
+                  </v-row>
+                  <v-row dense class="">
+                    <v-col cols="12" md="6">
+                      <v-btn
+                        block
+                        class="text-h6 mt-8"
                         color="default"
                         size="large"
-                        label
+                        variant="tonal"
+                        :disabled="!isFormFilledAtAll"
+                        @click="reset_form()"
                       >
-                        {{ skill }}
-                      </v-chip>
-                    </v-chip-group>
-                  </v-col>
-                </v-row>
-                <v-row dense>
-                  <v-col cols="12" sm="4" md="4" lg="4">
-                    <p class="text-h6 text-left font-weight-bold pt-4">
-                      Department*
-                    </p>
-                  </v-col>
-                  <v-col cols="12" sm="8" md="8" lg="8">
-                    <v-select
-                      type="menu"
-                      id="department"
-                      v-model="departments"
-                      label="Select department"
-                      variant="outlined"
-                      required
-                      :items="this.departments_list"
-                    ></v-select>
-                  </v-col>
-                </v-row>
-                <v-row dense>
-                  <v-col cols="12" sm="4" md="4" lg="4">
-                    <p class="text-h6 text-left font-weight-bold pt-4">
-                      Category*
-                    </p>
-                  </v-col>
-                  <v-col cols="12" sm="8" md="8" lg="8">
-                    <v-select
-                      type="menu"
-                      id="category"
-                      v-model="categories"
-                      label="Select category"
-                      variant="outlined"
-                      required
-                      :items="this.categories_list"
-                    ></v-select>
-                  </v-col>
-                </v-row>
-                <v-row dense>
-                  <v-col cols="12" sm="4" md="4" lg="4">
-                    <p class="text-h6 text-left font-weight-bold pt-4">
-                      Application Deadline*
-                    </p>
-                  </v-col>
-                  <v-col cols="12" sm="8" md="8" lg="8">
-                    <v-text-field
-                      type="date"
-                      v-model="selectedDateFormatted"
-                      label="Select a Date"
-                      variant="outlined"
-                      required
-                      :min="minDate"
-                      :rules="[rules.dateBeforeToday]"
-                      id="application_deadline"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row dense class="mx-16">
-                  <!-- Error Message -->
-                  <v-alert
-                    id="error_alert"
-                    v-if="errorMessage"
-                    color="error"
-                    icon="mdi-alert"
-                  >
-                    {{ errorMessage }}
-                  </v-alert>
-                </v-row>
-                <v-row dense class="">
-                  <v-col cols="12" md="6">
-                    <v-btn
-                      block
-                      class="text-h6 mt-8"
-                      color="default"
-                      size="large"
-                      variant="tonal"
-                      :disabled="!isFormFilledAtAll"
-                      @click="reset_form()"
-                    >
-                      <b>Reset</b>
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="12" md="6">
-                    <v-btn
-                      block
-                      class="text-h6 mt-8"
-                      color="teal-lighten-1"
-                      size="large"
-                      variant="tonal"
-                      :disabled="!isFieldsNotEmpty || date_before_today()"
-                      @click="create_role()"
-                      id="create_role_btn"
-                    >
-                      <b>Create</b>
-                    </v-btn>
-                  </v-col>
-                </v-row>
-                <!-- show success message -->
-                <v-dialog v-model="success_model" hide-overlay class="w-50">
-                  <!-- Modal content goes here -->
-                  <v-alert
-                    id="success_alert"
-                    color="success"
-                    icon="$success"
-                    title="New role created successfully."
-                  ></v-alert>
-                </v-dialog>
-              </v-card>
-            </form>
-          </v-container>
-        </div>
-      </v-main>
-    </v-layout>
-  </v-card>
+                        <b>Reset</b>
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-btn
+                        block
+                        class="text-h6 mt-8"
+                        color="teal-lighten-1"
+                        size="large"
+                        variant="tonal"
+                        :disabled="!isFieldsNotEmpty || date_before_today()"
+                        @click="create_role()"
+                        id="create_role_btn"
+                      >
+                        <b>Create</b>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <!-- show success message -->
+                  <v-dialog v-model="success_model" hide-overlay class="w-50">
+                    <!-- Modal content goes here -->
+                    <v-alert
+                      id="success_alert"
+                      color="success"
+                      icon="$success"
+                      title="New role created successfully."
+                    ></v-alert>
+                  </v-dialog>
+                </v-card>
+              </form>
+            </v-container>
+          </div>
+        </v-main>
+      </v-layout>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -457,3 +476,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.background_image{
+    background-image: url('../assets/background1.jpeg');
+    background-size: cover; /* This ensures the image covers the entire background */
+  background-position: center center; /* Center the image horizontally and vertically */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  width: 100%;
+}
+</style>

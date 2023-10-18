@@ -38,7 +38,7 @@
                                     :size="100"
                                     :width="15"
                                     :model-value="applicant.match_percentage"
-                                    color="teal"
+                                    :color="calculateColor(applicant.match_percentage)"
                                 >
                                     {{ applicant.match_percentage }}%
                                 </v-progress-circular>
@@ -93,6 +93,20 @@ export default {
         };
     },
     methods: {
+        calculateColor(percentage) {
+      // Define your color logic based on percentage here
+      if (percentage <= 20) {
+        return 'red-darken-1';
+      } else if (percentage <= 40) {
+        return 'orange-darken-1';
+      } else if (percentage <= 60) {
+        return 'yellow-darken-1';
+      } else if (percentage <= 80) {
+        return 'light-green-darken-1';
+      } else {
+        return 'teal-darken-1';
+      }
+    },
        
         
     },

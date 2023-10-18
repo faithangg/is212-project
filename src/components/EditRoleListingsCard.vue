@@ -30,10 +30,19 @@
                     </v-col>
                     <v-col class="d-flex justify-end me-4 mb-4 align-end">
                         <!-- open role description page -->
-                        <v-btn @click="viewApplicants(role.listing_id)" class="me-3" id="view_applicants" icon="mdi-account-multiple"></v-btn>
-                        <v-btn class="me-3" density="default" icon="mdi-open-in-new" @click="openModal(role)" id="open_modal"></v-btn>
+                        <v-btn @click="viewApplicants(role.listing_id)" class="me-3" id="view_applicants" icon round>
+                            <v-icon>mdi-account-multiple</v-icon>
+                            <v-tooltip activator="parent" location="top">View Applicants</v-tooltip>
+                        </v-btn>
+                        <v-btn class="me-3" density="default" icon round @click="openModal(role)" id="open_modal">
+                            <v-icon>mdi-open-in-new</v-icon>
+                            <v-tooltip activator="parent" location="top">Open Modal</v-tooltip>
+                        </v-btn>
                         <!-- edit role -->
-                        <v-btn @click="editRole(role.listing_id)" icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
+                        <v-btn @click="editRole(role.listing_id)" icon round>
+                            <v-icon id="edit">mdi-pencil</v-icon>
+                            <v-tooltip activator="parent" location="top">Edit Listing</v-tooltip>
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-card>
