@@ -151,7 +151,7 @@
                     :model-value="
                       roleToDisplay.role_skill_match.match_percentage
                     "
-                    color="teal"
+                    :color="calculateColor(roleToDisplay.role_skill_match.match_percentage)"   
                   >
                     {{ roleToDisplay.role_skill_match.match_percentage }}%
                   </v-progress-circular>
