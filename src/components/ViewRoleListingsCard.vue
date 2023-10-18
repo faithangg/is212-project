@@ -111,13 +111,12 @@
             <v-row>
               <v-col>
                 <v-card-text class="text-h6">
-                  <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Delect{{ roleToDisplay.role_listing.deadline }}us magnam aspernatur culpa consequatur corrupti modi quibusdam, vitae mollitia numquam ullam doloremque fuga beatae voluptate molestias itaque dolor soluta molestiae fugit! -->
                   {{ roleToDisplay.role_listing.role_desc }}
                 </v-card-text>
               </v-col>
             </v-row>
             <v-row>
-              <v-col>
+              <v-col col="12">
                 <v-card-text>
                   <!-- loop thru requied skils -->
                   <span class="font-weight-bold text-h6"
@@ -143,7 +142,7 @@
                   </v-chip>
                 </v-card-text>
               </v-col>
-              <v-col>
+              <v-col cols="12">
                 <v-card-text>
                   <span class="font-weight-bold text-h6">Your Match: </span>
                   <v-progress-circular
