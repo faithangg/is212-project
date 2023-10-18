@@ -64,8 +64,10 @@
                                     {{ roleToDisplay.category }}
                                 </v-chip>
                             </v-col>
-                            <v-col class="d-flex justify-end">
-                                <v-btn @click="editRole(roleToDisplay.listing_id)" icon><v-icon id="edit">mdi-pencil</v-icon></v-btn>
+                            <v-col class="d-flex justify-end  me-4 mb-4 ">
+                                <v-btn @click="editRole(roleToDisplay.listing_id)" icon><v-icon id="edit">mdi-pencil</v-icon>                             <v-tooltip activator="parent" location="top">Edit Listing</v-tooltip>  
+                                </v-btn>
+
                             </v-col>
                         </v-row>
                         <v-row>
