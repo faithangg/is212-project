@@ -2,7 +2,7 @@
   <div>
     <v-container fluid class="py-0 px-0 position-relative">
       <img
-        v-bind:src="require('../assets/office11.jpg')"
+        v-bind:src="require('../assets/office12.jpg')"
         style="width: 100%; height: 300px; margin-top: 5px"
       />
       <v-container class="search_container">
