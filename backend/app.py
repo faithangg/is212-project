@@ -15,6 +15,7 @@ import controllers.view_applicants_controller
 import controllers.role_listing_filter_controller
 import controllers.staff_profile_controller
 import controllers.role_applicant_filter_controller
+import controllers.browse_role_listing_controller
 
 app = Flask(__name__)
 if __name__ == '__main__':

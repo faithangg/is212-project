@@ -75,10 +75,12 @@
           </v-card-actions>
           <v-container>
             <v-row class="mt-3">
-              <v-col class="d-flex justify-start align-center">
+              <v-col class="d-flex justify-start align-center" sm="2">
                 <v-card-title class="text-h5 font-weight-bold">
                   {{ roleToDisplay.role_listing.role_name }}
                 </v-card-title>
+              </v-col>  
+              <v-col class="d-flex justify-start align-center">
                 <v-chip color="primary">
                   {{ roleToDisplay.role_listing.category }}
                 </v-chip>
