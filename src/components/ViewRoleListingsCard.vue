@@ -177,7 +177,7 @@
           <v-alert
             id="failure_alert"
             color="error"
-            icon="$success"
+            icon="$error"
             title="Application Failed"
             text="Your application for the role has failed. Please try again later"
           ></v-alert>

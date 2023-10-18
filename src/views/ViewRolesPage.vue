@@ -1,16 +1,20 @@
 <template>
   <div>
-    <v-container class="">
+    <v-container fluid class="py-0 px-0 position-relative" >
+      <img
+          v-bind:src="require('../assets/office5.jpg')"
+          style="width: 100%; height: 300px; margin-top: 5px;" 
+      />
 
-      <v-container>
+      <v-container class="search_container">
         <v-row dense>
             <v-col>
-                <h1 class="ps-0 pb-8 mt-9 text-center">Role Listings</h1>
+                <h1 class="ps-0 pb-4 mt-4 text-center">Role Listings</h1>
             </v-col>
         </v-row>
         <!-- Search input field -->
-        <v-row class="d-flex justify-center mt-3 mb-0">
-          <v-col cols="7" class="pe-0">
+        <v-row class="d-flex mt-3 mb-0 justify-sm-center">
+          <v-col cols="10" md="7" class="pe-0">
             <v-text-field
               v-model="searchQuery"
               label="Search by Job title"
@@ -35,7 +39,7 @@
             >
             </v-btn>
           </v-col>
-          <v-col cols="8" class="text-end pt-0">
+          <v-col cols="12" md="8" class="text-end pt-0">
             <v-btn @click="clearSearch" flat text size="small"
               >Clear Search</v-btn
             >
@@ -44,11 +48,10 @@
 
         <!-- error message -->
         <v-row class="d-flex justify-center mt-0 mb-6">
-          <v-col cols="8" class="pt-0 h-25" id="search_alert">
+          <v-col cols="12" md="8" class="pt-0 h-25" id="search_alert">
             <v-alert
               v-if="searchQueryError == 400"
               type="error"
-              variant="outlined"
               icon="$error"
               style="font-size: 12px; padding: 8px; height: auto"
               dismissible
@@ -58,7 +61,6 @@
             <v-alert
               v-if="searchQueryError == 404"
               type="info"
-              variant="outlined"
               icon="$info"
               style="font-size: 12px; padding: 8px; height: auto"
               dismissible
@@ -72,7 +74,7 @@
 
     <v-row class="d-flex justify-center">
       <!-- Display filter button on mobile screens -->
-      <v-col cols="9" class="d-lg-none d-flex justify-end">
+      <v-col cols="11" class="d-lg-none d-flex justify-end">
         <v-btn @click="showFilter()" class=" " color="teal-lighten-3">
           Filter
         </v-btn>
