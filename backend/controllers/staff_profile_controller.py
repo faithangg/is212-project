@@ -1,11 +1,14 @@
 from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing
-from models.role import Role 
 from models.job_application import JobApplication
 from models.staff import Staff
+from models.staff_skill import StaffSkill
 from blueprints.staff_blueprint import staff_blueprint
 from .role_listing_controller import role_skill_match
+
+def get_staff_skills(staff_id):
+    return [skill.skill_name for skill in StaffSkill.query.filter_by(staff_id=staff_id).all()]
 
 # STAFF: VIEW PROFILE
 @staff_blueprint.route('/profile/<int:staff_id>', methods=['GET'])
@@ -17,28 +20,34 @@ def view_applied_roles(staff_id):
         # Get the details of the staff
         staff = Staff.query.filter_by(staff_id=staff_id).first()
 
-        roles_applied = []
+        # Get the skills of the staff using the helper function
+        staff_skills = get_staff_skills(staff_id)
+
+        applied_roles = []
         for application in applications:
             # Get associated role listing for this application
             role_listing = RoleListing.query.filter_by(listing_id=application.listing_id).first()
             if role_listing:
                 # Get skill match for this role
                 response = role_skill_match(staff_id, role_listing.role_name)
-                if response["code"] == 200:  # Note: I changed `response.status_code` to `response["code"]` based on your previous code
-                    role_skill_data = response['data']
-                    roles_applied.append({
+                if response["code"] == 200:
+                    skill_match_data = response
+                    role_skill_data = skill_match_data['data']
+                    applied_roles.append({
                         "role_listing": role_listing.json(),
                         "role_skill_match": role_skill_data
                     })
 
-        if roles_applied:
-            return jsonify({
-                "code": 200, 
-                "data": {
-                    "staff_details": staff.json(),
-                    "applied_roles": roles_applied
-                }
-            }), 200
+        data = {
+            "staff_details": {
+                "info": staff.json(),
+                "skills": staff_skills
+            },
+            "applied_roles": applied_roles
+        }
+
+        if applied_roles:
+            return jsonify({"code": 200, "data": data}), 200
         else:
             return jsonify({"code": 404, "message": "No applied roles found for the given staff ID."}), 404
 
