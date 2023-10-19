@@ -65,14 +65,9 @@
                       </p>
                     </v-col>
                     <v-col cols="12" sm="8" md="8" lg="8">
-                      <v-textarea
-                        type="text"
-                        v-model="description"
-                        variant="outlined"
-                        readonly
-                        required
-                        disabled
-                      ></v-textarea>
+                        <p class="text-left scrollable-descript my-4">
+                            {{this.description}}
+                        </p>
                     </v-col>
                   </v-row>
                   <v-row dense>
@@ -484,5 +479,9 @@ export default {
   background-position: center center; /* Center the image horizontally and vertically */
   background-repeat: no-repeat; /* Prevent the image from repeating */
   width: 100%;
+}
+.scrollable-descript {
+  max-height: 400px; /* Set the desired maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
 }
 </style>
