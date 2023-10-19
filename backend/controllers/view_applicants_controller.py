@@ -9,7 +9,6 @@ from .role_listing_controller import role_skill_match
 # HR: VIEW ALL APPLICANTS FOR A PARTICULAR ROLE
 @hr_blueprint.route('/role_applicants/<int:listing_id>', methods=['GET'])
 def view_role_applicants(listing_id):
-    sort_by = request.args.get('sort_by', default='newest', type=str)
     try:
         role_listing = RoleListing.query.get_or_404(listing_id)
 
@@ -51,13 +50,6 @@ def view_role_applicants(listing_id):
                     "skills_have": [],
                     "skills_dont": []
                 })
-
-        if sort_by == 'match_asc':
-            applicant_data.sort(key=lambda x: x["match_percentage"]) 
-        elif sort_by == 'match_desc':
-            applicant_data.sort(key=lambda x: x["match_percentage"], reverse=True)
-        elif sort_by == 'newest':
-            applicant_data.sort(key=lambda x: x["application_date"], reverse=True)
 
         data = {
             "role_name": role_listing.role_name,
