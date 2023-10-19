@@ -138,6 +138,9 @@ def get_filtered_roles(listing_id):
         department_filters = data['department']
         match_percentage_filters = data['match_percentage']
 
+        # Extract the sort_by parameter from the request
+        sort_by = data.get('sort_by', 'newest')
+
         # Get all applicants for the role listing
         all_applicants = db.session.query(JobApplication, Staff, RoleListing).join(
             Staff, JobApplication.staff_id == Staff.staff_id
@@ -179,17 +182,25 @@ def get_filtered_roles(listing_id):
         else:
             # Return that no filter options were chosen
             return jsonify({"code": 404, "message": "No filter options were chosen."}), 404
-        
+
+        # Get the enriched applicant data.
+        results = get_results(applicant_query)
+
+        # Sorting Logic for results
+        if sort_by == 'match_asc':
+            results.sort(key=lambda x: float(x["match_percentage"])) 
+        elif sort_by == 'match_desc':
+            results.sort(key=lambda x: float(x["match_percentage"]), reverse=True)
+        elif sort_by == 'newest':
+            results.sort(key=lambda x: x["application_date"], reverse=True)
+
         # If there are applicants that meet the chosen filter options
-        if applicant_query:
-            # Get the applicant information and the skill match information
-            results = get_results(applicant_query)
+        if results:
             # Return the result
             return jsonify({"code": 200, "data": {"applicants": results}}), 200
         # Else return that no applicants were found
         else:
             return jsonify({"code": 404, "message": "No applicants found for the given filter options."}), 404
-
 
     except Exception as e:
         db.session.rollback()
