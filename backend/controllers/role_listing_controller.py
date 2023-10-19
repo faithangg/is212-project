@@ -7,12 +7,9 @@ from models.role_listing import RoleListing
 from models.role_skill import RoleSkill 
 from models.role import Role 
 from models.job_application import JobApplication
-from models.category import Category
-from models.staff import Staff
 from blueprints.hr_blueprint import hr_blueprint
 from blueprints.staff_blueprint import staff_blueprint
 from models.staff_skill import StaffSkill
-from .role_skill_match_controller import role_skill_match
 
 # HELPER FUNCTION TO GET SKILLS BY ROLE NAME
 def get_skills_by_role(role_name):

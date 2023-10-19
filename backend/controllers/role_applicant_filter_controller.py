@@ -1,48 +1,12 @@
 from flask import request, jsonify
 from database import db
-from sqlalchemy import or_
 from models.role_listing import RoleListing
-from models.role import Role 
-from models.category import Category
 from models.staff import Staff
 from blueprints.hr_blueprint import hr_blueprint
 from models.staff_skill import StaffSkill
 from models.role_skill import RoleSkill 
 from models.job_application import JobApplication
-
-# HELPER FUNCTION TO GET ROLE SKILL MATCH
-def role_skill_match(staff_id, role_name):
-    try:
-        # Get all the skills based on the roles
-        role_skills = [rs.skill_name for rs in RoleSkill.query.filter_by(role_name=role_name).all()]
-
-        # Get all the skills that the staff has
-        staff_skills = [ss.skill_name for ss in StaffSkill.query.filter_by(staff_id=staff_id).all()]
-
-        # Determine skills that staff have and don't have based on the role's requirements
-        staff_have = [skill for skill in role_skills if skill in staff_skills]
-        staff_dont = [skill for skill in role_skills if skill not in staff_skills]
-
-        # Calculate the percentage of roles matched
-        if len(staff_have) + len(staff_dont) == 0:
-            match_percentage = 0
-        else:
-            match_percentage = round((len(staff_have) / (len(staff_have) + len(staff_dont))) * 100)
-
-        return {
-            "code": 200,
-            "data": {
-                "have": staff_have,
-                "dont": staff_dont,
-                "match_percentage": str(match_percentage)
-            }
-        }
-    except Exception as e:
-        # Return an error in a dictionary format
-        return {
-            "code": 500,
-            "error": str(e)
-        }
+from .role_listing_controller import role_skill_match
 
 # HELPER FUNCTION TO GET THE SKILL MATCH TO RETURN BACK TO FRONTEND
 def get_results(applicants):
