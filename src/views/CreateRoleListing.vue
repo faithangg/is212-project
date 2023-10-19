@@ -156,7 +156,10 @@
                       {{ errorMessage }}
                     </v-alert>
                   </v-row>
-                  <v-row dense class="">
+                  <v-row dense>
+                    <p class="text-caption ml-6 mt-4">* indicates a required field</p>
+                  </v-row>
+                  <v-row dense>
                     <v-col cols="12" md="6">
                       <v-btn
                         block

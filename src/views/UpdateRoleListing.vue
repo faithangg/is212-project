@@ -6,29 +6,11 @@
           <div data-aos="fade-up" data-aos-duration="1000">
             <v-container fluid>
               <form @submit.prevent="submit">
-                <v-card elevation="2" class="pa-14">
-                  <v-row>
-                    <v-col
-                      cols="12"
-                      sm="3"
-                      md="3"
-                      lg="3"
-                      class="d-none d-lg-block"
-                    >
-                      <v-btn
-                        class="text-left ml-12 mt-2"
-                        prepend-icon="mdi-arrow-left"
-                        variant="text"
-                        to="/ManageRolesPage"
-                      >
-                        Back
-                      </v-btn>
-                    </v-col>
-                  </v-row>
+                <v-card elevation="2" class="px-14 pb-14 pt-8">
                   <v-row dense>
                     <v-col>
                       <h1
-                        class="ps-0 pb-4 mt-4 text-center text--white"
+                        class="pb-8 mt-4 text-center text--white"
                         color="white"
                       >
                         Update Role Listing
@@ -57,19 +39,14 @@
                       <p class="text-h6 font-weight-bold pt-4">Description*</p>
                     </v-col>
                     <v-col cols="8">
-                      <v-textarea
-                        type="text"
-                        v-model="description"
-                        variant="outlined"
-                        readonly
-                        required
-                        disabled
-                      ></v-textarea>
+                      <p class="text-left scrollable-descript my-4">
+                            {{this.description}}
+                        </p>
                     </v-col>
                   </v-row>
                   <v-row dense>
                     <v-col cols="4">
-                      <p class="text-h6 font-weight-bold pt-4">
+                      <p class="text-h6 font-weight-bold pb-8">
                         Skills Required*
                       </p>
                     </v-col>
@@ -144,20 +121,63 @@
                     </v-alert>
                   </v-row>
                   <v-row dense>
-                    <!-- <v-col>
-                                        <v-btn
-                                            block
-                                            class="mt-8 mr-6"
-                                            color="default"
-                                            size="large"
-                                            variant="tonal"
-                                            :disabled="!isFormFilledAtAll"
-                                            @click="reset_form()"
-                                        >
-                                            <b>Reset</b>
-                                        </v-btn>
-                                    </v-col> -->
-                    <v-col cols="12" >
+                    <p class="text-caption ml-6 mt-4">* indicates a required field</p>
+                  </v-row>
+                  <v-row dense>
+                    <v-col cols="12" md="6">
+                      <v-dialog
+                        v-model="cancel_dialog"
+                        persistent
+                        width="auto"
+                      >
+                        <template v-slot:activator="{ props }">
+                          <v-btn
+                            block
+                            class="mt-8 mr-6"
+                            color="default"
+                            size="large"
+                            variant="tonal"
+                            v-bind="props"
+                          >
+                            <b>Cancel</b>
+                          </v-btn>
+                        </template>
+                        <v-card>
+                          <v-toolbar flat color="amber">
+                            <v-toolbar-title class="font-weight-bold">Cancel Edits to Role Listing</v-toolbar-title>
+                          </v-toolbar>
+                          <v-card-text>
+                            <p>If you cancel, you will lose all the changes you have made.</p>
+                            <br>
+                            <p><b>Are you sure you wish to cancel?</b></p>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                              <v-btn
+                                color="grey-darken-1 font-weight-bold"
+                                prepend-icon="mdi-close" 
+                                variant="outlined"
+                                to="/ManageRolesPage"
+                                rounded
+                                class="px-4"
+                              >
+                                Cancel Edits
+                              </v-btn>
+                              <v-btn
+                                color="black font-weight-bold"
+                                prepend-icon="mdi-pencil" 
+                                variant="tonal"
+                                @click="cancel_dialog = false"
+                                rounded
+                                class="px-4"
+                              >
+                                Continue Editing
+                              </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>  
+                    </v-col>
+                    <v-col cols="12" md="6">
                       <v-btn
                         block
                         class="mt-8"
@@ -216,6 +236,7 @@ export default {
       minDate: this.showDateinSGT(), // Minimum date allowed to select
       errorMessage: "", // Error message to display to the user
       success_model: false, // Control the visibility of the full-screen success modal
+      cancel_dialog: false, // Control the visibility of the full-screen cancel modal
       rules: {
         // Checks if the input date is before or today's date
         // If rule returns true -> valid
@@ -381,13 +402,13 @@ export default {
     async update_role() {
       try {
         console.log("trying update_role()");
-        console.log(
-          "to send:",
-          this.role_name,
-          this.departments,
-          this.categories,
-          this.selectedDateFormatted
-        );
+        // console.log(
+        //   "to send:",
+        //   this.role_name,
+        //   this.departments,
+        //   this.categories,
+        //   this.selectedDateFormatted
+        // );
         const response = await axios.put(
           `http://127.0.0.1:5000/hr/update_role_listing/` + this.listing_id,
           {
@@ -397,14 +418,14 @@ export default {
             deadline: this.selectedDateFormatted,
           }
         );
-        console.log("update outcome", response);
+        // console.log("update outcome", response);
         if (response.status === 200) {
           // Role created successfully
           this.errorMessage = "";
 
           // Reset the form and set timeout to hide the success message
           this.success_model = true;
-          console.log("success message", this.success_model);
+          // console.log("success message", this.success_model);
 
           setTimeout(() => {
             this.success_model = false;
@@ -428,16 +449,6 @@ export default {
           console.log("errorMessage", this.errorMessage);
         }
       }
-    },
-    reset_form() {
-      // Reset the form
-      this.role_name = "";
-      this.departments = "";
-      this.categories = "";
-      this.selectedDateFormatted = "";
-      this.description = "";
-      this.skills = [];
-      this.errorMessage = "";
     },
     date_before_today() {
       // Parse the input date string into a Date object
