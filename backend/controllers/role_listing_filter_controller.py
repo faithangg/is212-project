@@ -96,7 +96,7 @@ def get_filter_options():
         if result_category and result_dept:
             return jsonify({"code": 200, "data": {"department": result_dept, "category": result_category}}), 200
         else:
-            return jsonify({"code": 404, "message": "Was no able to retrieve filter options"}), 404
+            return jsonify({"code": 404, "message": "Was not able to retrieve filter options"}), 404
 
     except Exception as e:
         db.session.rollback()
