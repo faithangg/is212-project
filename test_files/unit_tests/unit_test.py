@@ -27,8 +27,8 @@ class TestSBRP(unittest.TestCase):
 
     def test_job_application(self):
         date_today = datetime.date.today()
-        ja = JobApplication(staff_id = 1,listing_id =1, application_date=date_today)
-        self.assertEqual(ja.json(),{'application_id': None, 'staff_id': 1, 'listing_id': 1, "application_date": date_today.strftime(date_today.strftime('%Y-%m-%d'))})
+        ja = JobApplication(application_id= 1, staff_id = 1,listing_id =1, application_date=date_today)
+        self.assertEqual(ja.json(),{'application_id': 1, 'staff_id': 1, 'listing_id': 1, "application_date": date_today.strftime(date_today.strftime('%Y-%m-%d'))})
 
     def test_login_details(self):
         ld = LoginDetails(staff_id = 1,staff_password ="john")
@@ -48,16 +48,16 @@ class TestSBRP(unittest.TestCase):
         self.assertEqual(role.json(), {'role_name': 'IT', 'role_desc': 'information systems'})
 
     def test_skils(self):
-        skill = Skill(skill_name = "python")
-        self.assertEqual(skill.json(), {'skill_name': 'python'})
+        skill = Skill(skill_name = "python", skill_desc="programming")
+        self.assertEqual(skill.json(), {'skill_name': 'python', 'skill_desc': 'programming'})
     
     def test_staff_skill(self):
         ss = StaffSkill(staff_id = 1, skill_name = "python")
         self.assertEqual(ss.json(), {'staff_id': 1, 'skill_name': 'python'})
 
     def test_staff(self):
-        staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "it", country="singapore", email="johntan@email.com", access_id=1) 
-        self.assertEqual(staff.json(), {'staff_id': 1, 'staff_fname': 'john', 'country': 'singapore', 'staff_lname': 'tan', 'dept': 'it', 'email': 'johntan@email.com', "access_id": 1})
+        staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "it", country="singapore", email="johntan@email.com", role=1) 
+        self.assertEqual(staff.json(), {'staff_id': 1, 'staff_fname': 'john', 'country': 'singapore', 'staff_lname': 'tan', 'dept': 'it', 'email': 'johntan@email.com', "role": 1})
 
 # Making sure the codes in it runs only if u run the file directly
 if __name__ == "__main__":
