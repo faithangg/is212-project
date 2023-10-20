@@ -103,8 +103,8 @@ def get_filtered_roles(listing_id):
         data = request.get_json() 
 
         # Get the filter options chosen for department and match percentage
-        department_filters = data['department']
-        match_percentage_filters = data['match_percentage']
+        department_filters = data.get('department', [])
+        match_percentage_filters = data.get('match_percentage', [])
 
         # Extract the sort_by parameter from the request
         sort_by = data.get('sort_by', 'newest')
@@ -125,7 +125,7 @@ def get_filtered_roles(listing_id):
         applicant_query = []
 
         # If both department and match percentage are in the filter option
-        if len(department_filters) != 0 and len(match_percentage_filters) != 0:
+        if department_filters and match_percentage_filters:
             dept_result = get_dept_filtered_applicants(department_filters, applicant_info)
             for match_percentage in match_percentage_filters:
                 match_result = get_match_percentage_filtered_applicants(dept_result, match_percentage)
@@ -136,20 +136,20 @@ def get_filtered_roles(listing_id):
             print(applicant_query)
 
         # If only department is in the filter option
-        elif len(department_filters) != 0:
+        elif department_filters:
             applicant_query = get_dept_filtered_applicants(department_filters, applicant_info)
 
         # If only match percentage is in the filter option
-        elif len(match_percentage_filters) != 0:
+        elif match_percentage_filters:
             for match_percentage in match_percentage_filters:
                 match_result = get_match_percentage_filtered_applicants(applicant_info, match_percentage)
                 if match_result:
                     for applicant in match_result:
                         applicant_query.append(applicant)
-        # Else it means no filter options where chosen
+
+         # If no filter options were chosen, use all applicants
         else:
-            # Return that no filter options were chosen
-            return jsonify({"code": 404, "message": "No filter options were chosen."}), 404
+            applicant_query = applicant_info
 
         # Get the enriched applicant data.
         results = get_results(applicant_query)

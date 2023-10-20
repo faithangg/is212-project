@@ -43,8 +43,8 @@
 
       <v-btn
         v-if="isLoggedIn"
-        to="/profile"
-        id="profile"
+        to="/profilepage"
+        id="profilepage"
         class="d-none d-lg-block pt-2"
         >Profile</v-btn
       >
@@ -65,7 +65,7 @@
             <v-btn to="/manageRolesPage" v-if="userIsHr" id="managed" flat>Manage Role Listings</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn to="/profile" id="profile" flat>Profile</v-btn>
+            <v-btn to="/profilepage" id="profilepage" flat>Profile</v-btn>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -87,10 +87,15 @@ export default {
     isLoggedIn() {
       // Access the user's login status from your Vuex store getter
       return this.$store.getters.getIsLoggedIn;
+
     },
     userIsHr() {
       // Access the user's role from your Vuex store getter
       return this.$store.getters.getUserRole === "hr";
+    },
+    getUserId() {
+      // Access the user's role from your Vuex store getter
+      return this.$store.getters.getUserId;
     },
   },
 
