@@ -33,7 +33,7 @@ def filter_listings_by_staff_and_deadline(query, staff_id):
         ~RoleListing.listing_id.in_(applied_listings),
         RoleListing.deadline >= current_date
     )
-    
+
     return filtered_query
 
 # HELPER FUNCTION TO GET ROLE SKILL MATCH
@@ -41,9 +41,11 @@ def role_skill_match(staff_id, role_name):
     try:
         # Get all the skills based on the roles
         role_skills = [rs.skill_name for rs in RoleSkill.query.filter_by(role_name=role_name).all()]
+        # print("role_skills", role_skills)
 
         # Get all the skills that the staff has
         staff_skills = [ss.skill_name for ss in StaffSkill.query.filter_by(staff_id=staff_id).all()]
+        print("staff_skills", staff_skills)
 
         # Determine skills that staff have and don't have based on the role's requirements
         staff_have = [skill for skill in role_skills if skill in staff_skills]
@@ -167,6 +169,7 @@ def get_role_listings_not_applied(staff_id):
         for listing in role_listings:
             role_data = listing.json()
             skill_match_data = role_skill_match(staff_id, listing.role_name)
+            # print("skill_match_data", skill_match_data)
             
             role_desc = Role.query.filter_by(role_name=listing.role_name).first()
             role_data['role_desc'] = role_desc.role_desc

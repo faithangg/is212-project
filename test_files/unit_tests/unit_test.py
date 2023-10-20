@@ -18,8 +18,8 @@ from staff import Staff
 
 class TestSBRP(unittest.TestCase):
     def test_access_rights(self):
-        ar = AccessRights(access_right = 1, user_role = "staff")
-        self.assertEqual(ar.json(),{'access_right': 1, 'user_role': 'staff'})
+        ar = AccessRights(access_id = 1, access_control_name = "staff")
+        self.assertEqual(ar.json(),{'access_id': 1, 'access_control_name': 'staff'})
 
     def test_category(self):
         category = Category(category = "IT",category_desc ="information systems")
@@ -56,8 +56,8 @@ class TestSBRP(unittest.TestCase):
         self.assertEqual(ss.json(), {'staff_id': 1, 'skill_name': 'python'})
 
     def test_staff(self):
-        staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "it", email="johntan@email.com", access_rights=1) 
-        self.assertEqual(staff.json(), {'staff_id': 1, 'staff_fname': 'john', 'staff_lname': 'tan', 'dept': 'it', 'email': 'johntan@email.com', "access_rights": 1})
+        staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "it", country="singapore", email="johntan@email.com", access_id=1) 
+        self.assertEqual(staff.json(), {'staff_id': 1, 'staff_fname': 'john', 'country': 'singapore', 'staff_lname': 'tan', 'dept': 'it', 'email': 'johntan@email.com', "access_id": 1})
 
 # Making sure the codes in it runs only if u run the file directly
 if __name__ == "__main__":

@@ -40,7 +40,7 @@ class TestApp(flask_testing.TestCase):
 class TestCreateConsultation(TestApp):
     def test_filter_options(self):
         category = Category(category = "IT",category_desc ="information systems")
-        staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "it", email="johntan@email.com", access_rights=1) 
+        staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "it", country="singapore", email="johntan@email.com", access_id=1) 
         db.session.add(category)
         db.session.add(staff)
         db.session.commit()

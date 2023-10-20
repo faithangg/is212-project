@@ -65,6 +65,7 @@ def get_applicant_data(applications):
             "name": f"{staff.staff_fname} {staff.staff_lname}",
             "email": staff.email,
             "department": staff.dept,  
+            "country": staff.country,
             "application_date": application.application_date.strftime('%Y-%m-%d'),
             "listing_id": application.listing_id,
             "role_name": listing.role_name

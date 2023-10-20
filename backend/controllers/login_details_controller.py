@@ -29,7 +29,7 @@ def login_details(staff_id, staff_password):
                 return jsonify(
                     {
                         "code": 201,
-                        "access_rights": staff.access_rights
+                        "access_id": staff.role
 
                     }  
                 ), 201

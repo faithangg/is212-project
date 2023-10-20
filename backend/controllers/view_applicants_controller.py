@@ -34,7 +34,8 @@ def view_role_applicants(listing_id):
                 applicant_data.append({
                     "name": f"{staff.staff_fname} {staff.staff_lname}",
                     "email": staff.email,
-                    "department": staff.dept,  
+                    "department": staff.dept, 
+                    "country": staff.country, 
                     "application_date": application.application_date.strftime('%Y-%m-%d'),
                     "match_percentage": skill_match_data['data']['match_percentage'],
                     "skills_have": skill_match_data['data']['have'],

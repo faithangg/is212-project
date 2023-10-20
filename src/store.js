@@ -36,12 +36,12 @@ export default createStore({
                 return false; // Return false if the login failed
             }
             else {
-                var access_right = data["access_rights"]
-                console.log(access_right)
-                if (access_right == 1) {
+                var access_id = data["access_id"]
+                console.log(access_id)
+                if (access_id == 4) {
                     var role = "hr"
                 }
-                else if (access_right == 2) {
+                else if (access_id == 2) {
                     var role = "staff"
                 }
                 
