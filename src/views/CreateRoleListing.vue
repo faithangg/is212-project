@@ -66,7 +66,9 @@
                     </v-col>
                     <v-col cols="12" sm="8" md="8" lg="8">
                         <p class="text-left scrollable-descript my-4">
-                            {{this.description}}
+                          <p v-for="paragraph in this.description" :key="paragraph">
+                            {{paragraph}}
+                          </p>  
                         </p>
                     </v-col>
                   </v-row>
