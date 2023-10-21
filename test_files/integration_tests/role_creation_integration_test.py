@@ -82,7 +82,7 @@ class TestApp(flask_testing.TestCase):
         db.session.remove()
         db.drop_all()
 
-class TestApplyRoles(TestApp):  
+class TestCreateRoles(TestApp):  
     # Create Role Listing Successful
 
     # Create Role Listing Unsuccessful: Deadline in the past
