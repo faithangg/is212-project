@@ -91,7 +91,9 @@ def get_role_names():
 def get_role_description(role_name):
     try:
         role = Role.query.filter_by(role_name=role_name).first()
-        return jsonify(description=role.role_desc), 201
+        desc = role.role_desc
+        paragraphs_list = desc.split('<br>')
+        return jsonify(description=paragraphs_list), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     

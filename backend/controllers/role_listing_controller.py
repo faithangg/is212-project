@@ -169,7 +169,10 @@ def get_role_listings_not_applied(staff_id):
             skill_match_data = role_skill_match(staff_id, listing.role_name)
             
             role_desc = Role.query.filter_by(role_name=listing.role_name).first()
-            role_data['role_desc'] = role_desc.role_desc
+            desc = role_desc.role_desc
+            paragraphs_list = desc.split('<br>')
+
+            role_data['role_desc'] = paragraphs_list
 
             # If the role skill match was successful, add it to results
             if skill_match_data.get('code') == 200:
@@ -233,8 +236,10 @@ def browse_listing(staff_id, search_input):
             skill_match_data = role_skill_match(staff_id, listing.role_name)
             roles = Role.query.filter_by(role_name=listing.role_name).first()
             listing = listing.json()
-            role_desc = roles.role_desc
-            listing["role_desc"] = role_desc
+            desc = roles.role_desc
+            paragraphs_list = desc.split('<br>')
+
+            listing['role_desc'] = paragraphs_list
             
             # If the role skill match was successful, add it to results
             if skill_match_data.get('code') == 200:

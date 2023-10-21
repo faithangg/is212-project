@@ -110,8 +110,8 @@
             </v-row>
             <v-row>
               <v-col>
-                <v-card-text class="text-h6">
-                  {{ roleToDisplay.role_listing.role_desc }}
+                <v-card-text class="text-h6" v-for="paragraph in roleToDisplay.role_listing.role_desc" :key="paragraph">
+                  {{ paragraph }}
                 </v-card-text>
               </v-col>
             </v-row>

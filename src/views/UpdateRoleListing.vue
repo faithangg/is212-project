@@ -39,8 +39,10 @@
                       <p class="text-h6 font-weight-bold pt-4">Description*</p>
                     </v-col>
                     <v-col cols="8">
-                      <p class="text-left scrollable-descript my-4">
-                            {{this.description}}
+                      <p class="text-left scrollable-descript my-4" >
+                          <p v-for="paragraph in this.description" :key="paragraph">
+                            {{paragraph}}
+                          </p>   
                         </p>
                     </v-col>
                   </v-row>
