@@ -65,17 +65,17 @@
           </v-card-actions>
           <v-container>
             <v-row class="mt-3">
-              <v-col class="d-flex justify-start align-center" sm="2">
+              <v-col class="d-flex justify-start align-center" cols="12" sm="6">
                 <v-card-title class="text-h5 font-weight-bold">
                   {{ roleToDisplay.role_listing.role_name }}
                 </v-card-title>
               </v-col>  
-              <v-col class="d-flex justify-start align-center">
-                <v-chip color="primary">
+              <v-col class="d-flex justify-start align-center" cols="12" sm="4">
+                <v-chip color="primary" class="mr-2">
                   {{ roleToDisplay.role_listing.category }}
                 </v-chip>
               </v-col>
-              <v-col cols="auto">
+              <v-col sm="2"  class="justify-end">
                 <v-btn
                   class="bg-teal-lighten-3 text-h6"
                   @click="applyrole()"
