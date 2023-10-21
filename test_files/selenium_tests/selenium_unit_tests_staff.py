@@ -50,7 +50,7 @@ class Staff(unittest.TestCase):
         # Search for legal advisor role
         search_bar = self.driver.find_element(By.ID, "search_bar")
         search_bar.clear()
-        search_bar.send_keys("legal advisor")
+        search_bar.send_keys("senior engineer")
 
         # Click search button
         self.driver.find_element(By.ID, "search_btn").click()
@@ -62,7 +62,7 @@ class Staff(unittest.TestCase):
         text = self.driver.find_element(By.ID, "role_name").text
 
         # Check if role listing has the word legal in it
-        self.assertIn("legal", text.lower())
+        self.assertIn("senior", text.lower())
 
     # TEST CASE: BROWSE ROLE LISTING NO RESULT
     def test_browse_role_listing_no_result(self):
@@ -104,7 +104,7 @@ class Staff(unittest.TestCase):
         time.sleep(3)
 
         # Open the first modal 
-        self.driver.find_element(By.ID, "open_modal").click()
+        self.driver.find_element(By.ID, "role_listing_card").click()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -132,9 +132,9 @@ class Staff(unittest.TestCase):
         time.sleep(3)
 
         # Click the filters (category, department, match percentage)
-        self.driver.find_element(By.ID, "category_Information Technology").click()
-        self.driver.find_element(By.ID, "department_IT").click()
-        self.driver.find_element(By.ID, "41-60").click()
+        self.driver.find_element(By.ID, "category_Consulting").click()
+        self.driver.find_element(By.ID, "department_Consultancy").click()
+        self.driver.find_element(By.ID, "0-20").click()
 
         # Click apply filter button
         self.driver.find_element(By.ID, "apply_filter_btn").click()
@@ -146,7 +146,7 @@ class Staff(unittest.TestCase):
         text = self.driver.find_element(By.ID, "listing_department").text
 
         # Check if the department is the one we selected in the filter
-        self.assertIn("IT", text)
+        self.assertIn("consultancy", text)
 
     # TEST CASE: FILTER ROLE LISTING NO RESULT
     def test_filter_role_listing_no_result(self):

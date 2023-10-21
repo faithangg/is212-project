@@ -30,9 +30,9 @@ text = driver.find_element(By.ID, "role_listings").click()
 time.sleep(3)
 
 # Click the filters
-search_bar = driver.find_element(By.ID, "category_Finance").click()
-search_bar = driver.find_element(By.ID, "department_Finance").click()
-search_bar = driver.find_element(By.ID, "41-60").click()
+search_bar = driver.find_element(By.ID, "category_Consulting").click()
+search_bar = driver.find_element(By.ID, "department_Consultancy").click()
+search_bar = driver.find_element(By.ID, "0-20").click()
 
 # Click apply filter button
 driver.find_element(By.ID, "apply_filter_btn").click()
@@ -45,7 +45,7 @@ text = driver.find_element(By.ID, "listing_department").text
 
 print(text)
 # Check if role listing has the word software in it
-assert "finance" in text.lower()
+assert "consultancy" in text.lower()
 
 print("TEST PASSED : FILTER ROLE LISTING STAFF")
 

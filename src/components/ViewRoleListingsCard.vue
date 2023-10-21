@@ -12,6 +12,7 @@
         class="role-card w-100 h-20"
         
         @click="openModal(role)"
+        id="role_listing_card"
       >
         <v-row class="mt-3">
           <v-col class="d-flex justify-start">

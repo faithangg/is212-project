@@ -30,7 +30,7 @@ text = driver.find_element(By.ID, "role_listings").click()
 time.sleep(3)
 
 # Open the first modal 
-element = driver.find_element(By.ID, "open_modal").click()
+element = driver.find_element(By.ID, "role_listing_card").click()
 
 # Wait for 3 seconds (for the page to load)
 time.sleep(3)

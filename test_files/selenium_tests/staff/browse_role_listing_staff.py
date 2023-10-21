@@ -32,7 +32,7 @@ time.sleep(3)
 # Search for software engineer role
 search_bar = driver.find_element(By.ID, "search_bar")
 search_bar.clear()
-search_bar.send_keys("software engineer")
+search_bar.send_keys("senior engineer")
 
 # Click search button
 driver.find_element(By.ID, "search_btn").click()
@@ -44,7 +44,7 @@ time.sleep(3)
 text = driver.find_element(By.ID, "role_name").text
 
 # Check if role listing has the word software in it
-assert "software" in text.lower()
+assert "senior" in text.lower()
 
 print("TEST PASSED : BROWSE ROLE LISTING STAFF")
 
