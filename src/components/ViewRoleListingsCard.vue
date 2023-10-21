@@ -53,16 +53,6 @@
               </v-progress-circular>
             </v-card-text>
           </v-col>
-          <!-- <v-col class="d-flex justify-end me-4 mb-4 align-end"> -->
-            <!-- open role description page -->
-            <!-- <v-btn
-              id="open_modal"
-              class="me-3"
-              density="default"
-              icon="mdi-open-in-new"
-              @click="openModal(role)"
-            ></v-btn> -->
-          <!-- </v-col> -->
         </v-row>
       </v-card>
   
@@ -110,7 +100,7 @@
             </v-row>
             <v-row>
               <v-col>
-                <v-card-text class="text-h6" v-for="paragraph in roleToDisplay.role_listing.role_desc" :key="paragraph">
+                <v-card-text class="text-h7" v-for="paragraph in roleToDisplay.role_listing.role_desc" :key="paragraph">
                   {{ paragraph }}
                 </v-card-text>
               </v-col>
@@ -308,5 +298,6 @@ export default {
     margin-right: 0px !important;
   }
 }
+
 
 </style>
