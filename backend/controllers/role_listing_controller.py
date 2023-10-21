@@ -88,7 +88,9 @@ def get_all_role_listings():
             role_desc = Role.query.filter_by(role_name=role_name).first()
             skills = get_skills_by_role(role_name)
             listing_data['skills_required'] = skills
-            listing_data['role_desc'] = role_desc.role_desc
+            desc = role_desc.role_desc
+            paragraphs_list = desc.split('<br>')
+            listing_data['role_desc'] = paragraphs_list
             role_data.append(listing_data)
         
         # If have records return the records
@@ -131,7 +133,9 @@ def get_one_role_listings(listing_id):
             role_data['skills_required'] = skills_required
 
             role_desc = Role.query.filter_by(role_name=role_listing.role_name).first()
-            role_data['role_desc'] = role_desc.role_desc
+            desc = role_desc.role_desc
+            paragraphs_list = desc.split('<br>')
+            role_data['role_desc'] = paragraphs_list
 
             return jsonify(
                 {
