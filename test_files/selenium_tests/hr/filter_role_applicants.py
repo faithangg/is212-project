@@ -23,10 +23,9 @@ password.send_keys("somchai")
 
 # Click login button
 driver.find_element(By.ID, "login").click()
-
 time.sleep(3)
 
-# Go to managed role listing page
+# Go to manage role listing page
 text = driver.find_element(By.ID, "managed").click()
 time.sleep(3)
 
@@ -36,20 +35,24 @@ element.click()
 time.sleep(3)
 
 try:
-    # Sort applicants by match percentage
-    sort = driver.find_element(By.ID, "sort_dropdown")
-    sort.send_keys(Keys.RETURN)
-    time.sleep(1)
-    driver.find_element(By.XPATH, '//*[text() = "Match Percentage (High to Low)"]').click()
-    time.sleep(1)
-    # Check if the email is displayed
-    text = driver.find_element(By.ID, "email").text
-    assert "Email:" in text
-    print("TEST PASSED : Sort Role Applicants.")
+    # Click the filters
+    search_bar = driver.find_element(By.ID, "department_HR").click()
+    search_bar = driver.find_element(By.ID, "0-20").click()
+
+    # Click apply filter button
+    driver.find_element(By.ID, "apply_filter_btn").click()
+
+    # Wait for 3 seconds (for the page to load)
+    time.sleep(3)
+    text = driver.find_element(By.ID, "dept").text
+
+    # Check if the dept is correct
+    assert "HR" in text
+    print("TEST PASSED : FILTER APPLICANTS.")
 except:
     text = driver.find_element(By.ID, "no_applicants_alert").text
     assert "No applicants for this role." in text
-    print("TEST FAILED : Couldn't sort applicants as there are none.")
+    print("TEST FAILED : Couldn't filter applicants as there are none.")
 
 print("Application title ", driver.title)
 print("Application url is ", driver.current_url)

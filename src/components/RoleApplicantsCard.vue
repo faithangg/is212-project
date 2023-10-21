@@ -14,7 +14,7 @@
                         </v-card-title>
                     </v-col>
                     <v-col class="d-flex justify-end me-2">
-                        <v-chip color="primary">
+                        <v-chip color="primary" id="dept">
                             {{ applicant.department }}
                         </v-chip>
                     </v-col>
