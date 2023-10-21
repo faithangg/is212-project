@@ -116,7 +116,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 1,
-                            "role_desc": "Develops software",
+                            "role_desc": ["Develops software"],
                             "role_name": "Software Engineer"
                         },
                         "role_skill_match": {
@@ -159,7 +159,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 1,
-                            "role_desc": "Develops software",
+                            "role_desc": ["Develops software"],
                             "role_name": "Software Engineer"
                         },
                         "role_skill_match": {
@@ -180,7 +180,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 2,
-                            "role_desc": "Supports software",
+                           "role_desc": ["Supports software"],
                             "role_name": "Support Engineer"
                         },
                         "role_skill_match": {
@@ -223,7 +223,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 2,
-                            "role_desc": "Supports software",
+                            "role_desc": ["Supports software"],
                             "role_name": "Support Engineer"
                         },
                         "role_skill_match": {
@@ -266,7 +266,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 1,
-                            "role_desc": "Develops software",
+                            "role_desc": ["Develops software"],
                             "role_name": "Software Engineer"
                         },
                         "role_skill_match": {
@@ -310,7 +310,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 1,
-                            "role_desc": "Develops software",
+                            "role_desc": ["Develops software"],
                             "role_name": "Software Engineer"
                         },
                         "role_skill_match": {
@@ -331,7 +331,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 2,
-                            "role_desc": "Supports software",
+                           "role_desc": ["Supports software"],
                             "role_name": "Support Engineer"
                         },
                         "role_skill_match": {
@@ -374,7 +374,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 1,
-                            "role_desc": "Develops software",
+                            "role_desc": ["Develops software"],
                             "role_name": "Software Engineer"
                         },
                         "role_skill_match": {
@@ -395,7 +395,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 2,
-                            "role_desc": "Supports software",
+                           "role_desc": ["Supports software"],
                             "role_name": "Support Engineer"
                         },
                         "role_skill_match": {
@@ -438,7 +438,7 @@ class TestRoleApplicantFilterandSort(TestApp):
                             "deadline": "2024-05-17",
                             "department": "IT",
                             "listing_id": 1,
-                            "role_desc": "Develops software",
+                            "role_desc": ["Develops software"],
                             "role_name": "Software Engineer"
                         },
                         "role_skill_match": {
