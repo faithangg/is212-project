@@ -87,7 +87,7 @@ class TestApp(flask_testing.TestCase):
         db.drop_all()
 
 
-class TestRoleListingFilter(TestApp):
+class TestRoleApplicantFilterandSort(TestApp):
     # Get all filter options
     def test_filter_options(self):
         response = self.client.get("/staff/filter_options",
