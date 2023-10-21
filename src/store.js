@@ -31,7 +31,7 @@ export default createStore({
             var data = await data_fetch.json();
 
             if (data['code'] == 500) {
-                alert('The password or staff id is incorrect')
+               
 
                 return false; // Return false if the login failed
             }
