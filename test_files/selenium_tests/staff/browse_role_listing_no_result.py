@@ -13,12 +13,12 @@ driver.get("http://localhost:8080")
 # Enter staff id
 staff_id = driver.find_element(By.ID, "staffId")
 staff_id.clear()
-staff_id.send_keys(1)
+staff_id.send_keys(140002)
 
 # Enter password
 password = driver.find_element(By.ID, "password")
 password.clear()
-password.send_keys("john")
+password.send_keys("susan")
 
 # Click login button
 driver.find_element(By.ID, "login").click()
