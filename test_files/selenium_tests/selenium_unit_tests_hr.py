@@ -55,7 +55,7 @@ class Login(unittest.TestCase):
         role = self.driver.find_element(By.ID, "role")
         role.send_keys(Keys.RETURN)
         time.sleep(1)
-        self.driver.find_element(By.XPATH, '//*[text() = "Software Engineer"]').click()
+        self.driver.find_element(By.XPATH, '//*[text() = "Developer"]').click()
 
         time.sleep(1)
 
@@ -139,10 +139,10 @@ class Login(unittest.TestCase):
         time.sleep(3)
 
         # Get the role name
-        text = self.driver.find_element(By.ID, "role_name").text
+        text = self.driver.find_element(By.ID, "role_applicants_title").text
 
         # Check if its the correct role
-        self.assertIn("Role Name:", text)
+        self.assertIn("Applicants for", text)
             
     
 if __name__ == '__main__':

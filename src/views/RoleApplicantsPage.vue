@@ -12,7 +12,7 @@
         </v-row>
         <v-row dense>
           <v-col>
-            <h1 class="ps-0 pb-4 mt-4 text-center text--white" color="white">
+            <h1 class="ps-0 pb-4 mt-4 text-center text--white" color="white" id="role_applicants_title">
               Applicants for {{ role_name }}
             </h1>
           </v-col>

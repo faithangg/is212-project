@@ -18,6 +18,8 @@ password.send_keys("somchai")
 
 driver.find_element(By.ID, "login").click()
 
+time.sleep(3)
+
 text = driver.find_element(By.ID, "managed").click()
 
 time.sleep(3)
@@ -27,8 +29,8 @@ element.click()
 time.sleep(3)
 
 try:
-    text = driver.find_element(By.ID, "role_name").text
-    assert "Role Name:" in text
+    text = driver.find_element(By.ID, "role_applicants_title").text
+    assert "Applicants for " in text
     print("TEST PASSED : View Role Applicants.")
 except:
     text = driver.find_element(By.ID, "no_applicants_alert").text

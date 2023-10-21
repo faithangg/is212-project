@@ -34,7 +34,7 @@ time.sleep(3)
 role = driver.find_element(By.ID, "role")
 role.send_keys(Keys.RETURN)
 time.sleep(1)
-driver.find_element(By.XPATH, '//*[text() = "Software Engineer"]').click()
+driver.find_element(By.XPATH, '//*[text() = "Developer"]').click()
 
 time.sleep(1)
 
