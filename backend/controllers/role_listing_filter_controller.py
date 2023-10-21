@@ -19,10 +19,12 @@ def get_results(role_listings_query, staff_id):
         if skill_match['code'] == 200:
             # Get the role description
             roles = Role.query.filter_by(role_name=role_listing.role_name).first()
-            role_desc = roles.role_desc
+            desc = roles.role_desc
             listing = role_listing.json()
             # Add the role description to the role listing
-            listing["role_desc"] = role_desc
+            paragraphs_list = desc.split('<br>')
+
+            listing['role_desc'] = paragraphs_list
             # Append the role listing information and the skill match information to results
             results.append({
                 "role_listing": listing,
