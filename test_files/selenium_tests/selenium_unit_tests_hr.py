@@ -26,12 +26,12 @@ class Login(unittest.TestCase):
         # find the textbox to input the staff id
         self.staff_id = self.driver.find_element(By.ID, "staffId")
         self.staff_id.clear()
-        self.staff_id.send_keys(2)
+        self.staff_id.send_keys(160332)
 
         # find the textbox to input the password
         self.password = self.driver.find_element(By.ID, "password")
         self.password.clear()
-        self.password.send_keys("jane")
+        self.password.send_keys("somchai")
 
         # find the button and click it
         self.driver.find_element(By.ID, "login").click()

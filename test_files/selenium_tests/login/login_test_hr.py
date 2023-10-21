@@ -13,12 +13,12 @@ driver.get("http://localhost:8080")
 # find the textbox to input the staff id
 staff_id = driver.find_element(By.ID, "staffId")
 staff_id.clear()
-staff_id.send_keys(2)
+staff_id.send_keys(160332)
 
 # find the textbox to input the password
 password = driver.find_element(By.ID, "password")
 password.clear()
-password.send_keys("jane")
+password.send_keys("somchai")
 
 # find the button and click it
 driver.find_element(By.ID, "login").click()
