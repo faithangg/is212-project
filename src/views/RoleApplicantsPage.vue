@@ -82,7 +82,7 @@
 
           <!-- sort select -->
           <v-col cols="6" class="d-flex d-md-block ">
-            <v-select label="Sort by"
+            <v-select label="Sort by" id="sort_dropdown"
               :items="['Newest', 'Match Percentage (High to Low)', 'Match Percentage (Low to High)']"
               style="width: 300px;" v-model="selectedSort" >
 

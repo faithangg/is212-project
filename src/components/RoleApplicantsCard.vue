@@ -22,7 +22,7 @@
                 <v-row>
                     <v-col cols="12" md="8">
                         <v-card-text class="d-flex justify-start text-h6 ">
-                            <span class="font-weight-bold">Email: </span>&nbsp;<span class="wrap-text">{{ applicant.email }}</span>
+                            <span class="font-weight-bold" id="email">Email: </span>&nbsp;<span class="wrap-text">{{ applicant.email }}</span>
                         </v-card-text>
                         <v-card-text class="d-flex justify-start text-h6">
                             <span class="font-weight-bold">Application Date: </span> &nbsp; <span class="wrap-text">{{ applicant.application_date }}</span>
