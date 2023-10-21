@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `staff` (
 )  ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO staff (staff_id, staff_fname, staff_lname, dept, country, email, role) VALUES
-(130001,'John','Sim','Chariman','Singapore','jack.sim@allinone.com.sg',1)
+(130001,'John','Sim','Chairman','Singapore','jack.sim@allinone.com.sg',1)
 ,(130002,'Jack','Sim','CEO','Singapore','jack.sim@allinone.com.sg',1)
 ,(140001,'Derek','Tan','Sales','Singapore','Derek.Tan@allinone.com.sg',3)
 ,(140002,'Susan','Goh','Sales','Singapore','Susan.Goh@allinone.com.sg',2)
