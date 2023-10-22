@@ -84,7 +84,7 @@
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-card-text class="text-h6" v-for="paragraph in roleToDisplay.role_desc" :key="paragraph">
+                                <v-card-text class="text-h7" v-for="paragraph in roleToDisplay.role_desc" :key="paragraph">
                                     {{ paragraph }}
                                 </v-card-text>
                             </v-col>
