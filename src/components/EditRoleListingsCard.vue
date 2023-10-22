@@ -94,7 +94,7 @@
                                 <v-card-text>
                                     <!-- loop thru requied skils -->
                                     <span class="font-weight-bold text-h6">Skills Required: </span>
-                                    <v-chip class="me-2" v-for="skill in roleToDisplay.skills_required" :key="skill" color="blue">
+                                    <v-chip class="me-2 mb-2" v-for="skill in roleToDisplay.skills_required" :key="skill" color="blue">
                                         {{ skill }}
                                     </v-chip>
                                     

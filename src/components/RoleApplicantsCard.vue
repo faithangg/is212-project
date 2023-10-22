@@ -50,7 +50,7 @@
                         <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container">
                             <span class="font-weight-bold">Skills held: </span>&nbsp;
                                 <v-chip
-                                class="me-2"
+                                class="me-2 mb-2"
                             v-for="skill in applicant.skills_have"
                             :key="skill"
                             color="blue">
@@ -64,7 +64,7 @@
                         <v-card-text class="d-flex justify-start text-h6 chip-container">
                             <span class="font-weight-bold">Skills missing: </span>&nbsp;
                             <v-chip
-                                class="me-2"
+                                class="me-2 mb-2"
                                 v-for="skill in applicant.skills_dont"
                                 :key="skill"
                                 color="red">
