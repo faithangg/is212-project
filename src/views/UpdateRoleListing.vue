@@ -145,7 +145,7 @@
                           </v-btn>
                         </template>
                         <v-card>
-                          <v-toolbar flat color="amber">
+                          <v-toolbar flat color="teal-lighten-1">
                             <v-toolbar-title class="font-weight-bold">Cancel Edits to Role Listing</v-toolbar-title>
                           </v-toolbar>
                           <v-card-text>
