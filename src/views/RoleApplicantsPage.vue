@@ -132,7 +132,7 @@ export default {
       selectedDepartment: [],
       selectedPercentage: [],
       showFilterModal: false, // Initialize as false to hide the modal initially
-      selectedSort: "newest",
+      selectedSort: "Newest",
     };
   },
   watch: {
@@ -149,21 +149,35 @@ export default {
   mounted() {
     // Fetch applicants from the API
     this.listing_id = this.$route.query.listing_id;
+
+    let payload = {
+        sort_by: "newest", 
+      };
+    
     axios
-      .get(`http://127.0.0.1:5000/hr/role_applicants/${this.listing_id}?sort_by=${this.selectedSort}`)
-      .then((response) => {
-        console.log(response.data.data);
-        this.applicantsFromDb = response.data.data.applicants;
-        console.log(this.role_applicants[0]);
-        this.role_applicants = this.applicantsFromDb;
-        (this.deadline = response.data.data.deadline),
+        .post(
+          `http://127.0.0.1:5000/hr/filter_applicants/${this.listing_id}`,
+          payload
+        )
+        .then((response) => {
+          console.log(response.data.data);
+
+          this.applicantsFromDb = response.data.data.applicants;
+          console.log(this.role_applicants[0]);
+          this.role_applicants = this.applicantsFromDb;
+
+          (this.deadline = response.data.data.deadline),
           (this.department = response.data.data.department),
           (this.role_name = response.data.data.role_name),
           (this.total_applicants = response.data.data.total_applicants);
-      })
-      .catch((error) => {
-        console.error("Error fetching applicants:", error);
-      });
+        })
+        .catch((error) => {
+          console.error("Error fetching applicants:", error);
+          this.filterErrorMsg =
+            "No applicants found based on your input filters";
+          this.filterError = 404;
+          this.role_applicants = [];
+        });
   },
 
   computed: {},
@@ -246,28 +260,6 @@ export default {
     hideFilterModal() {
       this.showFilterModal = false; // Hide the filter modal
     },
-
-    sortListings() {
-      // Sort the listings
-      console.log("in sort listings");
-      this.listing_id = this.$route.query.listing_id;
-      axios
-        .get(`http://127.0.0.1:5000/hr/role_applicants/${this.listing_id}?sort_by=${this.selectedSort}`)
-        // .get(`http://127.0.0.1:5000/hr/role_applicants/${this.listing_id}?sort_by=${newVal}`)
-        .then((response) => {
-          console.log(response.data.data);
-          this.applicantsFromDb = response.data.data.applicants;
-          console.log(this.role_applicants[0]);
-          this.role_applicants = this.applicantsFromDb;
-          (this.deadline = response.data.data.deadline),
-            (this.department = response.data.data.department),
-            (this.role_name = response.data.data.role_name),
-            (this.total_applicants = response.data.data.total_applicants);
-        })
-        .catch((error) => {
-          console.error("Error fetching applicants:", error);
-        });
-    }
 
   },
 
