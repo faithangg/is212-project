@@ -148,7 +148,7 @@ def get_one_role_listings(listing_id):
         return jsonify(
             {
                 "code": 404,
-                "message": "There is not such role listing"
+                "message": "There is no such role listing"
             }
         ), 404
 

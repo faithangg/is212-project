@@ -152,10 +152,65 @@ class TestRoleListing(TestApp):
         # Assert that the response data matches what is expected for an invalid ID
         expected_data = {
             "code": 404,
-            "message": "There is not such role listing"
+            "message": "There is no such role listing"
         }
 
         self.assertDictEqual(data, expected_data)
 
+    def test_get_role_listings_not_applied(self):
+        response = self.client.get('/staff/role_listings/1')
+        data = json.loads(response.data)
+
+        # Assert that the status code is 200 (i.e., the API endpoint returns some listings)
+        self.assertEqual(response.status_code, 200)
+
+        # Assert the structure of the returned data matches expectations
+        role_listings_with_skill_match = data.get("data", {}).get("role_listings_with_skill_match", [])
+
+        for listing in role_listings_with_skill_match:
+            self.assertIn("role_listing", listing)
+            self.assertIn("role_skill_match", listing)
+            self.assertIn("have", listing["role_skill_match"])
+            self.assertIn("dont", listing["role_skill_match"])
+            self.assertIn("match_percentage", listing["role_skill_match"])
+
+    def test_browse_listing_valid_search(self):
+        response = self.client.get('/staff/browse_role_listings/2/software')
+        data = json.loads(response.data)
+
+        # Assert that the status code is 200 (i.e., the API endpoint returns some listings)
+        self.assertEqual(response.status_code, 200)
+
+        # Assert the structure of the returned data matches expectations
+        role_listings_with_skill_match = data.get("data", {}).get("role_listings_with_skill_match", [])
+
+        for listing in role_listings_with_skill_match:
+            self.assertIn("role_listing", listing)
+            self.assertIn("role_skill_match", listing)
+            self.assertIn("have", listing["role_skill_match"])
+            self.assertIn("dont", listing["role_skill_match"])
+            self.assertIn("match_percentage", listing["role_skill_match"])
+
+    def test_browse_listing_invalid_search(self):
+        # Test with an invalid search input containing numbers, e.g., "dev123"
+        response = self.client.get('/staff/browse_role_listings/1/dev123')
+        data = json.loads(response.data)
+
+        # Assert that the status code is 400 (i.e., invalid search input)
+        self.assertEqual(response.status_code, 400)
+
+        # Assert that the message indicates the search input was invalid
+        self.assertEqual(data.get("message"), "Search input contains invalid characters or numbers.")
+
+    def test_browse_listing_no_match(self):
+        response = self.client.get('/staff/browse_role_listings/1/zombie')
+        data = json.loads(response.data)
+
+        # Assert that the status code is 404 (i.e., no listings found)
+        self.assertEqual(response.status_code, 404)
+
+        # Assert that the message indicates no role listings were found for the search input
+        self.assertEqual(data.get("message"), "There are no role listings matching your query.")
+        
 if __name__ == '__main__':
     unittest.main()
