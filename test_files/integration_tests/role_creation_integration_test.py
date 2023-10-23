@@ -2,7 +2,7 @@ import unittest
 import flask_testing
 import json
 import sys
-import datetime
+from datetime import datetime, date
 sys.path.append('../../backend')
 from app import app
 from database import db
@@ -16,9 +16,6 @@ from models.role import Role
 from models.skills import Skill
 from models.staff import Staff
 from models.staff_skill import StaffSkill
-
-
-
 
 
 class TestApp(flask_testing.TestCase):
@@ -44,8 +41,8 @@ class TestApp(flask_testing.TestCase):
         role = Role(role_name = "Software Engineer", role_desc = "Develops software")
         role1 = Role(role_name = "Support Engineer", role_desc = "Supports software")
 
-        role_listing = RoleListing(listing_id = 1, role_name = "Software Engineer", category = "IT", department="IT", deadline = datetime.date(2024, 5, 17))
-        role_listing2 = RoleListing(listing_id = 2, role_name = "Support Engineer", category = "IT", department="IT", deadline = datetime.date(2024, 5, 17))
+        role_listing = RoleListing(listing_id = 1, role_name = "Software Engineer", category = "IT", department="IT", deadline = date(2024, 5, 17))
+        role_listing2 = RoleListing(listing_id = 2, role_name = "Support Engineer", category = "IT", department="IT", deadline = date(2024, 5, 17))
 
         
         role_skill1 = RoleSkill(role_name = "Software Engineer", skill_name = "Python")
@@ -58,7 +55,7 @@ class TestApp(flask_testing.TestCase):
         role_skill7 = RoleSkill(role_name = "Support Engineer", skill_name = "data structures and algorithms")
 
 
-        jobapplication1 = JobApplication(application_id = 1, staff_id = 1, listing_id = 1, application_date = datetime.date(2023, 5, 17))
+        jobapplication1 = JobApplication(application_id = 1, staff_id = 1, listing_id = 1, application_date = date(2023, 5, 17))
 
         db.session.add(staff)
         db.session.add(staff1)
@@ -84,13 +81,58 @@ class TestApp(flask_testing.TestCase):
 
 class TestCreateRoles(TestApp):  
     # Create Role Listing Successful
+    def test_create_role_listing_successful(self):
+        data = {
+            "role_name": "Data Analyst",
+            "department": "IT",
+            "category": "Finance",
+            "deadline": "2024-06-20"
+        }
+        response = self.client.post("/hr/create_role_listing",
+                                    data=json.dumps(data),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 201)
 
     # Create Role Listing Unsuccessful: Deadline in the past
+    def test_create_role_listing_unsuccessful_past_deadline(self):
+        data = {
+            "role_name": "Data Analyst",
+            "department": "IT",
+            "category": "Finance",
+            "deadline": "2020-01-01"
+        }
+        response = self.client.post("/hr/create_role_listing",
+                                    data=json.dumps(data),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("Deadline must be in the future", response.json["error"])
 
     # Create Role Listing Unsuccessful: Role Listing Exists
+    def test_create_role_listing_unsuccessful_exists(self):
+        data = {
+            "role_name": "Software Engineer",
+            "department": "IT",
+            "category": "IT",
+            "deadline": "2024-06-20"
+        }
+        response = self.client.post("/hr/create_role_listing",
+                                    data=json.dumps(data),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("A role listing with the same details exists", response.json["error"])
 
     # Create Role Listing Unsuccessful: Missing Required Fields
-
+    def test_create_role_listing_unsuccessful_missing_fields(self):
+        data = {
+            "role_name": "Data Analyst",
+            "department": "IT",
+            "deadline": "2024-06-20"
+        } # Missing "category"
+        response = self.client.post("/hr/create_role_listing",
+                                    data=json.dumps(data),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("Missing required field(s)", response.json["error"])
     # Get Role Skill For Role
     def test_role_skill(self):
         response = self.client.get("/hr/get_role_skills/Software Engineer",
