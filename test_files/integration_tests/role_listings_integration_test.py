@@ -211,6 +211,58 @@ class TestRoleListing(TestApp):
 
         # Assert that the message indicates no role listings were found for the search input
         self.assertEqual(data.get("message"), "There are no role listings matching your query.")
+
+    def test_update_valid_role_listing(self):
+        # Test updating a valid role listing's name
+        response = self.client.put('/hr/update_role_listing/1', json={
+            'role_name': 'Senior Software Engineer'
+        })
+
+        data = json.loads(response.data)
+
+        # Assert that the status code is 200 (i.e., the update was successful)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data.get("code"), 200)
+        self.assertEqual(data.get("message"), "Successfully updated role listing!")
+        self.assertEqual(data["data"]["role_name"], "Senior Software Engineer")
+
+    def test_update_to_duplicate_role_listing(self):
+        # Test updating to a duplicate role listing (same as role_listing2)
+        response = self.client.put('/hr/update_role_listing/1', json={
+            'role_name': 'Support Engineer',
+            'category': 'IT',
+            'department': 'IT'
+        })
+
+        data = json.loads(response.data)
+
+        # Assert that the status code is 400 (i.e., the update would create a duplicate)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data.get("error"), "Duplicate role listing after update")
+
+    def test_update_with_invalid_deadline(self):
+        # Test updating with a past deadline
+        response = self.client.put('/hr/update_role_listing/1', json={
+            'deadline': '2022-01-01'
+        })
+
+        data = json.loads(response.data)
+
+        # Assert that the status code is 400 (i.e., the deadline is in the past)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data.get("error"), "Deadline must be in the future")
+
+    def test_update_nonexistent_role_listing(self):
+        # Test updating a role listing that doesn't exist
+        response = self.client.put('/hr/update_role_listing/100', json={
+            'role_name': 'Senior Software Engineer'
+        })
+
+        data = json.loads(response.data)
+
+        # Assert that the status code is 404 (i.e., the role listing was not found)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data.get("error"), "Role listing not found")
         
 if __name__ == '__main__':
     unittest.main()

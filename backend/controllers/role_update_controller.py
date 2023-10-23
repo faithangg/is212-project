@@ -9,7 +9,7 @@ from datetime import datetime
 def update_role_listing(listing_id):
     try:
         # Fetch the role listing to be updated
-        existing_role_listing = RoleListing.query.get(listing_id)
+        existing_role_listing = RoleListing.query.filter_by(listing_id=listing_id).first()
 
         # Check if the role listing exists
         if not existing_role_listing:
