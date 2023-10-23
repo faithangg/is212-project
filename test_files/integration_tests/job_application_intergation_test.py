@@ -2,7 +2,7 @@ import unittest
 import flask_testing
 import json
 import sys
-from datetime import datetime,date
+from datetime import datetime, date
 sys.path.append('../../backend')
 from app import app
 from database import db
@@ -64,7 +64,20 @@ class TestApplyRoles(TestApp):
                                     data=json.dumps(request_body),
                                     content_type='application/json')
         
+        actual_response_body = {
+            "code": 200,
+            "data": {
+                "application": {
+                    "application_date": datetime.today().strftime("%Y-%m-%d"),
+                    "application_id": 2,
+                    "listing_id": 2,
+                    "staff_id": 1
+                },
+                "message": "Successfully applied for the role!"
+            }
+        }
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json, actual_response_body)
 
     # Unsuccessful application: already applied
     def test_apply_role_unsuccessful(self):
