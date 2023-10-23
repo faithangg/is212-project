@@ -1,15 +1,15 @@
 <!-- ViewRoleListingsCard.vue -->
 
 <template>
-    <div>
-      <v-row class="d-flex justify-center">
+    <!-- <div>
+      <v-row class="d-flex justify-center"> -->
    
         <!-- display role listings -->
   
         <v-card variant="elevated"
           v-for="role in displayListings"
           :key="role.role_listing.listing_id"
-          class="role-card w-100 h-20"
+          class="role-card w-100 h-20 mx-0"
           
           @click="openModal(role)"
         >
@@ -178,8 +178,8 @@
               text="Your application for the role has failed. Please try again later"
             ></v-alert>
           </v-dialog>
-      </v-row>
-    </div>
+      <!-- </v-row>
+    </div> -->
   </template>
   
   <script>

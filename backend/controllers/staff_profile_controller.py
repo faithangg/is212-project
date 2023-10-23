@@ -56,7 +56,7 @@ def view_applied_roles(staff_id):
                 },
                 "applied_roles": "No applied roles found for the given staff ID."
             }
-            return jsonify({"code": 200, "data": data}), 404
+            return jsonify({"code": 200, "data": data}), 200
 
     except Exception as e:
         db.session.rollback()
