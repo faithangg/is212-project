@@ -166,10 +166,7 @@ export default {
           console.log(this.role_applicants[0]);
           this.role_applicants = this.applicantsFromDb;
 
-          (this.deadline = response.data.data.deadline),
-          (this.department = response.data.data.department),
-          (this.role_name = response.data.data.role_name),
-          (this.total_applicants = response.data.data.total_applicants);
+          this.total_applicants = this.role_applicants.length;
         })
         .catch((error) => {
           console.error("Error fetching applicants:", error);
@@ -178,6 +175,19 @@ export default {
           this.filterError = 404;
           this.role_applicants = [];
         });
+    axios
+        .get(
+          `http://127.0.0.1:5000/hr/role_listings/${this.listing_id}`)
+        .then((response) => {
+
+          this.deadline = response.data.data.role_listing.deadline;
+          this.department = response.data.data.role_listing.department;
+          this.role_name = response.data.data.role_listing.role_name;
+        })
+        .catch((error) => {
+        });
+
+      
   },
 
   computed: {},
@@ -251,7 +261,7 @@ export default {
       this.role_applicants = this.applicantsFromDb;
       this.filterError = "";
       this.filterErrorMsg = "";
-      this.selectedSort = "newest";
+      this.selectedSort = "Newest";
     },
     showFilter() {
       this.showFilterModal = true; // Show the filter modal
