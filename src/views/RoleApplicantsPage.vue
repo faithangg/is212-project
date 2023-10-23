@@ -56,7 +56,7 @@
         <!-- add a sort by dropdown -->
         <v-row class="d-flex justify-end">
           <!-- Display filter button on mobile screens -->
-          <v-col cols="6" class="d-lg-none d-flex justify-center">
+          <v-col cols="6" class="d-lg-none d-flex  me-auto">
             <v-btn @click="showFilter()" class="" color="teal-lighten-3" style="height: 56px; width: 300px;">
               Filter By
 
@@ -81,8 +81,8 @@
           </v-col>
 
           <!-- sort select -->
-          <v-col cols="6" class="d-flex d-md-block ">
-            <v-select label="Sort by" id="sort_dropdown"
+          <v-col cols="6" class="d-flex d-md-block">
+            <v-select label="Sort by" id="sort_dropdown" class="ms-auto pe-3"
               :items="['Newest', 'Match Percentage (High to Low)', 'Match Percentage (Low to High)']"
               style="width: 300px;" v-model="selectedSort" >
 
