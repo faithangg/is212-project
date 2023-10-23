@@ -50,7 +50,7 @@ def create_role_listing():
             role_name=role_name,
             department=department,
             category=category,
-            deadline=deadline,
+            deadline=deadline_date,
         )
 
         # Add the new role listing to the database
