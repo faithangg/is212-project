@@ -11,12 +11,9 @@
             <v-container fluid>
               <form @submit.prevent="submit">
                 <v-card elevation="2" class="pa-6 pa-sm-16 py-sm-12">
-                  <v-row>
+                  <v-row dense>
                     <v-col
-                      cols="12"
-                      sm="3"
-                      md="3"
-                      lg="3"
+                      cols="3"
                       class="d-none d-sm-block"
                     >
                       <v-btn
@@ -157,6 +154,8 @@
                         {{ errorMessage }}
                       </v-alert>
                     </v-row>
+
+                    <!--BUTTONS-->
                     <v-row dense>
                       <v-col cols="6">
                         <v-btn
