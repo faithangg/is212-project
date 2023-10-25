@@ -129,7 +129,10 @@ jobs:
     #     cd test_files
     #     python selenium_test.py
 
-    - name: Debugging
+    - name: Build Vue.js application
+      run: npm run build
+
+    - name: Run Selenium Test Cases (Staff)
       run: |
         pwd
         ls -l test_files/end_to_end
@@ -138,6 +141,8 @@ jobs:
       env:
         pythonLocation: /opt/hostedtoolcache/Python/3.10.13/x64
         LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.13/x64/lib
+
+
 
 
       # - name: Run Selenium Test Cases (HR)
