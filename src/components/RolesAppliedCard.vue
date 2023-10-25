@@ -115,7 +115,7 @@
                       >Skills Required:
                     </span>
                     <v-chip
-                      class="me-2"
+                      class="me-2 mb-2"
                       v-for="skill in roleToDisplay.role_skill_match.dont"
                       :key="skill"
                       color="red"
@@ -125,7 +125,7 @@
                     <br />
                     <span class="font-weight-bold text-h6">Your Skills: </span>
                     <v-chip
-                      class="me-2"
+                      class="me-2 mb-2"
                       v-for="skill in roleToDisplay.role_skill_match.have"
                       :key="skill"
                       color="blue"
