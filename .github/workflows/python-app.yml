@@ -129,8 +129,22 @@ jobs:
     #     cd test_files
     #     python selenium_test.py
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install Vue CLI
+      run: npm install -g @vue/cli
+
     - name: Build Vue.js application
       run: npm run build
+
+    - name: Run Vue.js application
+      run: npm run serve
 
     - name: Run Selenium Test Cases (Staff)
       run: |
