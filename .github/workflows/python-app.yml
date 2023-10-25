@@ -105,10 +105,10 @@ jobs:
         mysql user: 'root'
         mysql password: 'root'
 
-    #   - name: Install MySQL Client
-    #     run: |
-    #       sudo apt-get update
-    #       sudo apt-get install -y  mysql-client 
+    - name: Install MySQL Client
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y  mysql-client 
     #   - name: Run MySQL Client
     #     run: |
     #       cat database/test_database.sql | sudo mysql -u root --password=root
