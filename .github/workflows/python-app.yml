@@ -121,7 +121,7 @@ jobs:
 
     - name: Start Flask Application
       run: |
-        cd src
+        cd backend
         python app.py
 
     - name: Run Selenium Test Cases (Staff)
