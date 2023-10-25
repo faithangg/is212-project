@@ -121,11 +121,12 @@ jobs:
 
     - name: Start Flask Application
       run: |
-        cd backend
-        python app.py
+        export FLASK_APP=app.py
+        export FLASK_ENV=development
+        flask run --host=0.0.0.0 --port=5100 &
 
     - name: Run Selenium Test Cases (Staff)
-      run:
+      run: |
         cd test_files
         cd selenium_tests
         python staff_selenium_test.py
