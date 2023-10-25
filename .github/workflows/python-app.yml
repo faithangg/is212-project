@@ -91,6 +91,7 @@ jobs:
         cd test_files
         cd integration_tests
         python staff_profile_integration_test.py
+
     - name: Setup MySQL Database
       uses: mirromutth/mysql-action@v1.1
       with:
@@ -103,19 +104,18 @@ jobs:
         mysql root password: ''
         mysql user: 'root'
         mysql password: 'root'
-        mysql database dump: 'database/test_database.sql'
 
-      - name: Install MySQL Client
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y  mysql-client 
-      - name: Run MySQL Client
-        run: |
-          cat database/test_database.sql | sudo mysql -u root --password=root
-          sudo systemctl start mysql.service
-      - name: Check if DB is running
-        run: |
-          sudo service mysql status
+    #   - name: Install MySQL Client
+    #     run: |
+    #       sudo apt-get update
+    #       sudo apt-get install -y  mysql-client 
+    #   - name: Run MySQL Client
+    #     run: |
+    #       cat database/test_database.sql | sudo mysql -u root --password=root
+    #       sudo systemctl start mysql.service
+    #   - name: Check if DB is running
+    #     run: |
+    #       sudo service mysql status
 
       # - name: Start Flask Application
       #   run: |
