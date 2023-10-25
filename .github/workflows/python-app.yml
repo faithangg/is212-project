@@ -129,6 +129,17 @@ jobs:
         cd test_files
         python selenium_test.py
 
+    - name: Debugging
+      run: |
+        pwd
+        ls -l test_files/selenium_tests
+        cd test_files/selenium_tests && python staff_selenium_test.py
+      shell: /usr/bin/bash -e {0}
+      env:
+        pythonLocation: /opt/hostedtoolcache/Python/3.10.13/x64
+        LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.13/x64/lib
+
+
       # - name: Run Selenium Test Cases (HR)
       #   run:
       #     cd test_files
