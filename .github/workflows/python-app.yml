@@ -113,7 +113,7 @@ jobs:
     - name: Run MySQL Client
       run: |
         cat database/test_database.sql | sudo mysql -u root --password=root
-        sudo systemctl start mysql.service
+        sudo service mysql start
 
     - name: Check if DB is running
       run: |
