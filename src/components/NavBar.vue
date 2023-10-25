@@ -11,17 +11,19 @@
         ></v-img>
       </template>
 
-      <v-app-bar-nav-icon
-        @click="toggleDrawer"
-        class="d-lg-none d-flex"
-        v-if="isLoggedIn"
-      >
-      </v-app-bar-nav-icon>
+      <v-btn id="nav_bar_icon">
+        <v-app-bar-nav-icon
+          @click="toggleDrawer"
+          class="d-lg-none d-flex"
+          v-if="isLoggedIn"
+        >
+        </v-app-bar-nav-icon>
+      </v-btn>
       <v-app-bar-title style="text-align: left">
         <router-link to="/viewRolesPage">
-        <img
-          v-bind:src="require('../assets/sbrp3.png')"
-          style="width: 150px; margin-top: 12px; margin-bottom: 10px;"
+          <img
+            v-bind:src="require('../assets/sbrp3.png')"
+            style="width: 150px; margin-top: 12px; margin-bottom: 10px"
         /></router-link>
       </v-app-bar-title>
 
@@ -60,14 +62,21 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
+        <!-- <v-btn id="role_listings_nav" to="/viewRolesPage"> -->
           <v-list-item>
-            <v-btn to="/viewRolesPage" id="role_listing" flat>View Role Listings</v-btn>
+            <v-btn to="/viewRolesPage" id="role_listings_nav" flat>
+              View Role Listings
+            </v-btn>
+          </v-list-item>
+        <!-- </v-btn> -->
+          
+          <v-list-item>
+            <v-btn to="/manageRolesPage" v-if="userIsHr" id="managed_nav" flat
+              >Manage Role Listings</v-btn
+            >
           </v-list-item>
           <v-list-item>
-            <v-btn to="/manageRolesPage" v-if="userIsHr" id="managed" flat>Manage Role Listings</v-btn>
-          </v-list-item>
-          <v-list-item>
-            <v-btn to="/profilepage" id="profilepage" flat>Profile</v-btn>
+            <v-btn to="/profilepage" id="profilepage_nav" flat>Profile</v-btn>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -89,7 +98,6 @@ export default {
     isLoggedIn() {
       // Access the user's login status from your Vuex store getter
       return this.$store.getters.getIsLoggedIn;
-
     },
     userIsHr() {
       // Access the user's role from your Vuex store getter

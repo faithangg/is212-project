@@ -75,7 +75,7 @@
     <v-row class="d-flex justify-center">
       <!-- Display filter button on mobile screens -->
       <v-col cols="11" class="d-lg-none d-flex justify-end">
-        <v-btn @click="showFilter()" class=" " color="teal-lighten-3">
+        <v-btn @click="showFilter()" class=" " color="teal-lighten-3" id="mobile_filter">
           Filter
         </v-btn>
         <v-dialog v-model="showFilterModal" hide-overlay max-width="400px">

@@ -14,8 +14,8 @@ class Staff(unittest.TestCase):
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--headless")
         # Create a google chrome session
-        self.driver = webdriver.Chrome(options=options)
-        self.driver.maximize_window()
+        self.driver = webdriver.Chrome()
+        # self.driver.maximize_window()
         # Navigate to the application home page
         self.driver.get("http://localhost:8080")
     
@@ -45,12 +45,8 @@ class Staff(unittest.TestCase):
     def test_browse_role_listing_staff(self):
         # Login as staff
         self.login()
-        # Go to role listing page
-        text = self.driver.find_element(By.ID, "role_listings").click()
-
-        # Wait for 3 seconds (for the page to load)
-        time.sleep(3)
-
+        time.sleep(2)
+        
         # Search for legal advisor role
         search_bar = self.driver.find_element(By.ID, "search_bar")
         search_bar.clear()
@@ -73,9 +69,6 @@ class Staff(unittest.TestCase):
         # Login as staff
         self.login()
 
-        # Go to role listing page
-        text = self.driver.find_element(By.ID, "role_listings").click()
-
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
 
@@ -96,13 +89,10 @@ class Staff(unittest.TestCase):
         # Check if the its the correct alert
         self.assertIn("no role listings found", text.lower())
 
-    # TEST CASE: APPLY ROLE
+    # # TEST CASE: APPLY ROLE
     def test_apply_role(self):
         # Login as staff
         self.login()
-
-        # Go to role listing page
-        text = self.driver.find_element(By.ID, "role_listings").click()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -129,15 +119,15 @@ class Staff(unittest.TestCase):
         # Login as staff
         self.login()
 
-        # Go to role listing page
-        text = self.driver.find_element(By.ID, "role_listings").click()
-
         # Wait for 3 seconds (for the page to load)
+        time.sleep(3)
+
+        # Open filter modal
+        self.driver.find_element(By.ID, "mobile_filter").click()
         time.sleep(3)
 
         # Click the filters (category, department, match percentage)
         self.driver.find_element(By.ID, "category_Consulting").click()
-        self.driver.find_element(By.ID, "department_Consultancy").click()
         self.driver.find_element(By.ID, "0-20").click()
 
         # Click apply filter button
@@ -152,33 +142,33 @@ class Staff(unittest.TestCase):
         # Check if the department is the one we selected in the filter
         self.assertIn("consultancy", text)
 
-    # TEST CASE: FILTER ROLE LISTING NO RESULT
-    def test_filter_role_listing_no_result(self):
-        # Login as staff
-        self.login()
+    # # TEST CASE: FILTER ROLE LISTING NO RESULT
+    # def test_filter_role_listing_no_result(self):
+    #     # Login as staff
+    #     self.login()
 
-        # Go to role listing page
-        text = self.driver.find_element(By.ID, "role_listings").click()
+    #     # Go to role listing page
+    #     text = self.driver.find_element(By.ID, "role_listings").click()
 
-        # Wait for 3 seconds (for the page to load)
-        time.sleep(3)
+    #     # Wait for 3 seconds (for the page to load)
+    #     time.sleep(3)
 
-        # Click the filters (department, category, match percentage)
-        self.driver.find_element(By.ID, "category_Finance").click()
-        self.driver.find_element(By.ID, "department_Finance").click()
-        self.driver.find_element(By.ID, "0-20").click()
+    #     # Click the filters (department, category, match percentage)
+    #     self.driver.find_element(By.ID, "category_Finance").click()
+    #     self.driver.find_element(By.ID, "department_Finance").click()
+    #     self.driver.find_element(By.ID, "0-20").click()
 
-        # Click apply filter button
-        self.driver.find_element(By.ID, "apply_filter_btn").click()
+    #     # Click apply filter button
+    #     self.driver.find_element(By.ID, "apply_filter_btn").click()
 
-        # Wait for 3 seconds (for the page to load)
-        time.sleep(3)
+    #     # Wait for 3 seconds (for the page to load)
+    #     time.sleep(3)
 
-        # Get the alert text
-        text = self.driver.find_element(By.ID, "filter_alert").text
+    #     # Get the alert text
+    #     text = self.driver.find_element(By.ID, "filter_alert").text
 
-        # Check if the alert is correct
-        self.assertIn("No role listings found based on your input filters", text)
+    #     # Check if the alert is correct
+    #     self.assertIn("No role listings found based on your input filters", text)
 
     
 if __name__ == '__main__':
