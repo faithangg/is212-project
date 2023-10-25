@@ -132,8 +132,8 @@ jobs:
     - name: Debugging
       run: |
         pwd
-        ls -l test_files/selenium_tests
-        cd test_files/selenium_tests && python staff_selenium_test.py
+        ls -l test_files/end_to_end
+        cd test_files/end_to_end && python selenium_test.py
       shell: /usr/bin/bash -e {0}
       env:
         pythonLocation: /opt/hostedtoolcache/Python/3.10.13/x64
