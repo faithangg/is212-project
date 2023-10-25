@@ -9,8 +9,12 @@ class Staff(unittest.TestCase):
     @classmethod
     # Called before every test case
     def setUp(self):
+        options = webdriver.ChromeOptions()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--headless")
         # Create a google chrome session
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=options)
         self.driver.maximize_window()
         # Navigate to the application home page
         self.driver.get("http://localhost:8080")
