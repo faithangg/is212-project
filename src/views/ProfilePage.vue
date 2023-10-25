@@ -9,27 +9,30 @@
         />
       </div>
       <div style="" class="">
-        <v-row>
-          <!-- <v-col>
-            <h1 class="py-8 mt-4 text-center text--white text-h3" color="white">
-              Profile
+        <v-row class="d-flex justify-center ">
+            <v-col cols="8" class="mt-15 d-flex justify-center pb-0">
+            <h1 class=" mt-4 text--white" color="white">
+              {{ staff_fname }} {{ staff_lname }}'s Profile
             </h1>
-          </v-col> -->
+          </v-col>
         </v-row>
+        
         <!-- Profile Image -->
         <!-- <v-row class="d-flex mt-16 pt-16"> -->
-        <v-row class="d-flex justify-center mt-15">
-          <v-col cols="12" >
+        <v-row class="d-flex justify-center mt-3">
+          <!--
+            <v-col cols="12" >
             <img
               v-bind:src="require('../assets/profile1.jpg')"
               style="width: 200px; height: 200px; border-radius: 50%"
             />
           </v-col>
+          -->
           <!-- Profile Details Card -->
-          <v-col cols="8" class="mt-15 d-flex justify-start ms-16 ps-7 pb-0">
-            <h1 class=" mt-4  text--white" color="white">
+          <v-col cols="8" class="mt-5 d-flex justify-start ms-16 ps-7 pb-0">
+            <h2 class=" mt-4  text--white" color="white">
               Personal Details
-            </h1>
+            </h2>
           </v-col>
           <v-col cols="8" >
             <v-card
@@ -40,8 +43,7 @@
                 <v-row>
                   <v-col cols="12" md="6" class="pt-0 pt-md-3" 
                     ><span
-                      ><strong>Name:</strong> {{ staff_fname }}
-                      {{ staff_lname }}</span
+                      ><strong>Staff ID:</strong> {{ getUserId }}</span
                     ></v-col
                   >
                   <v-col cols="12" md="6" class="pt-0 pt-md-3"
@@ -61,7 +63,7 @@
                     ><span><strong>Role:</strong> {{ role }}</span></v-col
                   >
                   <v-col cols="12" md="6" class="pt-0 pt-md-3"
-                    ><span><strong>Staff ID:</strong> {{ getUserId }}</span></v-col
+                    ></v-col
                   >
                 </v-row>
                 <v-row>
@@ -86,9 +88,9 @@
 
         <v-row class="d-flex justify-center mt-10">
           <v-col cols="8" class="d-flex justify-start ms-16 ps-7 pb-0">
-            <h1 class=" mt-4  text--white" color="white">
+            <h2 class=" mt-4  text--white" color="white">
               Jobs applied
-            </h1>
+            </h2>
           </v-col>
           <v-col cols="8" class="d-flex justify-center px-13 pt-0">
             <v-alert v-if="applied_roles.length == 0" text="You have not applied for any roles."></v-alert>
