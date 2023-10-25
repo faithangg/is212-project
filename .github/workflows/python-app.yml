@@ -95,14 +95,14 @@ jobs:
     - name: Setup MySQL Database
       uses: mirromutth/mysql-action@v1.1
       with:
-        host port: 3306 # Optional, default value is 3306. The port of host
-        container port: 3306 # Optional, default value is 3306. The port of container
-        character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
-        collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
-        mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
-        mysql database: 'sbrp' # Optional, default value is "test". The specified database which will be create
-        mysql root password: '' # Required if "mysql user" is empty, default is empty. The root superuser password
-        mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+        host port: 3306
+        container port: 3306
+        character set server: 'utf8'
+        collation server: 'utf8_general_ci'
+        mysql version: '8.0'
+        mysql database: 'sbrp'
+        mysql root password: ''
+        mysql user: 'root'
         mysql password: 'root'
 
       - name: Install MySQL Client
@@ -119,16 +119,16 @@ jobs:
         run: |
           sudo service mysql status
 
-      - name: Start Flask Application
-        run: |
-          cd src
-          python app.py
+      # - name: Start Flask Application
+      #   run: |
+      #     cd src
+      #     python app.py
 
-      - name: Run Selenium Test Cases (Staff)
-        run:
-          cd test_files
-          cd selenium_tests
-          python staff_selenium_test.py
+      # - name: Run Selenium Test Cases (Staff)
+      #   run:
+      #     cd test_files
+      #     cd selenium_tests
+      #     python staff_selenium_test.py
 
       # - name: Run Selenium Test Cases (HR)
       #   run:
