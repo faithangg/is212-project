@@ -149,10 +149,6 @@ jobs:
     - name: Wait for Vue.js application to start
       run: sleep 120  
 
-    - name: run browser
-      uses: browser-actions/setup-chrome@latest
-      run: chrome --version
-
     - name: Run Selenium Test Cases (Staff)
       run: |
         pwd

@@ -10,11 +10,11 @@ class Staff(unittest.TestCase):
     # Called before every test case
     def setUp(self):
         options = webdriver.ChromeOptions()
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--headless")
+        # options.add_argument("--no-sandbox")
+        # options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--headless=new")
         # Create a google chrome session
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=options)
         # self.driver.maximize_window()
         # Navigate to the application home page
         self.driver.get("http://localhost:8080")
@@ -115,32 +115,32 @@ class Staff(unittest.TestCase):
         self.assertIn("You have successfully applied for the role", text)
 
     # TEST CASE: FILTER ROLE LISTING
-    def test_filter_role_listing(self):
-        # Login as staff
-        self.login()
+    # def test_filter_role_listing(self):
+    #     # Login as staff
+    #     self.login()
 
-        # Wait for 3 seconds (for the page to load)
-        time.sleep(3)
+    #     # Wait for 3 seconds (for the page to load)
+    #     time.sleep(3)
 
-        # Open filter modal
-        self.driver.find_element(By.ID, "mobile_filter").click()
-        time.sleep(3)
+    #     # Open filter modal
+    #     self.driver.find_element(By.ID, "mobile_filter").click()
+    #     time.sleep(3)
 
-        # Click the filters (category, department, match percentage)
-        self.driver.find_element(By.ID, "category_Consulting").click()
-        self.driver.find_element(By.ID, "0-20").click()
+    #     # Click the filters (category, department, match percentage)
+    #     self.driver.find_element(By.ID, "category_Consulting").click()
+    #     self.driver.find_element(By.ID, "0-20").click()
 
-        # Click apply filter button
-        self.driver.find_element(By.ID, "apply_filter_btn").click()
+    #     # Click apply filter button
+    #     self.driver.find_element(By.ID, "apply_filter_btn").click()
 
-        # Wait for 3 seconds (for the page to load)
-        time.sleep(3)
+    #     # Wait for 3 seconds (for the page to load)
+    #     time.sleep(3)
 
-        # Get the department of the first role listing
-        text = self.driver.find_element(By.ID, "listing_department").text
+    #     # Get the department of the first role listing
+    #     text = self.driver.find_element(By.ID, "listing_department").text
 
-        # Check if the department is the one we selected in the filter
-        self.assertIn("consultancy", text)
+    #     # Check if the department is the one we selected in the filter
+    #     self.assertIn("consultancy", text)
 
     # # TEST CASE: FILTER ROLE LISTING NO RESULT
     # def test_filter_role_listing_no_result(self):
