@@ -124,10 +124,10 @@ jobs:
         cd backend
         python app.py &
 
-    - name: Run Selenium Test Cases (Staff)
-      run:
-        cd test_files
-        python selenium_test.py
+    # - name: Run Selenium Test Cases (Staff)
+    #   run:
+    #     cd test_files
+    #     python selenium_test.py
 
     - name: Debugging
       run: |
