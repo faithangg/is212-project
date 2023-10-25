@@ -144,7 +144,7 @@ jobs:
       run: npm run build
 
     - name: Run Vue.js application
-      run: npm run serve
+      run: npm run serve &
 
     - name: Run Selenium Test Cases (Staff)
       run: |
