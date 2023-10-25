@@ -112,8 +112,8 @@ jobs:
 
     - name: Run MySQL Client
       run: |
-        cat database/test_database.sql | sudo mysql -u root --password=root
         sudo /etc/init.d/mysql start
+        cat database/test_database.sql | sudo mysql -u root --password=root
 
     - name: Check if DB is running
       run: |
