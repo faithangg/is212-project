@@ -146,6 +146,9 @@ jobs:
     - name: Run Vue.js application
       run: npm run serve &
 
+    - name: Wait for Vue.js application to start
+      run: sleep 120  
+
     - name: Run Selenium Test Cases (Staff)
       run: |
         pwd
