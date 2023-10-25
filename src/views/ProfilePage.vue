@@ -94,7 +94,7 @@
             <v-alert v-if="applied_roles.length == 0" text="You have not applied for any roles."></v-alert>
 
             <!-- <RolesAppliedCard v-else :applied_roles="applied_roles" />   -->
-            <v-card class="applied-roles-card">
+            <v-card v-else class="applied-roles-card">
               <v-scroll-x>
                 <v-scroll-y>
                   <RolesAppliedCard :applied_roles="applied_roles" />
