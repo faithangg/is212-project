@@ -37,61 +37,51 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
     - name: Run unit tests
       run: |
         cd test_files
         cd unit_tests
         python unit_test.py
-
     - name: Run Job Application integration tests
       run: |
         cd test_files
         cd integration_tests
         python job_application_intergation_test.py
-
     - name: Run Login Details integration tests
       run: |
         cd test_files
         cd integration_tests
         python login_details_integration_test.py
-
     - name: Run Role Applicant Filter integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_applicant_filter_integration_test.py
-
     - name: Run Role Applicant integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_applicants_integration_test.py
-
     - name: Run Role Creation integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_creation_integration_test.py
-
     - name: Run Role Listing Filter integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_listing_filter_integration_test.py
-
     - name: Run Role Listing integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_listings_integration_test.py
-
     - name: Run Staff Profile integration tests
       run: |
         cd test_files
         cd integration_tests
         python staff_profile_integration_test.py
-
     - name: Setup MySQL Database
       uses: mirromutth/mysql-action@v1.1
       with:
@@ -104,17 +94,14 @@ jobs:
         mysql root password: ''
         mysql user: 'root'
         mysql password: 'root'
-
       - name: Install MySQL Client
         run: |
           sudo apt-get update
           sudo apt-get install -y  mysql-client 
-
       - name: Run MySQL Client
         run: |
           cat database/test_database.sql | sudo mysql -u root --password=root
           sudo systemctl start mysql.service
-
       - name: Check if DB is running
         run: |
           sudo service mysql status
