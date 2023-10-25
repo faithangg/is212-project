@@ -29,7 +29,7 @@
                                 <!-- <v-btn>Login</v-btn> -->
                             </v-card-text>
                         </v-row>
-                        <v-dialog v-model="errorDialog" hide-overlay class="w-50">
+                        <v-dialog v-model="errorDialog" hide-overlay class="w-75">
 
                         <v-alert
                             v-if="errorMessage !== ''"
@@ -79,6 +79,9 @@ export default {
         showErrorDialog(message) {
             this.errorMessage = message;
             this.errorDialog = true;
+            setTimeout(() => {
+                this.errorDialog = false;
+            }, 3000);
             },
 
         async login() {
