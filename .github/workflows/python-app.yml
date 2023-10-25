@@ -126,8 +126,7 @@ jobs:
 
     - name: Run Selenium Test Cases (Staff)
       run:
-        cd test_files
-        cd selenium_tests
+        cd test_files/selenium_tests
         python staff_selenium_test.py
 
       # - name: Run Selenium Test Cases (HR)
