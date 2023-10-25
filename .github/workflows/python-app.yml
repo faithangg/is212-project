@@ -109,24 +109,26 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y  mysql-client 
-    #   - name: Run MySQL Client
-    #     run: |
-    #       cat database/test_database.sql | sudo mysql -u root --password=root
-    #       sudo systemctl start mysql.service
-    #   - name: Check if DB is running
-    #     run: |
-    #       sudo service mysql status
 
-      # - name: Start Flask Application
-      #   run: |
-      #     cd src
-      #     python app.py
+    - name: Run MySQL Client
+      run: |
+        cat database/test_database.sql | sudo mysql -u root --password=root
+        sudo systemctl start mysql.service
 
-      # - name: Run Selenium Test Cases (Staff)
-      #   run:
-      #     cd test_files
-      #     cd selenium_tests
-      #     python staff_selenium_test.py
+    - name: Check if DB is running
+      run: |
+        sudo service mysql status
+
+    - name: Start Flask Application
+      run: |
+        cd src
+        python app.py
+
+    - name: Run Selenium Test Cases (Staff)
+      run:
+        cd test_files
+        cd selenium_tests
+        python staff_selenium_test.py
 
       # - name: Run Selenium Test Cases (HR)
       #   run:
