@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `staff` (
 
 INSERT INTO staff (staff_id, staff_fname, staff_lname, dept, country, email, role) VALUES
   (140001, 'Derek', 'Tan', 'Sales', 'Singapore', 'Derek.Tan@allinone.com.sg', 3),
-  (140002, 'Susan', 'Goh', 'Sales', 'Singapore', 'Susan.Goh@allinone.com.sg', 2),
-  (140004, 'Mary', 'Teo', 'Sales', 'Singapore', 'Mary.Teo@allinone.com.sg', 4),
+  (140002, 'Susan', 'Goh', 'Sales', 'Singapore', 'Susan.Goh@allinone.com.sg', 4),
+  (140004, 'Mary', 'Teo', 'Sales', 'Singapore', 'Mary.Teo@allinone.com.sg', 2),
   (140008, 'Jaclyn', 'Lee', 'Sales', 'Singapore', 'Jaclyn.Lee@allinone.com.sg', 3);
 
 DROP TABLE IF EXISTS `role`;
