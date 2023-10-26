@@ -33,6 +33,8 @@ class TestApp(flask_testing.TestCase):
         db.create_all()
         self.maxDiff = None
 
+        access_right = AccessRights(access_id = 1, access_control_name = "User")
+
         staff = Staff(staff_id = 1, staff_fname = "john", staff_lname = "tan", dept = "IT", country="singapore", email="johntan@email.com", role=1) 
         staff1 = Staff(staff_id = 2, staff_fname = "olivia", staff_lname = "lim", dept = "Sales", country="singapore", email="olivialim@email.com", role=1) 
 
@@ -60,6 +62,7 @@ class TestApp(flask_testing.TestCase):
 
         jobapplication1 = JobApplication(application_id = 1, staff_id = 1, listing_id = 1, application_date = datetime.date(2023, 5, 17))
 
+        db.session.add(access_right)
         db.session.add(staff)
         db.session.add(staff1)
         db.session.add(role)
@@ -118,7 +121,7 @@ class TesStaffDetails(TestApp):
                             'country': 'singapore',
                             'dept': 'IT',
                             'email': 'johntan@email.com',
-                            'role': 1,
+                            'role': 'User',
                             'staff_fname': 'john',
                             'staff_id': 1,
                             'staff_lname': 'tan'
@@ -148,7 +151,7 @@ class TesStaffDetails(TestApp):
                             'country': 'singapore',
                             'dept': 'Sales',
                             'email': 'olivialim@email.com',
-                            'role': 1,
+                            'role': 'User',
                             'staff_fname': 'olivia',
                             'staff_id': 2,
                             'staff_lname': 'lim'
