@@ -25,12 +25,24 @@ jobs:
       with:
         python-version: "3.10"
 
+    # Cache your dependencies to speed up the build process
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    # Installing dependencies needed
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+    # Linting with flake8
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -38,60 +50,70 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
+    # Running unit tests
     - name: Run unit tests
       run: |
         cd test_files
         cd unit_tests
         python unit_test.py
 
+    # Running integration tests for job application
     - name: Run Job Application integration tests
       run: |
         cd test_files
         cd integration_tests
         python job_application_intergation_test.py
 
+    # Running integration tests for login details
     - name: Run Login Details integration tests
       run: |
         cd test_files
         cd integration_tests
         python login_details_integration_test.py
 
+    # Running integration tests for role applicant filter
     - name: Run Role Applicant Filter integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_applicant_filter_integration_test.py
 
+    # Running integration tests for role applicant
     - name: Run Role Applicant integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_applicants_integration_test.py
 
+    # Running integration tests for role creation
     - name: Run Role Creation integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_creation_integration_test.py
 
+    # Running integration tests for role listing filter
     - name: Run Role Listing Filter integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_listing_filter_integration_test.py
 
+    # Running integration tests for role listing
     - name: Run Role Listing integration tests
       run: |
         cd test_files
         cd integration_tests
         python role_listings_integration_test.py
 
+    # Running integration tests for staff profile
     - name: Run Staff Profile integration tests
       run: |
         cd test_files
         cd integration_tests
         python staff_profile_integration_test.py
 
+    # Setting up SQL database
     - name: Setup MySQL Database
       uses: mirromutth/mysql-action@v1.1
       with:
@@ -105,50 +127,56 @@ jobs:
         mysql user: 'root'
         mysql password: 'root'
 
+    # Installing MySQL Client
     - name: Install MySQL Client
       run: |
         sudo apt-get update
         sudo apt-get install -y mysql-client
 
+    # Running MySQL Client
     - name: Run MySQL Client
       run: |
         sudo /etc/init.d/mysql start
         cat database/test_database.sql | sudo mysql -u root --password=root
 
+    # Check if DB is running
     - name: Check if DB is running
       run: |
         sudo service mysql status
 
+    # Starting Flask Application (backend)
     - name: Start Flask Application
       run: |
         cd backend
         python app.py &
 
-    # - name: Run Selenium Test Cases (Staff)
-    #   run:
-    #     cd test_files
-    #     python selenium_test.py
-
+    # Setting up Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 14
 
+    # Installing dependencies for Vue.js
     - name: Install dependencies
       run: npm install
 
+    # Installing Vue CLI
     - name: Install Vue CLI
       run: npm install -g @vue/cli
 
+    # Building Vue.js application
     - name: Build Vue.js application
       run: npm run build
 
+    # Running Vue.js application
     - name: Run Vue.js application
       run: npm run serve &
 
+    # Waiting for Vue.js application to start
     - name: Wait for Vue.js application to start
-      run: sleep 120  
+      run: sleep 60  
 
+    # Running Selenium Test Cases
     - name: Run Selenium Test Cases
       run: |
         pwd
