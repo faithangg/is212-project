@@ -214,7 +214,7 @@
                       </v-col>
                     </v-row>
                     <!-- show success message -->
-                    <v-dialog v-model="success_model" hide-overlay style="max-width: 500px;">
+                    <v-dialog v-model="success_model" hide-overlay style="max-width: 500px;" id="updated_success_alert">
                       <!-- Modal content goes here -->
                       <v-alert
                         id="success_alert"

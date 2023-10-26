@@ -1,8 +1,6 @@
 from selenium import webdriver
 import time
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
 import unittest
 
 class Staff(unittest.TestCase):
@@ -10,12 +8,9 @@ class Staff(unittest.TestCase):
     # Called before every test case
     def setUp(self):
         options = webdriver.ChromeOptions()
-        # options.add_argument("--no-sandbox")
-        # options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--headless=new")
         # Create a google chrome session
         self.driver = webdriver.Chrome(options=options)
-        # self.driver.maximize_window()
         # Navigate to the application home page
         self.driver.get("http://localhost:8080")
     
@@ -27,7 +22,7 @@ class Staff(unittest.TestCase):
         time.sleep(3)
 
     # HELPER FUNCTION: LOGIN AS STAFF
-    def login(self):
+    def login_staff(self):
         # find the textbox to input the staff id
         self.staff_id = self.driver.find_element(By.ID, "staffId")
         self.staff_id.clear()
@@ -44,7 +39,7 @@ class Staff(unittest.TestCase):
     # TEST CASE: BROWSE ROLE LISTING
     def test_browse_role_listing_staff(self):
         # Login as staff
-        self.login()
+        self.login_staff()
         time.sleep(2)
         
         # Search for legal advisor role
@@ -67,7 +62,7 @@ class Staff(unittest.TestCase):
     # TEST CASE: BROWSE ROLE LISTING NO RESULT
     def test_browse_role_listing_no_result(self):
         # Login as staff
-        self.login()
+        self.login_staff()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -92,7 +87,7 @@ class Staff(unittest.TestCase):
     # # TEST CASE: APPLY ROLE
     def test_apply_role(self):
         # Login as staff
-        self.login()
+        self.login_staff()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -117,7 +112,7 @@ class Staff(unittest.TestCase):
     # TEST CASE: FILTER ROLE LISTING
     # def test_filter_role_listing(self):
     #     # Login as staff
-    #     self.login()
+    #     self.login_staff()
 
     #     # Wait for 3 seconds (for the page to load)
     #     time.sleep(3)
@@ -145,7 +140,7 @@ class Staff(unittest.TestCase):
     # # TEST CASE: FILTER ROLE LISTING NO RESULT
     # def test_filter_role_listing_no_result(self):
     #     # Login as staff
-    #     self.login()
+    #     self.login_staff()
 
     #     # Go to role listing page
     #     text = self.driver.find_element(By.ID, "role_listings").click()
@@ -170,6 +165,5 @@ class Staff(unittest.TestCase):
     #     # Check if the alert is correct
     #     self.assertIn("No role listings found based on your input filters", text)
 
-    
 if __name__ == '__main__':
     unittest.main(verbosity=2)
