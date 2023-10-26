@@ -37,9 +37,16 @@ def hr_browse_listing(search_input):
         for listing in role_listings_query:
             roles = Role.query.filter_by(role_name=listing.role_name).first()
             listing_data = listing.json()
+
+            # Query for skills associated with the role and append to skills_required
+            skills_query = RoleSkill.query.filter_by(role_name=listing.role_name).all()
+            skills_required = [skill.skill_name for skill in skills_query]
+            listing_data["skills_required"] = skills_required
+            
             role_desc = roles.role_desc
             paragraphs_list = role_desc.split('<br>')
             listing_data["role_desc"] = paragraphs_list
+
             results.append(listing_data)
 
         # If there are records, return the records
