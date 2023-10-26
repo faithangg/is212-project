@@ -22,6 +22,19 @@ Run the following instructions provided for setup.
 5. Import database
    Start up WAMP or MAMP
    Download 'sbrp_database.sql' and import into local db
+   
+6.Run backend
+   ```
+   cd backend
+   ```
+   Change directory to internal file 'backend'
+   ```
+   python app.py
+   ```
+   Run in terminal
+## Run tests
+
+
 
 ## Built with
 The following were utilised:
@@ -42,12 +55,20 @@ The following were utilised:
 ## Files
 A brief overview of file contents 
   * `backend` - blueprints, controllers which handles the logic for each API, models representing database structure and also files for creating the Flask application.
-  * `database` - SQL files for database schema and sample file
+  * `database` - SQL files for database schema and sample file, `sbrp_database.sql` main database and `test_database.sql` for testing
   * `src` - main Vue.js application, media assets (icons and images), components, routing and views.
   * `public` - main HTML file for the Vue application
   * `test_files`- files for UI , integration and unit testing.
-## Team
 
+## Features
+   **Applicant Management** : Efficiently manage applications, review candidate profile and their respective skillset.s
+   **Mobile Responsiveness**: The portal is responsive and accessible on mobile devices, ensuring that user access regardless of location.
+   **Filtering and sorting mechanisms** : allows Users or HR the option of sorting and filtering based on desired criterias like recency of application and match percentage, or category and department.
+   **Search bar** : robust search function to explicitly define search terms for finding roles or roles managed.
+   **Easy Job Posting**: Simple and straightforward job posting process that integrates job role listings data from external system.
+
+
+## Team
 
 
 
