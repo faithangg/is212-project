@@ -159,14 +159,14 @@ jobs:
         pythonLocation: /opt/hostedtoolcache/Python/3.10.13/x64
         LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.13/x64/lib
 
-    - name: Build Vue.js application
-      run: npm run build
+    # - name: Build Vue.js application
+    #   run: npm run build
 
-    - name: Run Vue.js application
-      run: npm run serve &
+    # - name: Run Vue.js application
+    #   run: npm run serve &
 
-    - name: Wait for Vue.js application to start
-      run: sleep 120  
+    # - name: Wait for Vue.js application to start
+    #   run: sleep 120  
 
     - name: Run Selenium Test Cases (HR)
       run: |

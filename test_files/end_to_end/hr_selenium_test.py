@@ -10,8 +10,8 @@ class Login(unittest.TestCase):
         options = webdriver.ChromeOptions()
         options.add_argument("--headless=new")
         # Create a google chrome session
-        # self.driver = webdriver.Chrome(options=options)
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=options)
+        # self.driver = webdriver.Chrome()
         # Navigate to the application home page
         self.driver.get("http://localhost:8080")
     
