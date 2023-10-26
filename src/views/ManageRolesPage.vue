@@ -54,14 +54,38 @@
             >
           </v-col>
         </v-row>
+        
+        <!-- error message -->
+        <v-row class="d-flex justify-center mt-0 mb-6">
+          <v-col cols="12" md="8" class="pt-0 h-25" id="search_alert">
+            <v-alert
+              v-if="searchQueryError == 400"
+              type="error"
+              icon="$error"
+              style="font-size: 12px; padding: 8px; height: auto"
+              dismissible
+            >
+              {{ searchQueryErrorMsg }}
+            </v-alert>
+            <v-alert
+              v-if="searchQueryError == 404"
+              type="info"
+              icon="$info"
+              style="font-size: 12px; padding: 8px; height: auto"
+              dismissible
+            >
+              {{ searchQueryErrorMsg }}
+            </v-alert>
+          </v-col>
+        </v-row>
       </v-container>
 
       <!-- Search button -->
     </v-container>
 
-    <v-col cols="11" class="d-flex justify-end">
+    <v-col cols="11" class="d-flex justify-center justify-sm-end">
       <v-btn
-        class="ms-4 mb-4 mt-9 mr-8"
+        class="ms-sm-4 mb-4 mt-9 mr-sm-8 ml-4"
         to="/CreateRoleListing"
         id="create_role_listing_btn"
         ><b>Create Role Listing</b></v-btn
@@ -135,7 +159,7 @@ export default {
             this.roleListings = [];
           } else if (error.response.status == 400) {
             this.searchQueryErrorMsg =
-              "Invalid search query - No special characters";
+              "Invalid search query: No special characters or numbers allowed.";
             this.searchQueryError = 400;
             this.roleListings = [];
           }
