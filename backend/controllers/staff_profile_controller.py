@@ -4,6 +4,7 @@ from models.role_listing import RoleListing
 from models.job_application import JobApplication
 from models.staff import Staff
 from models.staff_skill import StaffSkill
+from models.access_rights import AccessRights
 from blueprints.staff_blueprint import staff_blueprint
 from .role_listing_controller import role_skill_match
 
@@ -19,6 +20,13 @@ def view_applied_roles(staff_id):
 
         # Get the details of the staff
         staff = Staff.query.filter_by(staff_id=staff_id).first()
+        staff_details = staff.json()
+
+        access_right_desc = AccessRights.query.filter_by(access_id=staff_details["role"]).first().access_control_name
+
+        staff_details["role"] = access_right_desc
+
+
 
         # Get the skills of the staff using the helper function
         staff_skills = get_staff_skills(staff_id)
@@ -42,7 +50,7 @@ def view_applied_roles(staff_id):
         if applied_roles:
             data = {
                 "staff_details": {
-                    "info": staff.json(),
+                    "info": staff_details,
                     "skills": staff_skills
                 },
                 "applied_roles": applied_roles
@@ -51,7 +59,7 @@ def view_applied_roles(staff_id):
         else:
             data = {
                 "staff_details": {
-                    "info": staff.json(),
+                    "info": staff_details,
                     "skills": staff_skills
                 },
                 "applied_roles": "No applied roles found for the given staff ID."
