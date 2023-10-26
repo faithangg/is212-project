@@ -83,9 +83,9 @@
       <!-- Search button -->
     </v-container>
 
-    <v-col cols="11" class="d-flex justify-end">
+    <v-col cols="11" class="d-flex justify-center justify-sm-end">
       <v-btn
-        class="ms-4 mb-4 mt-9 mr-8"
+        class="ms-sm-4 mb-4 mt-9 mr-sm-8 ml-4"
         to="/CreateRoleListing"
         id="create_role_listing_btn"
         ><b>Create Role Listing</b></v-btn
