@@ -78,8 +78,10 @@ import EditRoleListingsCard from "../components/EditRoleListingsCard.vue"; // Im
 export default {
   data() {
     return {
-      roleListings: [], // Initialize as an empty array
+      roleListings: [], // Initialize as an empty array,
       searchQuery: "", // Initialize as an empty string
+      searchQueryError: null,
+      searchQueryErrorMsg: "", // Initialize as an empty string
     };
   },
   mounted() {
@@ -87,9 +89,9 @@ export default {
     axios
       .get("http://127.0.0.1:5000/hr/role_listings")
       .then((response) => {
-        console.log(response.data.data);
-
-        this.roleListings = response.data.data.role_listing;
+        // console.log(response.data.data);
+        this.rolesFromDb = response.data.data.role_listing;
+        this.roleListings = this.rolesFromDb;
       })
       .catch((error) => {
         console.error("Error fetching role listings:", error);
@@ -102,7 +104,49 @@ export default {
     performSearch() {
       // This method is called when the Search button is clicked.
       // Fetch role listings from the API
-      // axios.get('http://
+      this.searchQueryError = "";
+      this.searchQueryErrorMsg = "";
+
+      if (this.searchQuery == "") {
+        this.roleListings = this.rolesFromDb;
+        return;
+      }
+      // Fetch role listings from the API
+      // var userId = this.getUserId;
+      console.log("performSearch() called");
+      axios
+        .get(
+          `http://127.0.0.1:5000/hr/browse_role_listings/${this.searchQuery}`
+        )
+        .then((response) => {
+          console.log(response.data.data);
+
+          this.roleListings =
+            response.data.data.role_listings;
+        })
+        .catch((error) => {
+          console.error("Error fetching role listings:", error);
+
+          console.log(error.response.status);
+
+          if (error.response.status == 404) {
+            this.searchQueryErrorMsg = "No role listings found";
+            this.searchQueryError = 404;
+            this.roleListings = [];
+          } else if (error.response.status == 400) {
+            this.searchQueryErrorMsg =
+              "Invalid search query - No special characters";
+            this.searchQueryError = 400;
+            this.roleListings = [];
+          }
+        });
+    },
+    clearSearch() {
+      // Clear search bar
+      this.searchQuery = "";
+      this.roleListings = this.rolesFromDb;
+      this.searchQueryError = null;
+      this.searchQueryErrorMsg = "";
     },
   },
 
