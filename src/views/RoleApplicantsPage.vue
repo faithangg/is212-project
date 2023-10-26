@@ -90,7 +90,7 @@
           </v-col>
         </v-row>
 
-        <v-row>
+        <v-row id="filter_alert">
           <v-alert v-if="filterError == 404" type="info" variant="outlined" icon="$info"
             style="font-size: 16px; padding: 8px; height: auto" dismissible>
             {{ filterErrorMsg }}
