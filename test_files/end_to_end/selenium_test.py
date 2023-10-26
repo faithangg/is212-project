@@ -3,7 +3,6 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import unittest
-import xmlrunner
 
 class Staff(unittest.TestCase):
     @classmethod
@@ -360,7 +359,7 @@ class Staff(unittest.TestCase):
         self.assertIn("Applicants for", text)
 
     # HR TEST CASE: FILTER AND SORT ROLE APPLICANTS
-    def test_filter_sort_role_applicants(self):
+    def test_filter_sort_role_applicants_no_result(self):
         # Login
         self.login()
         time.sleep(3)
@@ -392,7 +391,7 @@ class Staff(unittest.TestCase):
         self.assertIn("Sales", text)
 
     # HR TEST CASE: FILTER ROLE APPLICANTS NO RESULT
-    def test_filter_sort_role_applicants_no_result(self):
+    def test_filter_sort_role_applicants(self):
         # Login
         self.login()
         time.sleep(3)
@@ -533,4 +532,4 @@ class Staff(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main(verbosity=2)
