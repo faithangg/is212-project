@@ -63,14 +63,12 @@ jobs:
         fi
         python -m pytest
 
-
-jobs:
   setup-and-run-selenium-tests:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-    
+
     # Setting up SQL database
     - name: Setup MySQL Database
       uses: mirromutth/mysql-action@v1.1
