@@ -42,7 +42,7 @@
               <v-card-text class="text-h7 text-md-h6 py-8 ">
                 <v-row>
                   <v-col cols="12" md="6" class="pt-0 pt-md-3" 
-                    ><span
+                    ><span id="staff_id"
                       ><strong>Staff ID:</strong> {{ getUserId }}</span
                     ></v-col
                   >

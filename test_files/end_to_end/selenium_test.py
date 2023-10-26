@@ -13,7 +13,6 @@ class Staff(unittest.TestCase):
         options.add_argument("--window-size=1920,1080")  
         # Create a google chrome session
         self.driver = webdriver.Chrome(options=options)
-        # self.driver = webdriver.Chrome()
         # Navigate to the application home page
         self.driver.get("http://localhost:8080")
     
@@ -25,7 +24,7 @@ class Staff(unittest.TestCase):
         time.sleep(3)
 
     # HELPER FUNCTION: LOGIN AS STAFF
-    def login_staff(self):
+    def login(self):
         # find the textbox to input the staff id
         self.staff_id = self.driver.find_element(By.ID, "staffId")
         self.staff_id.clear()
@@ -41,10 +40,10 @@ class Staff(unittest.TestCase):
 
     # STAFF TEST CASE: BROWSE ROLE LISTING
     def test_browse_role_listing_staff(self):
-        # Login as staff
-        self.login_staff()
+        # Login
+        self.login()
         time.sleep(2)
-        
+
         # Search for legal advisor role
         search_bar = self.driver.find_element(By.ID, "search_bar")
         search_bar.clear()
@@ -64,8 +63,8 @@ class Staff(unittest.TestCase):
 
     # STAFF TEST CASE: BROWSE ROLE LISTING NO RESULT
     def test_browse_role_listing_no_result(self):
-        # Login as staff
-        self.login_staff()
+        # Login
+        self.login()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -89,8 +88,8 @@ class Staff(unittest.TestCase):
 
     # STAFF TEST CASE: BROWSE ROLE LISTING WITH SPECIAL CHARACTERS
     def test_browse_role_listing_special_characters(self):
-        # Login as staff
-        self.login_staff()
+        # Login
+        self.login()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -114,8 +113,8 @@ class Staff(unittest.TestCase):
 
     # STAFF TEST CASE: APPLY ROLE
     def test_apply_role(self):
-        # Login as staff
-        self.login_staff()
+        # Login
+        self.login()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -139,24 +138,18 @@ class Staff(unittest.TestCase):
 
     # STAFF TEST CASE: FILTER ROLE LISTING
     def test_filter_role_listing(self):
-        # Login as staff
-        self.login_staff()
+        # Login
+        self.login()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
 
         # Open filter modal
-        # self.driver.find_element(By.ID, "mobile_filter").click()
         time.sleep(5)
 
-        # print(self.driver.find_element(By.XPATH, '//*[@id="category_Consulting"]/div[2]').text)
-        print(self.driver.find_element(By.ID, "category_Consulting").text)
         # Click the filters (category, department, match percentage)
         self.driver.find_element(By.ID, "category_Consulting").click()
-        # element = self.driver.find_element(By.XPATH, '//*[@id="category_Consulting"]/div[2]').click()
-        # self.driver.execute_script("arguments[0].click();", element)
 
-        
         self.driver.find_element(By.ID, "0-20").click()
 
         # Click apply filter button
@@ -173,8 +166,8 @@ class Staff(unittest.TestCase):
 
     # STAFF TEST CASE: FILTER ROLE LISTING NO RESULT
     def test_filter_role_listing_no_result(self):
-        # Login as staff
-        self.login_staff()
+        # Login
+        self.login()
 
         # Wait for 3 seconds (for the page to load)
         time.sleep(3)
@@ -197,8 +190,8 @@ class Staff(unittest.TestCase):
 
     # HR TEST CASE: CREATE ROLE LISTING
     def test_create_role_listing(self):
-        # Login as HR
-        self.login_staff()
+        # Login
+        self.login()
         time.sleep(3)
         
         # Go to the manage role listing page
@@ -257,8 +250,8 @@ class Staff(unittest.TestCase):
 
     # HR TEST CASE: CREATE THE SAME ROLE LISTING
     def test_create_same_role_listing(self):
-        # Login as HR
-        self.login_staff()
+        # Login
+        self.login()
         time.sleep(3)
         
         # Go to the manage role listing page
@@ -278,7 +271,6 @@ class Staff(unittest.TestCase):
         self.driver.find_element(By.XPATH, '//*[text() = "Developer"]').click()
 
         time.sleep(1)
-
 
         # Select the department
         dept = self.driver.find_element(By.ID, "department")
@@ -317,8 +309,8 @@ class Staff(unittest.TestCase):
 
     # HR TEST CASE: UPDATE ROLE LISTING
     def test_update_role_listing(self):
-        # Login as HR
-        self.login_staff()
+        # Login
+        self.login()
         time.sleep(3)
         
         # Go to the manage role listing page
@@ -347,8 +339,8 @@ class Staff(unittest.TestCase):
 
     # HR TEST CASE: ROLE APPLICANTS
     def test_role_applicants(self):
-        # Login as HR
-        self.login_staff()
+        # Login
+        self.login()
         time.sleep(3)
 
         # Go to the manage role listing page
@@ -368,8 +360,8 @@ class Staff(unittest.TestCase):
 
     # HR TEST CASE: FILTER AND SORT ROLE APPLICANTS
     def test_filter_sort_role_applicants(self):
-        # Login as HR
-        self.login_staff()
+        # Login
+        self.login()
         time.sleep(3)
 
         # Go to the manage role listing page
@@ -397,6 +389,42 @@ class Staff(unittest.TestCase):
 
         # Check if its the correct department
         self.assertIn("Sales", text)
+
+    # TEST CASE: STAFF VIEW THEIR DETAILS
+    def test_staff_profile(self):
+        # Login
+        self.login()
+        time.sleep(3)
+
+        # Go to the manage role listing page
+        text = self.driver.find_element(By.ID, "profilepage").click()
+        time.sleep(3)
+
+        # Get the Staff ID
+        text = self.driver.find_element(By.ID, "staff_id").text
+
+        # Check if its the correct department
+        self.assertIn("140002", text)
+
+    # TEST CASE: STAFF VIEW ROLES THEY APPLY FOR
+    def test_staff_applied_roles(self):
+        # Login
+        self.login()
+        time.sleep(3)
+
+        # Go to the manage role listing page
+        text = self.driver.find_element(By.ID, "profilepage").click()
+        time.sleep(3)
+
+        # Get the Staff ID
+        roles_applied = self.driver.find_elements(By.ID, "role_applied_card")
+
+        # Get the number of roles applied 
+        num_applied = len(roles_applied)
+
+        # Check if the number of roles is either 2 / 3 (acc to the test data)
+        self.assertTrue(num_applied == 2 or num_applied == 3)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
