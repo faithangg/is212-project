@@ -63,69 +63,14 @@ jobs:
         fi
         python -m pytest
 
-    # # Running unit tests
-    # - name: Run unit tests
-    #   run: |
-    #     cd test_files
-    #     cd unit_tests
-    #     python unit_test.py
 
-    # # Running integration tests for job application
-    # - name: Run Job Application integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python job_application_intergation_test.py
+jobs:
+  setup-and-run-selenium-tests:
+    runs-on: ubuntu-latest
+    needs: build
 
-    # # Running integration tests for login details
-    # - name: Run Login Details integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python login_details_integration_test.py
-
-    # # Running integration tests for role applicant filter
-    # - name: Run Role Applicant Filter integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python role_applicant_filter_integration_test.py
-
-    # # Running integration tests for role applicant
-    # - name: Run Role Applicant integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python role_applicants_integration_test.py
-
-    # # Running integration tests for role creation
-    # - name: Run Role Creation integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python role_creation_integration_test.py
-
-    # # Running integration tests for role listing filter
-    # - name: Run Role Listing Filter integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python role_listing_filter_integration_test.py
-
-    # # Running integration tests for role listing
-    # - name: Run Role Listing integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python role_listings_integration_test.py
-
-    # # Running integration tests for staff profile
-    # - name: Run Staff Profile integration tests
-    #   run: |
-    #     cd test_files
-    #     cd integration_tests
-    #     python staff_profile_integration_test.py
-
+    steps:
+    
     # Setting up SQL database
     - name: Setup MySQL Database
       uses: mirromutth/mysql-action@v1.1
