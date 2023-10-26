@@ -156,6 +156,17 @@ jobs:
       with:
         node-version: 14
 
+    # Cache your dependencies to speed up the build process
+    - name: Cache Node.js
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+
     # Installing dependencies for Vue.js
     - name: Install dependencies
       run: npm install
