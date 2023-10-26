@@ -149,40 +149,12 @@ jobs:
     - name: Wait for Vue.js application to start
       run: sleep 120  
 
-    - name: Run Selenium Test Cases (Staff)
+    - name: Run Selenium Test Cases
       run: |
         pwd
         ls -l test_files/end_to_end
-        cd test_files/end_to_end && python staff_selenium_test.py
+        cd test_files/end_to_end && python selenium_test.py
       shell: /usr/bin/bash -e {0}
       env:
         pythonLocation: /opt/hostedtoolcache/Python/3.10.13/x64
         LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.13/x64/lib
-
-    # - name: Build Vue.js application
-    #   run: npm run build
-
-    # - name: Run Vue.js application
-    #   run: npm run serve &
-
-    # - name: Wait for Vue.js application to start
-    #   run: sleep 120  
-
-    # - name: Run Selenium Test Cases (HR)
-    #   run: |
-    #     pwd
-    #     ls -l test_files/end_to_end
-    #     cd test_files/end_to_end && python hr_selenium_test.py
-    #   shell: /usr/bin/bash -e {0}
-    #   env:
-    #     pythonLocation: /opt/hostedtoolcache/Python/3.10.13/x64
-    #     LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.13/x64/lib
-
-
-
-
-      # - name: Run Selenium Test Cases (HR)
-      #   run:
-      #     cd test_files
-      #     cd selenium_tests
-      #     python hr_selenium_test.py
