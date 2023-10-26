@@ -10,11 +10,11 @@ driver.maximize_window()
 driver.get("http://localhost:8080")
 staff_id = driver.find_element(By.ID, "staffId")
 staff_id.clear()
-staff_id.send_keys(160332)
+staff_id.send_keys(140002)
 
 password = driver.find_element(By.ID, "password")
 password.clear()
-password.send_keys("somchai")
+password.send_keys("susan")
 
 driver.find_element(By.ID, "login").click()
 

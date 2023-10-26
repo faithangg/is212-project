@@ -392,7 +392,7 @@ class Staff(unittest.TestCase):
         self.assertIn("Sales", text)
 
     # HR TEST CASE: FILTER ROLE APPLICANTS NO RESULT
-    def test_filter_sort_role_applicants(self):
+    def test_filter_sort_role_applicants_no_result(self):
         # Login
         self.login()
         time.sleep(3)

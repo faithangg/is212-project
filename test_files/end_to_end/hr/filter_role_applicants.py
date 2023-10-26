@@ -14,12 +14,12 @@ driver.get("http://localhost:8080")
 # Enter staff id
 staff_id = driver.find_element(By.ID, "staffId")
 staff_id.clear()
-staff_id.send_keys(160332)
+staff_id.send_keys(140002)
 
 # Enter password
 password = driver.find_element(By.ID, "password")
 password.clear()
-password.send_keys("somchai")
+password.send_keys("susan")
 
 # Click login button
 driver.find_element(By.ID, "login").click()
@@ -36,7 +36,7 @@ time.sleep(3)
 
 try:
     # Click the filters
-    search_bar = driver.find_element(By.ID, "department_HR").click()
+    search_bar = driver.find_element(By.ID, "department_Sales").click()
     search_bar = driver.find_element(By.ID, "0-20").click()
 
     # Click apply filter button
@@ -47,7 +47,7 @@ try:
     text = driver.find_element(By.ID, "dept").text
 
     # Check if the dept is correct
-    assert "HR" in text
+    assert "Sales" in text
     print("TEST PASSED : FILTER APPLICANTS.")
 except:
     text = driver.find_element(By.ID, "no_applicants_alert").text
