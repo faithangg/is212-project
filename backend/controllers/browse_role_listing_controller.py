@@ -38,7 +38,8 @@ def hr_browse_listing(search_input):
             roles = Role.query.filter_by(role_name=listing.role_name).first()
             listing_data = listing.json()
             role_desc = roles.role_desc
-            listing_data["role_desc"] = role_desc
+            paragraphs_list = role_desc.split('<br>')
+            listing_data["role_desc"] = paragraphs_list
             results.append(listing_data)
 
         # If there are records, return the records
