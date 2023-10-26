@@ -197,3 +197,9 @@ jobs:
       env:
         pythonLocation: /opt/hostedtoolcache/Python/3.10.13/x64
         LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.13/x64/lib
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: test_files/test_results.xml
