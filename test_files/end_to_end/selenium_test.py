@@ -44,7 +44,7 @@ class Staff(unittest.TestCase):
         self.login()
         time.sleep(2)
 
-        # Search for legal advisor role
+        # Search for senior engineer role
         search_bar = self.driver.find_element(By.ID, "search_bar")
         search_bar.clear()
         search_bar.send_keys("senior engineer")
@@ -389,6 +389,111 @@ class Staff(unittest.TestCase):
 
         # Check if its the correct department
         self.assertIn("Sales", text)
+
+    # HR TEST CASE: FILTER ROLE APPLICANTS NO RESULT
+    def test_filter_sort_role_applicants(self):
+        # Login
+        self.login()
+        time.sleep(3)
+
+        # Go to the manage role listing page
+        text = self.driver.find_element(By.ID, "managed").click()
+
+        time.sleep(3)
+
+        # Click the view applicants button for the first role listing
+        self.driver.find_element(By.ID, "view_applicants").click()
+        time.sleep(3)
+
+        # Get the role name
+        text = self.driver.find_element(By.ID, "role_applicants_title").text
+
+        # Click the filters
+        search_bar = self.driver.find_element(By.ID, "department_Sales").click()
+        search_bar = self.driver.find_element(By.ID, "41-60").click()
+
+        # Click apply filter button
+        self.driver.find_element(By.ID, "apply_filter_btn").click()
+
+        # Wait for 3 seconds (for the page to load)
+        time.sleep(3)
+        text = self.driver.find_element(By.ID, "filter_alert").text
+
+        # Check if its the correct department
+        self.assertIn("No applicants found based on your input filters", text)
+
+    # HR TEST CASE: BROWSE ROLE LISTING
+    def test_hr_browse_role_listing_staff(self):
+        # Login
+        self.login()
+        time.sleep(2)
+
+        # Search for senior engineer role
+        search_bar = self.driver.find_element(By.ID, "search_bar")
+        search_bar.clear()
+        search_bar.send_keys("senior engineer")
+
+        # Click search button
+        self.driver.find_element(By.ID, "search_btn").click()
+
+        # Wait for 3 seconds (for the page to load)
+        time.sleep(3)
+
+        # Get the first role listing name
+        text = self.driver.find_element(By.ID, "role_name").text
+
+        # Check if role listing has the word legal in it
+        self.assertIn("senior", text.lower())
+
+    # HR TEST CASE: BROWSE ROLE LISTING NO RESULTS
+    def test_hr_browse_role_listing_no_result(self):
+        # Login
+        self.login()
+
+        # Wait for 3 seconds (for the page to load)
+        time.sleep(3)
+
+        # Search for a role that does not exist
+        search_bar = self.driver.find_element(By.ID, "search_bar")
+        search_bar.clear()
+        search_bar.send_keys("cannot")
+
+        # Click search button
+        self.driver.find_element(By.ID, "search_btn").click()
+
+        # Wait for 3 seconds (for the page to load)
+        time.sleep(3)
+
+        # Get the info alert text
+        text = self.driver.find_element(By.ID, "search_alert").text
+
+        # Check if the its the correct alert
+        self.assertIn("no role listings found", text.lower())
+
+    # HR TEST CASE: BROWSE ROLE LISTING WITH SPECIAL CHARACTERS
+    def test_hr_browse_role_listing_special_characters(self):
+        # Login
+        self.login()
+
+        # Wait for 3 seconds (for the page to load)
+        time.sleep(3)
+
+        # Search for a role that does not exist
+        search_bar = self.driver.find_element(By.ID, "search_bar")
+        search_bar.clear()
+        search_bar.send_keys("%")
+
+        # Click search button
+        self.driver.find_element(By.ID, "search_btn").click()
+
+        # Wait for 3 seconds (for the page to load)
+        time.sleep(3)
+
+        # Get the info alert text
+        text = self.driver.find_element(By.ID, "search_alert").text
+
+        # Check if the its the correct alert
+        self.assertIn("Invalid search query - No special characters", text)
 
     # TEST CASE: STAFF VIEW THEIR DETAILS
     def test_staff_profile(self):
