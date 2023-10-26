@@ -42,10 +42,13 @@ The following were utilised:
 ## Files
 A brief overview of file contents 
   * `backend` - blueprints, controllers which handles the logic for each API, models representing database structure and also files for creating the Flask application.
-  * `database` - SQL files for database schema and sample file
+  * `database` - SQL files for database schema and sample file, `sbrp_database.sql` main database and `test_database.sql` for testing
   * `src` - main Vue.js application, media assets (icons and images), components, routing and views.
   * `public` - main HTML file for the Vue application
   * `test_files`- files for UI , integration and unit testing.
+
+## Features
+   `Job search` queries for 
 ## Team
 
 
