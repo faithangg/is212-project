@@ -78,8 +78,6 @@ python <file name eg.selenium_test.py>
 ```
 ## Team
 
-@balveen01
-
 
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
