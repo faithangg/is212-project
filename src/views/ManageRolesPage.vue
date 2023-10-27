@@ -26,7 +26,7 @@
           <v-col cols="10" md="7" class="pe-0">
             <v-text-field
               v-model="searchQuery"
-              label="Search by Job title"
+              label="Search by Job Title, Category or Skills"
               outlined
               dense
               hide-details
