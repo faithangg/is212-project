@@ -47,8 +47,16 @@
                 </v-row>
                 <v-row>
                     <v-col>
+                        <v-card-text class="d-flex justify-start text-h6 chip-container">
+                        <span class="font-weight-bold text-h6 text-decoration-underline text-left">Skills Required</span>
+                  <!-- loop thru requied skils -->
+                        </v-card-text>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col>
                         <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container">
-                            <span class="font-weight-bold">Skills held: </span>&nbsp;
+                            <span class="font-weight-bold">Skills Matched: </span>&nbsp;
                                 <v-chip
                                 class="me-2 mb-2"
                             v-for="skill in applicant.skills_have"
@@ -62,7 +70,7 @@
                 <v-row>
                     <v-col>
                         <v-card-text class="d-flex justify-start text-h6 chip-container">
-                            <span class="font-weight-bold">Skills missing: </span>&nbsp;
+                            <span class="font-weight-bold">Skills Missing: </span>&nbsp;
                             <v-chip
                                 class="me-2 mb-2"
                                 v-for="skill in applicant.skills_dont"
