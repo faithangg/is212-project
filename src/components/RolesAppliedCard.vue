@@ -84,6 +84,9 @@
                       roleToDisplay.role_listing.deadline
                     }}</span>
                   </v-card-text>
+                  <v-card-text class="d-flex justify-start text-h7 pt-0">
+                    <p v-html=roleToDisplay.role_description></p>
+                  </v-card-text>
                 </v-col>
               </v-row>
               <v-row>
@@ -173,6 +176,7 @@
         success_model: false, // Control the visibility of the full-screen success modal
         failure_model: false, // Control the visibility of the full-screen failure modal
         appliedRole: null,
+
   
       };
     },
