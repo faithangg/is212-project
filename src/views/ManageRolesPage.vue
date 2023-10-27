@@ -1,11 +1,6 @@
 // Inside your Vue component
 <template>
   <div>
-    <!-- <div class="text-h3 mt-9 ">
-            Manage Role Listing
-        </div>
-        <v-btn v-if="userIsHr" to="/manageRolesPage" id="managed">Manage Role Listings</v-btn> -->
-
     <!-- Search input field -->
     <v-container fluid class="py-0 px-0 position-relative">
       <img
