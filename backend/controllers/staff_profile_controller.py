@@ -3,6 +3,7 @@ from database import db
 from models.role_listing import RoleListing
 from models.job_application import JobApplication
 from models.staff import Staff
+from models.role import Role
 from models.staff_skill import StaffSkill
 from models.access_rights import AccessRights
 from blueprints.staff_blueprint import staff_blueprint
@@ -36,6 +37,8 @@ def view_applied_roles(staff_id):
             # Get associated role listing for this application
             role_listing = RoleListing.query.filter_by(listing_id=application.listing_id).first()
             if role_listing:
+                # Get the role description using the Role model
+                role_desc = Role.query.filter_by(role_name=role_listing.role_name).first().role_desc
                 # Get skill match for this role
                 response = role_skill_match(staff_id, role_listing.role_name)
                 if response["code"] == 200:
@@ -43,6 +46,7 @@ def view_applied_roles(staff_id):
                     role_skill_data = skill_match_data['data']
                     applied_roles.append({
                         "role_listing": role_listing.json(),
+                        "role_description": role_desc,
                         "role_skill_match": role_skill_data
                     })
 

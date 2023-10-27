@@ -77,6 +77,7 @@
       <v-col cols="11" class="d-lg-none d-flex justify-end">
         <v-btn @click="showFilter()" class=" " color="teal-lighten-3" id="mobile_filter">
           Filter
+          <v-icon class="ms-2">mdi-filter</v-icon>
         </v-btn>
         <v-dialog v-model="showFilterModal" hide-overlay max-width="400px">
           <v-card>
