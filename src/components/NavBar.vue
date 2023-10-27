@@ -23,7 +23,7 @@
         <router-link to="/viewRolesPage">
           <img
             v-bind:src="require('../assets/sbrp3.png')"
-            style="width: 150px; margin-top: 12px; margin-bottom: 10px"
+            style="width: 140px; margin-top: 12px; margin-bottom: 10px"
         /></router-link>
       </v-app-bar-title>
 
