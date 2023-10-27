@@ -32,7 +32,7 @@ Run the following instructions provided for setup.
    python app.py
    ```
    Run in terminal
-## Run tests
+
 
 
 
@@ -61,13 +61,21 @@ A brief overview of file contents
   * `test_files`- files for UI , integration and unit testing.
 
 ## Features
-   **Applicant Management** : Efficiently manage applications, review candidate profile and their respective skillset.s
+   **Applicant Management** : Efficiently manage applications, review candidate profile and their respective skillset.
+   
    **Mobile Responsiveness**: The portal is responsive and accessible on mobile devices, ensuring that user access regardless of location.
+   
    **Filtering and sorting mechanisms** : allows Users or HR the option of sorting and filtering based on desired criterias like recency of application and match percentage, or category and department.
+   
    **Search bar** : robust search function to explicitly define search terms for finding roles or roles managed.
+   
    **Easy Job Posting**: Simple and straightforward job posting process that integrates job role listings data from external system.
-
-
+   
+## Running tests
+Change directory to folder containing test to be run
+```
+python <file name eg.selenium_test.py>
+```
 ## Team
 
 
