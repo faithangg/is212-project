@@ -17,9 +17,6 @@
             </h1>
           </v-col>
         </v-row>
-        <!-- <v-col cols="6" class="text-center">
-                    <div class="text-h6" id="role_name"><strong>Role Name:</strong> {{ role_name }}</div>
-                </v-col> -->
         <v-row class="mt-1 mb-4">
           <v-col class="text-center">
             <div class="text-h6">
@@ -117,7 +114,7 @@ export default {
   data() {
     return {
       applicantsFromDb: [],
-      listing_id: null, // Initialize as an empty array
+      listing_id: null,
       role_applicants: [],
       deadline: null,
       department: null,

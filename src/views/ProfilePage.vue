@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page no-horizontal-scroll">
+  <div class="profile-page">
     <v-container fluid class="py-0 px-0 position-relative">
       <!-- Background Image -->
       <div style="z-index: -1; position: absolute; width: 100%">
@@ -10,7 +10,8 @@
       </div>
       <div style="" class="">
         <v-row class="d-flex justify-center">
-          <v-col cols="12" md="8" class="mt-15 d-flex justify-center pb-0">
+          <v-col cols="12" md="8" class="mt-15 d-flex justify-center pb-0" style="
+          max-width:100%;">
             <h1 class="mt-4 text--white" color="white">
               {{ staff_fname }} {{ staff_lname }}'s Profile
             </h1>
@@ -19,11 +20,8 @@
         <v-row class="d-flex justify-center mt-3">
           <!-- Profile Details Card -->
           <v-col
-            cols="12"
-            md="8"
-            class="mt-5 d-flex justify-start ms-16 ps-7 pb-0 me-0"
-          >
-            <h2 class="mt-4 text--white" color="white">Personal Details</h2>
+            cols="12" md="8" class="mt-5 d-flex justify-start pb-0" >
+            <h2 class="mt-4 ms-12 text--white" color="white">Personal Details</h2>
           </v-col>
           <v-col cols="12" md="8">
             <v-card
@@ -76,8 +74,8 @@
         </v-row>
 
         <v-row class="d-flex justify-center mt-10">
-          <v-col cols="12" md="8" class="d-flex justify-start ms-16 ps-7 pb-0">
-            <h2 class="mt-4 text--white" color="white">Jobs applied</h2>
+          <v-col cols="12" md="8" class="d-flex justify-start pb-0">
+            <h2 class="mt-4 ms-12 text--white" color="white">Jobs applied</h2>
           </v-col>
           <v-col cols="12" md="8" class="d-flex justify-center px-13 pt-0">
             <v-alert
