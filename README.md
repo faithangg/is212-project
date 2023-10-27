@@ -67,7 +67,7 @@ A brief overview of file contents
    **Search bar** : robust search function to explicitly define search terms for finding roles or roles managed.
    **Easy Job Posting**: Simple and straightforward job posting process that integrates job role listings data from external system.
 ## Running tests
-Change directory to the one containing test to be run
+Change directory to folder containing test to be run
 ```
 python <file name eg.selenium_test.py>
 ```
