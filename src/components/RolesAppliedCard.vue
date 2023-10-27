@@ -1,11 +1,6 @@
 <!-- ViewRoleListingsCard.vue -->
 
 <template>
-    <!-- <div>
-      <v-row class="d-flex justify-center"> -->
-   
-        <!-- display role listings -->
-  
         <v-card variant="elevated"
           v-for="role in displayListings"
           :key="role.role_listing.listing_id"
@@ -54,16 +49,6 @@
                 </v-progress-circular>
               </v-card-text>
             </v-col>
-            <!-- <v-col class="d-flex justify-end me-4 mb-4 align-end"> -->
-              <!-- open role description page -->
-              <!-- <v-btn
-                id="open_modal"
-                class="me-3"
-                density="default"
-                icon="mdi-open-in-new"
-                @click="openModal(role)"
-              ></v-btn> -->
-            <!-- </v-col> -->
           </v-row>
         </v-card>
     
@@ -101,13 +86,6 @@
                   </v-card-text>
                 </v-col>
               </v-row>
-              <!--<v-row>
-                <v-col>
-                  <v-card-text class="text-h6">
-                    {{ roleToDisplay.role_listing.role_desc }}
-                  </v-card-text>
-                </v-col>
-              </v-row> no desc in this endpoint-->
               <v-row>
                 <v-col col="12">
                   <v-card-text>
@@ -179,8 +157,6 @@
               text="Your application for the role has failed. Please try again later"
             ></v-alert>
           </v-dialog>
-      <!-- </v-row>
-    </div> -->
   </template>
   
   <script>
