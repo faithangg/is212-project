@@ -91,10 +91,14 @@
               </v-row>
               <v-row>
                 <v-col col="12">
-                  <v-card-text>
+                  <v-card-text class="d-flex justify-start text-h6 chip-container">
+                        <span class="font-weight-bold text-h6 text-decoration-underline text-left">Skills Required</span>
+                  <!-- loop thru requied skils -->
+                    </v-card-text>
                     <!-- loop thru requied skils -->
+                    <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container">
                     <span class="font-weight-bold text-h6"
-                      >Skills Required:
+                      >Skills Missing:
                     </span>
                     <v-chip
                       class="me-2 mb-2"
@@ -104,8 +108,10 @@
                     >
                       {{ skill }}
                     </v-chip>
+                  </v-card-text>
+                  <v-card-text class="d-flex justify-start text-h6 chip-container">
                     <br />
-                    <span class="font-weight-bold text-h6">Your Skills: </span>
+                    <span class="font-weight-bold text-h6">Skills Matched: </span>
                     <v-chip
                       class="me-2 mb-2"
                       v-for="skill in roleToDisplay.role_skill_match.have"
@@ -114,7 +120,7 @@
                     >
                       {{ skill }}
                     </v-chip>
-                  </v-card-text>
+                  </v-card-text>d
                 </v-col>
                 <v-col cols="12">
                   <v-card-text>
