@@ -124,11 +124,9 @@ export default {
       showFilterModal: false, // Initialize as false to hide the modal initially
       filterError: null,
       filterErrorMsg: "",
-      categoryItems: [],
       departmentItems: [],
       selectedDepartment: [],
       selectedPercentage: [],
-      showFilterModal: false, // Initialize as false to hide the modal initially
       selectedSort: "Newest",
     };
   },
