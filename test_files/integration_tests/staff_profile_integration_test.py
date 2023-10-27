@@ -97,7 +97,7 @@ class TesStaffDetails(TestApp):
                 {
                     'applied_roles': 
                     [
-                        {   'role_description' : "Develops software",
+                        {   'role_description' : ["Develops software"],
                             'role_listing': 
                             {
                                 'category': 'IT',
