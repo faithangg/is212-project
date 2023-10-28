@@ -51,26 +51,27 @@
                         <span class="font-weight-bold text-h6 text-decoration-underline text-left">Skills Required</span>
                   <!-- loop thru requied skils -->
                         </v-card-text>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col>
-                        <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container">
-                            <span class="font-weight-bold">Skills Matched: </span>&nbsp;
-                                <v-chip
-                                class="me-2 mb-2"
+                        <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container align-center">
+                            <span class="font-weight-bold">Skills Matched: 
+                            </span>&nbsp;
+                            <span class="text-h6" v-if="applicant.match_percentage == '0'"> None
+                            </span>
+                            <v-chip
+                            class="me-2 mb-2"
                             v-for="skill in applicant.skills_have"
                             :key="skill"
-                            color="blue">
+                            color="blue">   
                             {{ skill }}
-                                </v-chip>
+                            </v-chip>
                         </v-card-text>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col>
-                        <v-card-text class="d-flex justify-start text-h6 chip-container">
+                        <v-card-text class="d-flex justify-start text-h6 chip-container align-center">
                             <span class="font-weight-bold">Skills Missing: </span>&nbsp;
+                            <span class="text-h6" v-if="applicant.match_percentage == '100'">None
+                            </span>
                             <v-chip
                                 class="me-2 mb-2"
                                 v-for="skill in applicant.skills_dont"

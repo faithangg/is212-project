@@ -99,6 +99,8 @@
                     <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container">
                     <span class="font-weight-bold text-h6"
                       >Skills Missing:
+                    </span>&nbsp;
+                    <span class="font-weight-light text-h6" v-if="roleToDisplay.role_skill_match.match_percentage == '100'">None
                     </span>
                     <v-chip
                       class="me-2 mb-2"
@@ -111,7 +113,9 @@
                   </v-card-text>
                   <v-card-text class="d-flex justify-start text-h6 chip-container">
                     <br />
-                    <span class="font-weight-bold text-h6">Skills Matched: </span>
+                    <span class="font-weight-bold text-h6">Skills Matched: </span> &nbsp;
+                    <span class="font-weight-light text-h6" v-if="roleToDisplay.role_skill_match.match_percentage == '0'">None
+                    </span>
                     <v-chip
                       class="me-2 mb-2"
                       v-for="skill in roleToDisplay.role_skill_match.have"
@@ -120,7 +124,7 @@
                     >
                       {{ skill }}
                     </v-chip>
-                  </v-card-text>d
+                  </v-card-text>
                 </v-col>
                 <v-col cols="12">
                   <v-card-text>
