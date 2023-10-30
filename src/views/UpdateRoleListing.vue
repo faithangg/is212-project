@@ -40,8 +40,8 @@
                         </p>
                       </v-col>
                       <v-col cols="12">
-                          <p class="text-left text-body-2 text-sm-body-1 scrollable-descript my-4">
-                            <p v-for="paragraph in this.description" :key="paragraph">
+                          <p v-for="paragraph in this.description" :key="paragraph" class="text-left text-body-2 text-sm-body-1 scrollable-descript my-4">
+                            <p>
                               {{paragraph}}
                             </p>  
                           </p>
