@@ -77,6 +77,12 @@ Change directory to folder containing test to be run
 python <file name eg.selenium_test.py>
 ```
 ## Team
+@balveen01
+@faithangg
+@xinyitann
+@v1ghn35h
+@limpes
+@leeleetan88
 
 
 
