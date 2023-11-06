@@ -77,6 +77,17 @@ Change directory to folder containing test to be run
 python <file name eg.selenium_test.py>
 ```
 ## Team
+[@balveen01](https://github.com/balveen01) (backend)
+
+[@faithangg](https://github.com/faithangg) (backend)
+
+[@xinyitann](https://github.com/xinyitann) (frontend)
+
+[@v1ghn35h](https://github.com/v1ghn35h) (frontend)
+
+[@limpes](https://github.com/limpes) (frontend)
+
+[@leeleetan88](https://github.com/leeleetan88) (frontend)
 
 
 
