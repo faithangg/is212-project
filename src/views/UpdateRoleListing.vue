@@ -39,8 +39,8 @@
                           Description*
                         </p>
                       </v-col>
-                      <v-col cols="12">
-                          <p v-for="paragraph in this.description" :key="paragraph" class="text-left text-body-2 text-sm-body-1 scrollable-descript my-4">
+                      <v-col cols="12" class="scrollable-descript">
+                          <p v-for="paragraph in this.description" :key="paragraph" class="text-left text-body-2 text-sm-body-1 my-4">
                             <p>
                               {{paragraph}}
                             </p>  
@@ -518,6 +518,10 @@ export default {
   background-position: center center; /* Center the image horizontally and vertically */
   background-repeat: no-repeat; /* Prevent the image from repeating */
   width: 100%;
+}
+.scrollable-descript {
+  max-height: 400px; /* Set the desired maximum height for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
 }
 </style>
 
