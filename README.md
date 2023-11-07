@@ -72,6 +72,8 @@ A brief overview of file contents
    **Easy Job Posting**: Simple and straightforward job posting process that integrates job role listings data from external system.
    
 ## Running tests
+Populate the database test_database.sql
+
 Change directory to folder containing test to be run
 ```
 python <file name eg.selenium_test.py>
