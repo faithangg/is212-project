@@ -89,6 +89,6 @@ python <file name eg.selenium_test.py>
 
 [@leeleetan88](https://github.com/leeleetan88) (frontend)
 
-
+Link to git repo:https://github.com/faithangg/is212-project 
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
