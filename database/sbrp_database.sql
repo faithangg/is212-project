@@ -73,11 +73,13 @@ CREATE TABLE IF NOT EXISTS `role` (
 
 -- Dumping data for table `role` (First 5)
 INSERT INTO role (role_name, role_desc) VALUES
-('Account Manager','The Account Manager acts as a key point of contact...'),
-('Admin Executive','Admin Executive will act as the point of contact...'),
-('Call Centre','Call Centre Executive is responsible for providing assistance...'),
-('Consultancy Director','The Director defines and articulates the organisation''s strategy...'),
-('Consultant','The Consultant is responsible for providing Sales technical expertise...');
+('Account Manager','The Account Manager acts as a key point of contact between All-In-One and its clients.<br>Responsibilities include managing client portfolios, ensuring client satisfaction, identifying new business opportunities within existing accounts, and achieving sales targets.<br>Requires strong communication, negotiation, and relationship-building skills.'),
+('Admin Executive','The Admin Executive will act as the point of contact for all employees, providing administrative support and managing their queries.<br>Main duties include managing office stock, preparing regular reports (e.g., expenses and office budgets), and organizing company records.<br>May also involve handling basic HR tasks and coordinating office activities.'),
+('Call Centre','The Call Centre Executive is responsible for providing assistance and support to customers over the phone, email, or chat.<br>Duties include handling inquiries, resolving complaints, processing orders, and providing information about products and services.<br>Requires excellent communication skills, patience, and problem-solving abilities.'),
+('Consultancy Director','The Director defines and articulates the organisation\'s consultancy strategy and framework to meet the needs of the clients.<br>Oversees a team of consultants, manages high-level client relationships, drives business development, and ensures the quality delivery of consulting engagements.<br>Requires extensive industry experience, leadership skills, and strategic thinking.'),
+('Consultant','The Consultant is responsible for providing technical expertise and guidance during the sales process and project implementation.<br>Works closely with clients to understand their needs, designs solutions, conducts product demonstrations, and supports the technical aspects of proposals.<br>Requires strong technical knowledge in relevant areas (e.g., IT infrastructure, software development) and good presentation skills.'),
+('Finance Analyst', 'The Finance Analyst is responsible for financial planning, analysis, and reporting to support organizational decision-making.<br>Duties include analyzing financial data, creating financial models, forecasting future performance, preparing reports for management, and ensuring compliance with financial regulations.<br>Requires strong analytical skills, proficiency in financial software, and attention to detail.'), 
+('Solutioning Architect', 'The Solutioning Architect designs end-to-end technical solutions based on client requirements.<br>Responsibilities include translating business needs into technical specifications, evaluating technology options, creating architecture blueprints, and ensuring the proposed solution is feasible, scalable, and secure.<br>Requires deep technical expertise across multiple domains and strong problem-solving skills.');
 
 
 -- Table structure for table `skills`
@@ -93,7 +95,10 @@ INSERT INTO skills (skill_name, skill_desc) VALUES
 ('Accounting and Tax Systems','Implement accounting or tax software systems...'),
 ('Accounting Standards','Apply financial reporting framework...'),
 ('Applications Development','Develop applications based on the design specifications...'),
-('Applications Integration','Integrate data or functions from one application program...');
+('Applications Integration','Integrate data or functions from one application program...'),
+('Customer Relationship Management', 'Manage customer relationships using CRM systems...'),
+('Financial Planning', 'Plan and forecast financial performance...'),
+('Solutions Architecture', 'Design and document technical solutions to meet business needs...');
 
 
 -- Table structure for table `role_skill`
@@ -110,7 +115,13 @@ INSERT INTO role_skill (role_name, skill_name) VALUES
 ('Account Manager','Account Management'),
 ('Consultancy Director','Account Management'),
 ('Consultant','Account Management'),
-('Consultant','Applications Integration'); -- Example
+('Consultant','Applications Integration'),
+('Consultant', 'Applications Development'),
+('Call Centre', 'Customer Relationship Management'),
+('Finance Analyst', 'Accounting Standards'),
+('Finance Analyst', 'Financial Planning'),
+('Solutioning Architect', 'Applications Development'),
+('Solutioning Architect', 'Solutions Architecture');
 
 
 -- Table structure for table `staff_skill`
@@ -128,7 +139,13 @@ INSERT INTO staff_skill (staff_id, skill_name) VALUES
 (140002,'Accounting Standards'), -- Susan
 (140003,'Account Management'), -- Janice
 (140004,'Account Management'), -- Mary
-(170166,'Accounting and Tax Systems'); -- David
+(170166,'Accounting and Tax Systems'), -- David
+(140002, 'Customer Relationship Management'), -- Added Skill for Susan
+(140003, 'Applications Development'), -- Added Skill for Janice
+(170166, 'Financial Planning'), -- Added Skill for David Yap
+(160008, 'Account Management'), -- Added Skill for Sally Loh (HR)
+(160008, 'Applications Development'), -- Added Skill for Sally Loh (HR)
+(160008, 'Applications Integration'); -- Added Skill for Sally Loh (HR)
 
 
 -- Table structure for table `category`
@@ -162,7 +179,11 @@ CREATE TABLE IF NOT EXISTS `role_listing` (
 INSERT INTO role_listing (role_name, category, department, deadline) VALUES
 ('Account Manager','Sales','Sales','2025-12-31'),
 ('Admin Executive','Core','HR','2025-12-31'),
-('Consultant','Information Technology','Consultancy','2025-12-31');
+('Consultant','Information Technology','Consultancy','2025-12-31'),
+('Call Centre','Sales','Sales','2025-11-30'),
+('Finance Analyst','Finance','Finance','2026-01-15'),
+('Consultant','Information Technology','Solutioning','2025-10-31'),
+('Solutioning Architect','Information Technology','Solutioning','2026-02-28');
 
 
 -- Table structure for table `job_application`

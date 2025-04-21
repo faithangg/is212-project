@@ -111,6 +111,17 @@
                 <v-card-text>
                   <span class="font-weight-bold text-h6 text-decoration-underline text-left">Skills Required</span>
                 </v-card-text>
+                <v-card-text class="pt-0">
+                  <v-chip
+                    class="me-2 mb-2"
+                    v-for="skill in requiredSkillsForModal"
+                    :key="skill"
+                    color="grey-darken" 
+                  >
+                    {{ skill }}
+                  </v-chip>
+                  <span v-if="requiredSkillsForModal.length === 0" class="text-grey">No specific skills listed.</span>
+                </v-card-text>
                 <v-card-text>
                   <span class="font-weight-bold text-h6"
                     >Skills Missing:
@@ -218,6 +229,18 @@ export default {
       this.appliedRole = null;
       return filtered;
     },
+    requiredSkillsForModal() {
+      if (this.roleToDisplay && this.roleToDisplay.role_skill_match) {
+        // Combine 'have' and 'dont' to get all required skills
+        const required = [
+          ...this.roleToDisplay.role_skill_match.have,
+          ...this.roleToDisplay.role_skill_match.dont
+        ];
+        // Sort alphabetically for consistent display
+        return required.sort();
+      }
+      return [];
+    }
   },
 
   methods: {

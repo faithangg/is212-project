@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <v-row class="d-flex justify-center">
@@ -49,7 +48,17 @@
                     <v-col>
                         <v-card-text class="d-flex justify-start text-h6 chip-container">
                         <span class="font-weight-bold text-h6 text-decoration-underline text-left">Skills Required</span>
-                  <!-- loop thru requied skils -->
+                        </v-card-text>
+                         <!-- Added: Display combined skills -->
+                        <v-card-text class="pt-0 pb-0 chip-container">
+                             <v-chip
+                                class="me-2 mb-2"
+                                v-for="skill in [...applicant.skills_have, ...applicant.skills_dont].sort()"
+                                :key="skill"
+                                color="grey-darken">
+                                {{ skill }}
+                            </v-chip>
+                             <span v-if="applicant.skills_have.length === 0 && applicant.skills_dont.length === 0" class="text-grey">No specific skills listed.</span>
                         </v-card-text>
                         <v-card-text class="d-flex justify-start text-h6 text-sm-h7 chip-container align-center">
                             <span class="font-weight-bold">Skills Matched: 
