@@ -100,7 +100,7 @@
                           class="me-2 mb-2"
                           v-for="skill in [...roleToDisplay.role_skill_match.have, ...roleToDisplay.role_skill_match.dont].sort()"
                           :key="skill"
-                          color="grey-lighten-1">
+                          color="grey-darken-1">
                           {{ skill }}
                       </v-chip>
                       <span v-if="roleToDisplay.role_skill_match.have.length === 0 && roleToDisplay.role_skill_match.dont.length === 0" class="text-grey">No specific skills listed.</span>
