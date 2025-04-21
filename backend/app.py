@@ -20,9 +20,9 @@ import controllers.browse_role_listing_controller
 def get_db_url():
     system = platform.system()
     if system == "Windows":
-        return "mysql+mysqlconnector://root@localhost:3306/sbrp"
-    else:
         return "mysql+mysqlconnector://root:root@localhost:3306/sbrp"
+    else:
+        return "mysql+mysqlconnector://root@localhost:3306/sbrp"
 
 
 app = Flask(__name__)

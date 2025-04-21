@@ -1,3 +1,6 @@
+# This controller allows HR users to view all applicants for a specific role listing.
+# It retrieves applicant details along with their skill match information for the role.
+
 from flask import jsonify, request
 from database import db
 from models.staff import Staff

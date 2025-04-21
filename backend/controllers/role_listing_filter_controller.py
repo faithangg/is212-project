@@ -1,3 +1,7 @@
+# This controller provides filtering functionality for role listings for Staff users.
+# It allows staff to filter available roles based on department, category, and skill match percentage.
+# It also includes an endpoint to fetch available filter options (departments, categories).
+
 from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing

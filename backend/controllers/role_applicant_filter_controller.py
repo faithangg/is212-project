@@ -1,3 +1,8 @@
+# This controller allows HR users to filter applicants for a specific role listing.
+# Filters include department and skill match percentage.
+# It also supports sorting applicants based on match percentage or application date.
+# Provides an endpoint to get available department filter options.
+
 from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing

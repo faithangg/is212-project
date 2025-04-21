@@ -1,3 +1,7 @@
+# This controller handles the updating of existing role listings by HR users.
+# It allows modification of details like role name, department, category, and deadline,
+# ensuring data validity and preventing duplicate entries.
+
 from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing

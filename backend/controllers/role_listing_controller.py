@@ -1,3 +1,8 @@
+# This controller manages role listings retrieval for both HR and Staff.
+# HR: Fetches all listings or a specific listing with details.
+# Staff: Fetches available listings (not applied, deadline not passed) with skill match,
+#        and supports searching listings by role name, category, or skill.
+
 from flask import request, jsonify
 from database import db
 from datetime import datetime
@@ -212,7 +217,7 @@ def get_role_listings_not_applied(staff_id):
 def browse_listing(staff_id, search_input):
     try:
         # Check for special characters and numbers
-        if not re.match("^[a-zA-Z\s]*$", search_input):
+        if not re.match(r"^[a-zA-Z\s]*$", search_input):
             return jsonify(
                 {
                     "code": 400,

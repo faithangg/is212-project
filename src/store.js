@@ -26,35 +26,50 @@ export default createStore({
         async authenticate({ commit }, userData) {
 
             var login_url = "http://127.0.0.1:5000/staff/login_details/" + String(userData.staffID) + "/" + userData.password;
-            const data_fetch = await fetch(login_url)
+            try { // Add try...catch for fetch errors
+                const data_fetch = await fetch(login_url)
+                var data = await data_fetch.json();
 
-            var data = await data_fetch.json();
-
-            if (data['code'] == 500) {
-               
-
-                return false; // Return false if the login failed
-            }
-            else {
-                var access_id = data["access_id"]
-                console.log(access_id)
-                if (access_id == 4) {
-                    var role = "hr"
+                if (data['code'] >= 400) { // Check for any error code (4xx or 5xx)
+                    console.error("Login API error:", data.message || "Unknown error");
+                    commit('setIsLoggedIn', false); // Ensure logged out state on error
+                    commit('setUserRole', null);
+                    commit('setUserId', null);
+                    return false; // Return false if the login failed
                 }
-                else if (access_id == 2) {
-                    var role = "staff"
+                else {
+                    var access_id = data["access_id"];
+                    console.log("Received access_id:", access_id); // Log received ID
+
+                    let role = 'staff'; // Default role
+                    if (access_id === 4) { // Use === for strict comparison
+                        role = "hr";
+                    } else if (access_id === 1) {
+                        role = "admin"; // Add mapping for Admin
+                    } else if (access_id === 3) {
+                        role = "manager"; // Add mapping for Manager
+                    } else if (access_id === 2) {
+                        role = "staff"; // Explicitly map User/Staff
+                    } else {
+                         console.warn("Unexpected access_id received:", access_id); // Warn about unexpected IDs
+                         // Role remains the default 'staff'
+                    }
+                    
+                    console.log("Setting role to:", role); // Log the role being set
+                    commit('setIsLoggedIn', true);
+                    commit('setUserRole', role); // Commit the determined role
+                    commit('setUserId', userData.staffID);
+                    
+                    return true; // Return true if the login was successful
+        
                 }
-                
-                commit('setIsLoggedIn', true);
-                commit('setUserRole', role);
-                commit('setUserId', userData.staffID);
-                
-                // this.$router.push('/rolesPage')                
-                return true; // Return true if the login was successful
-    
+            } catch (error) {
+                console.error("Error during authentication fetch:", error);
+                commit('setIsLoggedIn', false); // Ensure logged out state on fetch error
+                commit('setUserRole', null);
+                commit('setUserId', null);
+                return false;
             }
-
-
 
         },
     },

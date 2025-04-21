@@ -1,3 +1,7 @@
+# This controller provides functionality for HR users to browse/search all role listings.
+# It allows searching by role name, category, or required skill.
+# Used primarily for the HR management interface to view all listings regardless of status.
+
 from flask import jsonify
 from database import db
 from sqlalchemy import or_

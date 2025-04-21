@@ -1,3 +1,7 @@
+# This controller handles staff login authentication.
+# It verifies provided staff_id and password against the database (LoginDetails model).
+# On success, it returns the access role ID of the staff member.
+
 from flask import request, jsonify
 from database import db
 from models.login_details import LoginDetails

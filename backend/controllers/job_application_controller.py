@@ -1,3 +1,7 @@
+# This controller handles the process of a staff member applying for a role.
+# It takes staff_id and listing_id, checks for existing applications by the same staff for the role,
+# and creates a new application record if none exists.
+
 from flask import request, jsonify
 from database import db
 from models.job_application import JobApplication

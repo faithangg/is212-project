@@ -101,7 +101,9 @@ export default {
     },
     userIsHr() {
       // Access the user's role from your Vuex store getter
-      return this.$store.getters.getUserRole === "hr";
+      const userRole = this.$store.getters.getUserRole;
+      console.log("Current user role from store:", userRole); // Add this line
+      return userRole === "hr";
     },
     getUserId() {
       // Access the user's role from your Vuex store getter

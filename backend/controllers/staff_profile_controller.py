@@ -1,3 +1,6 @@
+# This controller fetches and displays a staff member's profile information.
+# It retrieves staff details, skills, access role, and applied roles with skill match percentages.
+
 from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing

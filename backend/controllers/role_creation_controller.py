@@ -1,3 +1,7 @@
+# This controller handles the creation of new role listings by HR users.
+# It validates input data, checks for duplicate active listings, and saves the new listing.
+# Includes helper endpoints to fetch data for dropdowns (roles, skills, descriptions, departments, categories).
+
 from flask import request, jsonify
 from database import db
 from models.role_listing import RoleListing
